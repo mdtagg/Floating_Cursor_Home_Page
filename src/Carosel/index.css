@@ -1,0 +1,51 @@
+ul {
+    list-style: none;
+}
+
+.carosel-container {
+    position:relative;
+    height:75vh;
+}
+
+.carosel-stage {
+    display:flex;
+    overflow-x:scroll;
+    padding-top:2rem;
+    gap:4rem;
+    padding-left:2rem;
+}
+
+.carosel-stage::-webkit-scrollbar {
+    height:0;
+    width:0;
+}
+
+.carosel-panel {
+    display:flex;
+    flex-direction: column;
+    font-size:1rem;
+    flex-shrink:0;
+    width:300px;
+}
+
+.carosel-content {
+    width:100%;
+}
+
+.progress-bar {
+    display:flex;
+    height:100px;
+    /* width:calc(100% + 2rem); */
+    overflow-x:scroll;
+    margin-left:2rem;
+    margin-right:2rem;
+}
+
+.progress-bar::-webkit-scrollbar {
+    height:2px;
+    background-color: lightgray;
+  }
+
+.progress-bar::-webkit-scrollbar-thumb {
+    background-color: black;
+}
