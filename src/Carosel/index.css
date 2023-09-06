@@ -7,12 +7,15 @@ ul {
     height:75vh;
 }
 
+.carosel-container:hover {
+    /* cursor:none; */
+}
+
 .carosel-stage {
     display:flex;
     overflow-x:scroll;
     padding:var(--main-padding);
     gap:8rem;
-    
 }
 
 .carosel-stage::-webkit-scrollbar {
@@ -36,7 +39,7 @@ ul {
     position:relative;
     height:3px;
     background-color: lightgray;
-    margin:var(--main-padding)
+    margin:var(--main-padding);
 }
 
 .progress-bar-thumb {
@@ -45,3 +48,19 @@ ul {
     z-index:1;
     height:3px;
 } 
+
+.cursor-takeover-cursor {
+    position:relative;
+    left:calc(100% - 150px);
+    bottom:50%;
+    height:120px;
+    width:120px;
+    background:#f9cdcd;
+    border-radius:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+    border:1px solid black;
+    z-index:1;
+
+}
