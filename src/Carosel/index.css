@@ -32,20 +32,16 @@ ul {
     width:100%;
 }
 
-.progress-bar {
-    display:flex;
-    height:100px;
-    /* width:calc(100% + 2rem); */
-    overflow-x:scroll;
-    margin-left:2rem;
-    margin-right:2rem;
-}
-
-.progress-bar::-webkit-scrollbar {
-    height:2px;
+.progress-bar-container {
+    position:relative;
+    height:3px;
     background-color: lightgray;
-  }
-
-.progress-bar::-webkit-scrollbar-thumb {
-    background-color: black;
+    margin:2rem 2rem 0 2rem;
 }
+
+.progress-bar-thumb {
+    background-color: black;
+    position:absolute;
+    z-index:1;
+    height:3px;
+} 

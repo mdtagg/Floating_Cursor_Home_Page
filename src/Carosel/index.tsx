@@ -1,4 +1,5 @@
 import "./index.css"
+import { useState,useRef,useEffect } from "react"
 
 const Carosel = () => {
 
@@ -24,10 +25,20 @@ const Carosel = () => {
             "content": "Lorem ipsum, dolor sit amet consectetur adipisicing elit. A reprehenderit quaerat corrupti fuga ullam voluptates, sapiente aliquid repellat ad accusantium doloribus odit. Voluptatibus quas natus perspiciatis perferendis pariatur itaque necessitatibus."
         }
     ]
+    
+    const bar = useRef<HTMLUListElement | null>(null)
+
+    function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
+        const target = e.target as HTMLUListElement
+        const maxScroll = target.scrollWidth - target.clientWidth
+        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100
+        const adjusted = (100 - scrollPosition) * .4
+        bar.current!.style.left = `${adjusted}%`
+    }
 
     return (
         <div className="carosel-container">
-            <ul className="carosel-stage">
+            <ul className="carosel-stage" onScroll={(e) => handleScroll(e)}>
             {companies.map(company => {
                 return (
                     <div className="carosel-panel">
@@ -41,7 +52,9 @@ const Carosel = () => {
                 )
             })}
             </ul>
-            <div className="progress-bar"></div>
+            <div className="progress-bar-container">
+                <span ref={bar} className="progress-bar-thumb" style={{"width":"60%"}}></span>
+            </div>
             
         </div>
     )
