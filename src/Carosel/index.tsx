@@ -5,9 +5,9 @@ import { getCompanyData } from "./utils/companies"
 const Carosel = () => {
 
     const Companies = getCompanyData()
-    const container = useRef<HTMLUListElement | null>(null)
     const bar = useRef<HTMLUListElement | null>(null)
     const cursor = useRef<HTMLDivElement | null>(null)
+    const cursorContainer = useRef<HTMLDivElement | null>(null)
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
         const target = e.target as HTMLUListElement
@@ -17,19 +17,21 @@ const Carosel = () => {
         bar.current!.style.left = `${adjusted}%`
     }
 
-    function handleMouseOut(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    function handleMouseOut() {
         cursor.current!.style.transform = `translate(0)`
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        const { pageX,pageY } = e.nativeEvent
-        const windowAdjust = window.innerHeight * .25
-        cursor.current!.style.transform = `translate(${pageX - 60}px, ${pageY - windowAdjust - 100}px)`
+        let { screenX,offsetY } = e.nativeEvent
+        const cursorContainerHeight = cursorContainer.current!.offsetHeight
+        screenX -= window.innerWidth - 60
+        offsetY -= cursorContainerHeight / 2
+        cursor.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
     }
 
     return (
-        <div className="carosel-container" onMouseOut={(e) => handleMouseOut(e)} onMouseMove={(e) => {handleMouseMove(e)}}>
-            <ul className="carosel-stage" ref={container} onScroll={(e) => handleScroll(e)} >
+        <div className="carosel-container" onMouseOut={handleMouseOut} onMouseMove={(e) => {handleMouseMove(e)}}>
+            <ul className="carosel-stage" onScroll={(e) => handleScroll(e)} >
             {Companies.map(company => {
                 return (
                     <div className="carosel-panel">
@@ -46,7 +48,10 @@ const Carosel = () => {
             <div className="progress-bar-container">
                 <span ref={bar} className="progress-bar-thumb" style={{"width":"60%"}}></span>
             </div>
-            <div className="cursor-takeover-container">
+            <div 
+                className="cursor-takeover-container"
+                ref={cursorContainer}
+            >
                 <div className="cursor-takeover-cursor" ref={cursor}>
                     <span>DRAG</span>
                 </div>
@@ -57,26 +62,3 @@ const Carosel = () => {
 }
 
 export default Carosel
-
-/*
-onMouseEnter={(e) => handleMouseEnter(e)}
-
-function handleMouseEnter(e:React.MouseEvent<HTMLUListElement, MouseEvent>) {
-        e.stopPropagation()
-        let offsetLeft = cursor.current!.offsetLeft
-        let offsetTop = cursor.current!.offsetTop
-        
-        console.log({offsetLeft,offsetTop})
-    }
-
-// const { clientX,clientY } = e
-        // console.log(clientX,clientY)
-        // const { offsetX,offsetY } = e.nativeEvent
-        // console.log(offsetX,offsetY)
-        // const { offsetLeft,offsetTop } = cursor.current!
-        // console.log(offsetLeft,offsetTop)
-        // const test = clientX - offsetLeft
-        // const testTwo = clientY - offsetTop
-        // console.log(test,testTwo)
-        // cursor.current!.style.translate = `${test - 50}px ${testTwo}px`
-*/

@@ -7,7 +7,7 @@ ul {
 }
 
 .carosel-container:hover {
-    cursor:none;
+    /* cursor:none; */
 }
 
 .carosel-stage {
@@ -56,11 +56,12 @@ ul {
     position:absolute;
     height:100%;
     width:100%;
-    /* border:1px solid black; */
     top:0;
     left:0;
-    margin:auto;
     pointer-events: none;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
 }
 
 .cursor-takeover-cursor {
@@ -73,4 +74,5 @@ ul {
     display:flex;
     justify-content: center;
     align-items: center;
+    /* margin-right:2rem; */
 }
