@@ -43,6 +43,7 @@ ul {
     height:3px;
     background-color: lightgray;
     margin:var(--main-padding);
+    pointer-events: none;
 }
 
 .progress-bar-thumb {
@@ -75,4 +76,8 @@ ul {
     justify-content: center;
     align-items: center;
     margin-right:4rem;
+}
+
+.company-anchor {
+    pointer-events: auto;
 }

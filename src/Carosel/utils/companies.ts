@@ -1,10 +1,12 @@
 
 
 export const getCompanyData = () => {
+
     return [
         {
             "title":"Google",
-            "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa, neque esse dolorem quisquam tempora, tempore ipsum inventore unde eos sed illum numquam harum? Ut, dolore? In mollitia facere vitae sunt?"
+            "content": "Lorem ipsum dolor sit, amet consectetur adipisicing elit. Culpa, neque esse dolorem quisquam tempora, tempore ipsum inventore unde eos sed illum numquam harum? Ut, dolore? In mollitia facere vitae sunt?",
+            "anchor": "/case-studies"
         },
         {
             "title":"KFC",
@@ -12,11 +14,13 @@ export const getCompanyData = () => {
         },
         {
             "title": "Wilson",
-            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid odit eaque voluptatibus iste? Eos dolores minima quaerat quisquam porro dolor, natus commodi provident praesentium tempora architecto accusantium optio? Aliquam, quasi!"
+            "content": "Lorem ipsum dolor sit amet consectetur adipisicing elit. Aliquid odit eaque voluptatibus iste? Eos dolores minima quaerat quisquam porro dolor, natus commodi provident praesentium tempora architecto accusantium optio? Aliquam, quasi!",
+            "anchor": "/test"
         },
         {
             "title": "AT&T",
-            "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus laboriosam quae dolore corporis voluptatum quasi, at eveniet qui laudantium sed harum cumque odio rerum a reiciendis cum aliquam suscipit accusamus!"
+            "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Possimus laboriosam quae dolore corporis voluptatum quasi, at eveniet qui laudantium sed harum cumque odio rerum a reiciendis cum aliquam suscipit accusamus!",
+            "anchor": "/test"
         },
         {
             "title": "Patagonia",

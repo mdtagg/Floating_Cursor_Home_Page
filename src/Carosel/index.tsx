@@ -35,20 +35,48 @@ const Carosel = () => {
         screenX -= window.innerWidth - cursorHalfLength - rightPadding
         offsetY -= cursorContainerHeight / 2
         cursor.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
-        // cursor.current!.style.transition = `transform 0.1s`
+        cursor.current!.style.transition = `transform 0.1s`
+    }
+
+    function handleAnchor(e:React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
+        console.log('test')
+        const { offsetY } = e.nativeEvent
+        console.log(offsetY)
     }
 
     return (
-        <div className="carosel-container" onMouseEnter={(e) => handleMouseEnter(e)} onMouseOut={handleMouseOut} onMouseMove={(e) => {handleMouseMove(e)}}>
-            <ul className="carosel-stage" onScroll={(e) => handleScroll(e)} >
+        <div 
+            className="carosel-container" 
+            onMouseEnter={(e) => handleMouseEnter(e)} 
+            onMouseOut={handleMouseOut} 
+            onMouseMove={(e) => {handleMouseMove(e)}}
+        >
+            <ul 
+                className="carosel-stage" 
+                onScroll={(e) => handleScroll(e)}
+            >
             {Companies.map(company => {
+
                 return (
                     <div className="carosel-panel">
                         <p>{company.title}</p>
                         <p>_</p>
                         <div>
                             <p>{company.title}</p>
-                            <p className="carosel-content">{company.content}</p>
+                            <p 
+                                className="carosel-content"
+                            >
+                                {company.content}
+                                {company.anchor && 
+                                    <a 
+                                        className="company-anchor" 
+                                        href={company.anchor}
+                                        onMouseOver={(e) => handleAnchor(e)}
+                                    >
+                                        here
+                                    </a>
+                                }
+                            </p>
                         </div>
                     </div>
                 )
