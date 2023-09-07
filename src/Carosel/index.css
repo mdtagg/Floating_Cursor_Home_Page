@@ -81,3 +81,7 @@ ul {
 .company-anchor {
     pointer-events: auto;
 }
+
+.company-anchor:hover {
+    cursor:pointer;
+}

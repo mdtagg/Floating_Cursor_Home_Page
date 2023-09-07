@@ -23,25 +23,30 @@ const Carosel = () => {
     }
 
     function handleMouseOut() {
-        cursor.current!.style.transform = `translate(0)`
-        cursor.current!.style.transition = `transform 0.5s`
+        let cursorStyle = cursor.current!.style
+        cursorStyle.transform = `translate(0)`
+        cursorStyle.transition = `transform 0.5s`
+        cursorStyle.opacity = "1"
+        cursor.current!.textContent = "DRAG"
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        let target = e.target as HTMLDivElement
         let { screenX,offsetY } = e.nativeEvent
+        
         const cursorContainerHeight = cursorContainer.current!.offsetHeight
-        const cursorHalfLength = 60
-        const rightPadding = 64
-        screenX -= window.innerWidth - cursorHalfLength - rightPadding
-        offsetY -= cursorContainerHeight / 2
+        
+        //adjusting the horizontal position by half the cursor width and the padding
+        screenX -= window.innerWidth - 60 - 64
+
+        offsetY -= target.className === "company-anchor" ? 100 : cursorContainerHeight / 2
         cursor.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
         cursor.current!.style.transition = `transform 0.1s`
     }
 
-    function handleAnchor(e:React.MouseEvent<HTMLAnchorElement, MouseEvent>) {
-        console.log('test')
-        const { offsetY } = e.nativeEvent
-        console.log(offsetY)
+    function handleAnchor() {
+        cursor.current!.style.opacity = ".7"
+        cursor.current!.textContent = ""
     }
 
     return (
@@ -71,7 +76,7 @@ const Carosel = () => {
                                     <a 
                                         className="company-anchor" 
                                         href={company.anchor}
-                                        onMouseOver={(e) => handleAnchor(e)}
+                                        onMouseMove={handleAnchor}
                                     >
                                         here
                                     </a>
