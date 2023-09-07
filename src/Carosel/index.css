@@ -7,7 +7,7 @@ ul {
 }
 
 .carosel-container:hover {
-    cursor:none;
+    /* cursor:none; */
 }
 
 .carosel-stage {
@@ -28,9 +28,6 @@ ul {
     font-size:1.5rem;
     flex-shrink:0;
     width:300px;
-}
-
-.carosel-panel {
     pointer-events: none;
 }
 

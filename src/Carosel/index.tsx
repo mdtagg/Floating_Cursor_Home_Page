@@ -1,10 +1,12 @@
 import "./index.css"
-import { useRef } from "react"
+import { useState,useRef } from "react"
 import { getCompanyData } from "./utils/companies"
+import { Icon } from '@iconify/react';
 
 const Carosel = () => {
 
     const Companies = getCompanyData()
+    const [ carets,setCarets ] = useState(false)
     const bar = useRef<HTMLUListElement | null>(null)
     const cursor = useRef<HTMLDivElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
@@ -33,12 +35,10 @@ const Carosel = () => {
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         let target = e.target as HTMLDivElement
         let { screenX,offsetY } = e.nativeEvent
-        
         const cursorContainerHeight = cursorContainer.current!.offsetHeight
         
         //adjusting the horizontal position by half the cursor width and the padding
         screenX -= window.innerWidth - 60 - 64
-
         offsetY -= target.className === "company-anchor" ? 100 : cursorContainerHeight / 2
         cursor.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
         cursor.current!.style.transition = `transform 0.1s`
@@ -49,12 +49,30 @@ const Carosel = () => {
         cursor.current!.textContent = ""
     }
 
+    function handleMouseDown() {
+        setCarets(!carets)
+        console.log(cursor.current!.style)
+        cursor.current!.style.height = "80px"
+        cursor.current!.style.width = "80px"
+        cursor.current!.textContent = ""
+
+    }
+
+    function handleMouseUp() {
+        cursor.current!.style.height = "120px"
+        cursor.current!.style.width = "120px"
+        cursor.current!.textContent = "DRAG"
+
+    }
+
     return (
         <div 
             className="carosel-container" 
             onMouseEnter={(e) => handleMouseEnter(e)} 
             onMouseOut={handleMouseOut} 
             onMouseMove={(e) => {handleMouseMove(e)}}
+            onMouseDown={handleMouseDown}
+            onMouseUp={handleMouseUp}
         >
             <ul 
                 className="carosel-stage" 
@@ -94,11 +112,16 @@ const Carosel = () => {
                 className="cursor-takeover-container"
                 ref={cursorContainer}
             >
+                <Icon icon="bx:caret-left" />
+
                 <div className="cursor-takeover-cursor" ref={cursor}>
+                    
                     <span>DRAG</span>
+                    
                 </div>
+                <Icon icon="bx:caret-right" />
+
             </div>
-            
         </div>
     )
 }
