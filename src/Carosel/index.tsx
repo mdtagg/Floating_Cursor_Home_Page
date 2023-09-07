@@ -17,20 +17,29 @@ const Carosel = () => {
         bar.current!.style.left = `${adjusted}%`
     }
 
+    function handleMouseEnter(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        handleMouseMove(e)
+        cursor.current!.style.transition = `transform 0.1s`
+    }
+
     function handleMouseOut() {
         cursor.current!.style.transform = `translate(0)`
+        cursor.current!.style.transition = `transform 0.5s`
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         let { screenX,offsetY } = e.nativeEvent
         const cursorContainerHeight = cursorContainer.current!.offsetHeight
-        screenX -= window.innerWidth - 60
+        const cursorHalfLength = 60
+        const rightPadding = 64
+        screenX -= window.innerWidth - cursorHalfLength - rightPadding
         offsetY -= cursorContainerHeight / 2
         cursor.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
+        // cursor.current!.style.transition = `transform 0.1s`
     }
 
     return (
-        <div className="carosel-container" onMouseOut={handleMouseOut} onMouseMove={(e) => {handleMouseMove(e)}}>
+        <div className="carosel-container" onMouseEnter={(e) => handleMouseEnter(e)} onMouseOut={handleMouseOut} onMouseMove={(e) => {handleMouseMove(e)}}>
             <ul className="carosel-stage" onScroll={(e) => handleScroll(e)} >
             {Companies.map(company => {
                 return (

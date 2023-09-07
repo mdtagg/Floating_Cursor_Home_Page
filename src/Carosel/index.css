@@ -7,7 +7,7 @@ ul {
 }
 
 .carosel-container:hover {
-    /* cursor:none; */
+    cursor:none;
 }
 
 .carosel-stage {
@@ -74,5 +74,5 @@ ul {
     display:flex;
     justify-content: center;
     align-items: center;
-    /* margin-right:2rem; */
+    margin-right:4rem;
 }
