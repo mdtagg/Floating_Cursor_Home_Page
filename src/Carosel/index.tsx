@@ -2,7 +2,6 @@ import "./index.css"
 import { useState,useRef } from "react"
 import { getCompanyData } from "./utils/companies"
 import Cursor from "./Cursor"
-// import { Icon } from '@iconify/react';
 
 const Carosel = () => {
 
@@ -12,6 +11,8 @@ const Carosel = () => {
     const cursorOuter = useRef<HTMLDivElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
     const cursor = useRef<HTMLDivElement | null>(null)
+    const caroselContainer = useRef<HTMLDivElement | null>(null)
+    const caroselStage = useRef<HTMLUListElement | null>(null)
     
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
@@ -32,13 +33,20 @@ const Carosel = () => {
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         let target = e.target as HTMLDivElement
         let { screenX, offsetY } = e.nativeEvent
-        const cursorContainerHeight = cursorContainer.current!.offsetHeight
-        
-        //adjusting the horizontal position by half the cursor width and the padding
-        screenX -= window.innerWidth - 80 - 64
-        offsetY -= target.className === "company-anchor" ? 100 : cursorContainerHeight / 2
-        cursorOuter.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
-        cursorOuter.current!.style.transition = "transform 0.1s"
+        if(carets) {
+            let currentPosition = caroselStage.current!.scrollLeft
+            let movement = e.nativeEvent.movementX
+            caroselStage.current!.scrollLeft = currentPosition - movement
+
+        }
+        // else {
+            const cursorContainerHeight = cursorContainer.current!.offsetHeight
+            //adjusting the horizontal position by half the cursor width and the padding
+            screenX -= window.innerWidth - 80 - 64
+            offsetY -= target.className === "company-anchor" ? 100 : cursorContainerHeight / 2
+            cursorOuter.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
+            cursorOuter.current!.style.transition = "transform 0.1s"
+        // }
     }
 
     function handleAnchor() {
@@ -59,17 +67,24 @@ const Carosel = () => {
         cursor.current!.textContent = "DRAG"
     }
 
+    function handleCaroselMove() {
+        console.log('test')
+    }
+
     return (
         <div 
             className="carosel-container" 
             onMouseOut={handleMouseOut} 
-            onMouseMove={(e) => {handleMouseMove(e)}}
+            onMouseMove={(e) => handleMouseMove(e)}
             onMouseDown={handleMouseDown}
             onMouseUp={handleMouseUp}
+            ref={caroselContainer}
         >
             <ul 
                 className="carosel-stage" 
                 onScroll={(e) => handleScroll(e)}
+                ref={caroselStage}
+                draggable={true}
             >
             {Companies.map(company => {
 
