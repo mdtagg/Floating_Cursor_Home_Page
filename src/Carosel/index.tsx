@@ -37,7 +37,6 @@ const Carosel = () => {
             let currentPosition = caroselStage.current!.scrollLeft
             let movement = e.nativeEvent.movementX
             caroselStage.current!.scrollLeft = currentPosition - movement
-
         }
         // else {
             const cursorContainerHeight = cursorContainer.current!.offsetHeight
@@ -67,10 +66,6 @@ const Carosel = () => {
         cursor.current!.textContent = "DRAG"
     }
 
-    function handleCaroselMove() {
-        console.log('test')
-    }
-
     return (
         <div 
             className="carosel-container" 
@@ -84,7 +79,7 @@ const Carosel = () => {
                 className="carosel-stage" 
                 onScroll={(e) => handleScroll(e)}
                 ref={caroselStage}
-                draggable={true}
+                draggable={false}
             >
             {Companies.map(company => {
 
