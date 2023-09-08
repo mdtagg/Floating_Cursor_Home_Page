@@ -6,7 +6,7 @@ import { Icon } from '@iconify/react';
 const Carosel = () => {
 
     const Companies = getCompanyData()
-    const [ carets,setCarets ] = useState(false)
+    const [ carets, setCarets ] = useState(false)
     const bar = useRef<HTMLUListElement | null>(null)
     const cursor = useRef<HTMLDivElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
@@ -55,6 +55,7 @@ const Carosel = () => {
         cursor.current!.style.height = "80px"
         cursor.current!.style.width = "80px"
         cursor.current!.textContent = ""
+        cursor.current!.style.right = "20px"
 
     }
 
@@ -62,7 +63,7 @@ const Carosel = () => {
         cursor.current!.style.height = "120px"
         cursor.current!.style.width = "120px"
         cursor.current!.textContent = "DRAG"
-
+        cursor.current!.style.right = "0"
     }
 
     return (
@@ -113,7 +114,6 @@ const Carosel = () => {
                 ref={cursorContainer}
             >
                 <Icon icon="bx:caret-left" />
-
                 <div className="cursor-takeover-cursor" ref={cursor}>
                     
                     <span>DRAG</span>
