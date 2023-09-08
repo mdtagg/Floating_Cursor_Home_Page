@@ -15,6 +15,7 @@ ul {
     overflow-x:scroll;
     padding:var(--main-padding);
     gap:8rem;
+    user-select: none;
 }
 
 .carosel-stage::-webkit-scrollbar {
@@ -48,32 +49,8 @@ ul {
     position:absolute;
     z-index:1;
     height:3px;
-} 
-
-.cursor-takeover-container {
-    position:absolute;
-    height:100%;
-    width:100%;
-    top:0;
-    left:0;
     pointer-events: none;
-    display:flex;
-    justify-content: flex-end;
-    align-items: center;
-}
-
-.cursor-takeover-cursor {
-    position:absolute;
-    height:120px;
-    width:120px;
-    background:#f9cdcd;
-    border-radius:100%;
-    z-index:1;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    margin-right:4rem;
-}
+} 
 
 .company-anchor {
     pointer-events: auto;

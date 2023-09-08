@@ -1,15 +1,18 @@
 import "./index.css"
 import { useState,useRef } from "react"
 import { getCompanyData } from "./utils/companies"
-import { Icon } from '@iconify/react';
+import Cursor from "./Cursor"
+// import { Icon } from '@iconify/react';
 
 const Carosel = () => {
 
     const Companies = getCompanyData()
     const [ carets, setCarets ] = useState(false)
     const bar = useRef<HTMLUListElement | null>(null)
-    const cursor = useRef<HTMLDivElement | null>(null)
+    const cursorOuter = useRef<HTMLDivElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
+    const cursor = useRef<HTMLDivElement | null>(null)
+    
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
         const target = e.target as HTMLUListElement
@@ -19,57 +22,46 @@ const Carosel = () => {
         bar.current!.style.left = `${adjusted}%`
     }
 
-    function handleMouseEnter(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        handleMouseMove(e)
-        cursor.current!.style.transition = `transform 0.1s`
-    }
-
     function handleMouseOut() {
-        let cursorStyle = cursor.current!.style
+        let cursorStyle = cursorOuter.current!.style
         cursorStyle.transform = `translate(0)`
         cursorStyle.transition = `transform 0.5s`
         cursorStyle.opacity = "1"
-        cursor.current!.textContent = "DRAG"
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         let target = e.target as HTMLDivElement
-        let { screenX,offsetY } = e.nativeEvent
+        let { screenX, offsetY } = e.nativeEvent
         const cursorContainerHeight = cursorContainer.current!.offsetHeight
         
         //adjusting the horizontal position by half the cursor width and the padding
-        screenX -= window.innerWidth - 60 - 64
+        screenX -= window.innerWidth - 80 - 64
         offsetY -= target.className === "company-anchor" ? 100 : cursorContainerHeight / 2
-        cursor.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
-        cursor.current!.style.transition = `transform 0.1s`
+        cursorOuter.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
+        cursorOuter.current!.style.transition = "transform 0.1s"
     }
 
     function handleAnchor() {
-        cursor.current!.style.opacity = ".7"
-        cursor.current!.textContent = ""
+        cursorOuter.current!.style.opacity = ".7"
     }
 
     function handleMouseDown() {
-        setCarets(!carets)
-        console.log(cursor.current!.style)
+        setCarets(true)
         cursor.current!.style.height = "80px"
         cursor.current!.style.width = "80px"
         cursor.current!.textContent = ""
-        cursor.current!.style.right = "20px"
-
     }
 
     function handleMouseUp() {
+        setCarets(false)
         cursor.current!.style.height = "120px"
         cursor.current!.style.width = "120px"
         cursor.current!.textContent = "DRAG"
-        cursor.current!.style.right = "0"
     }
 
     return (
         <div 
             className="carosel-container" 
-            onMouseEnter={(e) => handleMouseEnter(e)} 
             onMouseOut={handleMouseOut} 
             onMouseMove={(e) => {handleMouseMove(e)}}
             onMouseDown={handleMouseDown}
@@ -109,19 +101,26 @@ const Carosel = () => {
             <div className="progress-bar-container">
                 <span ref={bar} className="progress-bar-thumb" style={{"width":"60%"}}></span>
             </div>
-            <div 
+            <Cursor
+                cursorContainer={cursorContainer}
+                cursorOuter={cursorOuter}
+                cursor={cursor}
+                carets={carets}
+            />
+            {/* <div 
                 className="cursor-takeover-container"
                 ref={cursorContainer}
             >
-                <Icon icon="bx:caret-left" />
-                <div className="cursor-takeover-cursor" ref={cursor}>
-                    
-                    <span>DRAG</span>
-                    
+                <div className="cursor-takeover-outer" ref={cursorOuter}>
+                    <Icon icon="bx:caret-left" />
+                    <div className="cursor-takeover-cursor" ref={cursor}>
+                        
+                        <span>DRAG</span>
+                        
+                    </div>
+                    <Icon icon="bx:caret-right" />
                 </div>
-                <Icon icon="bx:caret-right" />
-
-            </div>
+            </div> */}
         </div>
     )
 }

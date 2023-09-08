@@ -1,0 +1,37 @@
+.cursor-takeover-container {
+    position:absolute;
+    height:100%;
+    width:100%;
+    top:0;
+    left:0;
+    pointer-events: none;
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+.cursor-takeover-outer {
+    height:160px;
+    width:160px;
+    display:flex;
+    justify-content: space-evenly;
+    align-items: center;
+    margin-right:4rem;
+    border:1px solid black;
+}
+
+.cursor-takeover-cursor {
+    height:120px;
+    width:120px;
+    background:#f9cdcd;
+    border-radius:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.caret {
+    height:25px;
+    width:25px;
+    color:pink;
+}
