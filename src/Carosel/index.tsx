@@ -85,9 +85,9 @@ const Carosel = () => {
 
                 return (
                     <div className="carosel-panel">
-                        <p>{company.title}</p>
+                        <p className="company-logo">{company.title}</p>
                         <p>_</p>
-                        <div>
+                        <div className="company-information">
                             <p>{company.title}</p>
                             <p 
                                 className="carosel-content"

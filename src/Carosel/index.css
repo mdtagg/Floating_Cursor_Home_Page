@@ -52,6 +52,14 @@ ul {
     pointer-events: none;
 } 
 
+.company-logo {
+    font-style: italic;
+}
+
+.company-information {
+    margin-top:4rem;
+}
+
 .company-anchor {
     pointer-events: auto;
 }
