@@ -6,7 +6,7 @@ import Cursor from "./Cursor"
 const Carosel = () => {
 
     const Companies = getCompanyData()
-    const [ carets, setCarets ] = useState(false)
+    const [ isMouseDown, setIsMouseDown ] = useState(false)
     const bar = useRef<HTMLUListElement | null>(null)
     const cursorOuter = useRef<HTMLDivElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
@@ -33,7 +33,7 @@ const Carosel = () => {
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         let target = e.target as HTMLDivElement
         let { screenX, offsetY } = e.nativeEvent
-        if(carets) {
+        if(isMouseDown) {
             let currentPosition = caroselStage.current!.scrollLeft
             let movement = e.nativeEvent.movementX
             caroselStage.current!.scrollLeft = currentPosition - movement
@@ -53,17 +53,14 @@ const Carosel = () => {
     }
 
     function handleMouseDown() {
-        setCarets(true)
-        cursor.current!.style.height = "80px"
-        cursor.current!.style.width = "80px"
-        cursor.current!.textContent = ""
+        setIsMouseDown(true)
     }
 
     function handleMouseUp() {
-        setCarets(false)
-        cursor.current!.style.height = "120px"
-        cursor.current!.style.width = "120px"
-        cursor.current!.textContent = "DRAG"
+        setIsMouseDown(false)
+        // cursor.current!.style.height = "120px"
+        // cursor.current!.style.width = "120px"
+        // cursor.current!.textContent = "DRAG"
     }
 
     return (
@@ -115,7 +112,7 @@ const Carosel = () => {
                 cursorContainer={cursorContainer}
                 cursorOuter={cursorOuter}
                 cursor={cursor}
-                carets={carets}
+                isMouseDown={isMouseDown}
             />
             {/* <div 
                 className="cursor-takeover-container"
