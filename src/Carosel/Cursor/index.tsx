@@ -18,12 +18,28 @@ const Cursor = (props:TCursor) => {
             className="cursor-takeover-container"
             ref={cursorContainer}
         >
-            <div className="cursor-takeover-outer" ref={cursorOuter}>
-                {isMouseDown && <Icon icon="bx:caret-left" className="caret" />}
-                <div className={`cursor-takeover-cursor ${mouseStyle}`} ref={cursor}>
+            <div 
+                className="cursor-takeover-outer" 
+                ref={cursorOuter}
+            >
+                {isMouseDown && 
+                    <Icon 
+                        icon="bx:caret-left" 
+                        className="caret" 
+                    />
+                }
+                <div 
+                    className={`cursor-takeover-cursor ${mouseStyle}`} 
+                    ref={cursor}
+                >
                     {isMouseDown ? "" : "DRAG"}
                 </div>
-                {isMouseDown && <Icon icon="bx:caret-right" className="caret"/>}
+                {isMouseDown && 
+                    <Icon 
+                        icon="bx:caret-right" 
+                        className="caret"
+                    />
+                    }
             </div>
         </div>
     )

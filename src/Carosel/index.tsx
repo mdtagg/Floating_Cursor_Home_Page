@@ -58,9 +58,6 @@ const Carosel = () => {
 
     function handleMouseUp() {
         setIsMouseDown(false)
-        // cursor.current!.style.height = "120px"
-        // cursor.current!.style.width = "120px"
-        // cursor.current!.textContent = "DRAG"
     }
 
     return (

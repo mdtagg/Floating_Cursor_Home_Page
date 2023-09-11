@@ -21,8 +21,6 @@
 }
 
 .cursor-takeover-cursor {
-    /* height:120px;
-    width:120px; */
     background:#f9cdcd;
     border-radius:100%;
     display:flex;
