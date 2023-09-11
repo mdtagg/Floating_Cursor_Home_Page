@@ -8,18 +8,17 @@ const Carosel = () => {
     const Companies = getCompanyData()
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const bar = useRef<HTMLUListElement | null>(null)
-    const cursorOuter = useRef<HTMLDivElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
-    const cursor = useRef<HTMLDivElement | null>(null)
+    const cursorOuter = useRef<HTMLDivElement | null>(null)
     const caroselContainer = useRef<HTMLDivElement | null>(null)
     const caroselStage = useRef<HTMLUListElement | null>(null)
-    
+
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
         const target = e.target as HTMLUListElement
         const maxScroll = target.scrollWidth - target.clientWidth
-        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100
-        const adjusted = (100 - scrollPosition) * .4
+        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll space left
+        const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including bar width
         bar.current!.style.left = `${adjusted}%`
     }
 
@@ -31,21 +30,21 @@ const Carosel = () => {
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        let target = e.target as HTMLDivElement
+
+        const cursorContainerHeight = cursorContainer.current!.offsetHeight
+        const target = e.target as HTMLDivElement
         let { screenX, offsetY } = e.nativeEvent
+        
         if(isMouseDown) {
             let currentPosition = caroselStage.current!.scrollLeft
-            let movement = e.nativeEvent.movementX
+            let movement = e.movementX
             caroselStage.current!.scrollLeft = currentPosition - movement
         }
-        // else {
-            const cursorContainerHeight = cursorContainer.current!.offsetHeight
-            //adjusting the horizontal position by half the cursor width and the padding
-            screenX -= window.innerWidth - 80 - 64
-            offsetY -= target.className === "company-anchor" ? 100 : cursorContainerHeight / 2
-            cursorOuter.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
-            cursorOuter.current!.style.transition = "transform 0.1s"
-        // }
+        //adjusting the horizontal position by half the cursor width
+        screenX -= window.innerWidth - 160
+        offsetY -= target.className === "company-anchor" ? 0 : cursorContainerHeight / 2
+        cursorOuter.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
+        cursorOuter.current!.style.transition = "transform 0.1s"
     }
 
     function handleAnchor() {
@@ -103,28 +102,16 @@ const Carosel = () => {
             })}
             </ul>
             <div className="progress-bar-container">
-                <span ref={bar} className="progress-bar-thumb" style={{"width":"60%"}}></span>
+                <span 
+                    ref={bar} 
+                    className="progress-bar-thumb" 
+                ></span>
             </div>
             <Cursor
                 cursorContainer={cursorContainer}
                 cursorOuter={cursorOuter}
-                cursor={cursor}
                 isMouseDown={isMouseDown}
             />
-            {/* <div 
-                className="cursor-takeover-container"
-                ref={cursorContainer}
-            >
-                <div className="cursor-takeover-outer" ref={cursorOuter}>
-                    <Icon icon="bx:caret-left" />
-                    <div className="cursor-takeover-cursor" ref={cursor}>
-                        
-                        <span>DRAG</span>
-                        
-                    </div>
-                    <Icon icon="bx:caret-right" />
-                </div>
-            </div> */}
         </div>
     )
 }

@@ -4,13 +4,12 @@ import "./index.css"
 interface TCursor {
     cursorContainer: React.MutableRefObject<HTMLDivElement | null>
     cursorOuter: React.MutableRefObject<HTMLDivElement | null>
-    cursor: React.MutableRefObject<HTMLDivElement | null>
     isMouseDown:boolean
 }
 
 const Cursor = (props:TCursor) => {
 
-    const { cursorContainer,cursorOuter,cursor,isMouseDown } = props
+    const { cursorContainer,cursorOuter,isMouseDown } = props
     const mouseStyle = isMouseDown ? "mouse-down" : "mouse-up"
 
     return (
@@ -30,7 +29,6 @@ const Cursor = (props:TCursor) => {
                 }
                 <div 
                     className={`cursor-takeover-cursor ${mouseStyle}`} 
-                    ref={cursor}
                 >
                     {isMouseDown ? "" : "DRAG"}
                 </div>

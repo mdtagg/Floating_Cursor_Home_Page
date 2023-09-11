@@ -45,6 +45,7 @@ ul {
 }
 
 .progress-bar-thumb {
+    width:60%;
     background-color: black;
     position:absolute;
     z-index:1;
