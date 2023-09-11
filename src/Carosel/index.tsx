@@ -7,6 +7,7 @@ const Carosel = () => {
 
     const Companies = getCompanyData()
     const [ isMouseDown, setIsMouseDown ] = useState(false)
+    const [ isMouseOut,setIsMouseOut ] = useState(true)
     const bar = useRef<HTMLUListElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
     const cursorOuter = useRef<HTMLDivElement | null>(null)
@@ -16,7 +17,7 @@ const Carosel = () => {
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
         const target = e.target as HTMLUListElement
-        const maxScroll = target.scrollWidth - target.clientWidth
+        const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
         const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll space left
         const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including bar width
         bar.current!.style.left = `${adjusted}%`
@@ -34,8 +35,9 @@ const Carosel = () => {
         const cursorContainerHeight = cursorContainer.current!.offsetHeight
         const target = e.target as HTMLDivElement
         let { screenX, offsetY } = e.nativeEvent
-        
+        console.log(e)
         if(isMouseDown) {
+
             let currentPosition = caroselStage.current!.scrollLeft
             let movement = e.movementX
             caroselStage.current!.scrollLeft = currentPosition - movement
