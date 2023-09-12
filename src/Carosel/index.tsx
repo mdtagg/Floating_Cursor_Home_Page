@@ -3,7 +3,7 @@ import { useState,useRef } from "react"
 import { getCompanyData } from "./utils/companies"
 import Cursor from "./Cursor"
 
-const Carosel = () => {
+const Carousel = () => {
 
     const Companies = getCompanyData()
     const [ isMouseDown, setIsMouseDown ] = useState(false)
@@ -11,8 +11,8 @@ const Carosel = () => {
     const bar = useRef<HTMLUListElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
     const cursorOuter = useRef<HTMLDivElement | null>(null)
-    const caroselContainer = useRef<HTMLDivElement | null>(null)
-    const caroselStage = useRef<HTMLUListElement | null>(null)
+    const carouselContainer = useRef<HTMLDivElement | null>(null)
+    const carouselStage = useRef<HTMLUListElement | null>(null)
 
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
@@ -30,20 +30,17 @@ const Carosel = () => {
         cursorStyle.opacity = "1"
     }
 
-    function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-
-        const target = e.target as HTMLDivElement
-        let { clientX,pageY } = e
+    function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {        let { clientX,pageY } = e
         
         let cursorOuterOffset = cursorOuter.current!.offsetTop
-        let caroselContainerOffset = caroselContainer.current!.offsetTop
-        let cursorOuterY = cursorOuterOffset + caroselContainerOffset
+        let carouselContainerOffset = carouselContainer.current!.offsetTop
+        let cursorOuterY = cursorOuterOffset + carouselContainerOffset
         let test = pageY - cursorOuterY - 80
 
         if(isMouseDown) {
-            let currentPosition = caroselStage.current!.scrollLeft
+            let currentPosition = carouselStage.current!.scrollLeft
             let movement = e.movementX
-            caroselStage.current!.scrollLeft = currentPosition - movement
+            carouselStage.current!.scrollLeft = currentPosition - movement
         }
         //adjusting the horizontal position by half the cursor width
         clientX -= window.innerWidth - 160
@@ -52,51 +49,44 @@ const Carosel = () => {
         cursorOuter.current!.style.transition = isMouseDown ? "unset": "transform 0.1s"
     }
 
-    function handleAnchor() {
-        cursorOuter.current!.style.opacity = ".7"
-
-    }
-
-    function handleMouseDown() {
-        setIsMouseDown(true)
-    }
-
-    function handleMouseUp() {
-        setIsMouseDown(false)
-    }
-
     return (
         <div 
-            className="carosel-container" 
+            className="carousel-container" 
             onMouseOut={handleMouseOut} 
             onMouseMove={(e) => handleMouseMove(e)}
-            onMouseDown={handleMouseDown}
-            onMouseUp={handleMouseUp}
-            ref={caroselContainer}
+            onMouseDown={() => setIsMouseDown(true)}
+            onMouseUp={() => setIsMouseDown(false)}
+            ref={carouselContainer}
         >
             <ul 
-                className="carosel-stage" 
+                className="carousel-stage" 
                 onScroll={(e) => handleScroll(e)}
-                ref={caroselStage}
+                ref={carouselStage}
                 draggable={false}
             >
             {Companies.map(company => {
 
                 return (
-                    <div className="carosel-panel">
+                    <div className="carousel-panel">
                         <p className="company-logo">{company.title}</p>
                         <p>_</p>
                         <div className="company-information">
                             <p>{company.title}</p>
                             <p 
-                                className="carosel-content"
+                                className="carousel-content"
                             >
                                 {company.content}
                                 {company.anchor && 
                                     <a 
                                         className="company-anchor" 
                                         href={company.anchor}
-                                        onMouseMove={handleAnchor}
+                                        onMouseEnter={() => {
+                                            cursorOuter.current!.style.opacity = ".7"
+                                            setIsHover(true)
+                                        }}
+                                        onMouseLeave={() => {
+                                            setIsHover(false)
+                                        }}
                                     >
                                         here
                                     </a>
@@ -117,12 +107,13 @@ const Carosel = () => {
                 cursorContainer={cursorContainer}
                 cursorOuter={cursorOuter}
                 isMouseDown={isMouseDown}
+                isHover={isHover}
             />
         </div>
     )
 }
 
-export default Carosel
+export default Carousel
 
 /*
 Goal is to find cursor position without needing pointer event target node 

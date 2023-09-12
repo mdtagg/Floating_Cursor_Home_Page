@@ -2,15 +2,15 @@ ul {
     list-style: none;
 }
 
-.carosel-container {
+.carousel-container {
     position:relative;
 }
 
-.carosel-container:hover {
-    /* cursor:none; */
+.carousel-container:hover {
+    cursor:none;
 }
 
-.carosel-stage {
+.carousel-stage {
     display:flex;
     overflow-x:scroll;
     padding:var(--main-padding);
@@ -18,12 +18,12 @@ ul {
     user-select: none;
 }
 
-.carosel-stage::-webkit-scrollbar {
+.carousel-stage::-webkit-scrollbar {
     height:0;
     width:0;
 }
 
-.carosel-panel {
+.carousel-panel {
     display:flex;
     flex-direction: column;
     font-size:1.5rem;
@@ -32,7 +32,7 @@ ul {
     pointer-events: none;
 }
 
-.carosel-content {
+.carousel-content {
     width:100%;
 }
 
