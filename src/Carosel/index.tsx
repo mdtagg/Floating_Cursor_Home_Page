@@ -7,7 +7,7 @@ const Carosel = () => {
 
     const Companies = getCompanyData()
     const [ isMouseDown, setIsMouseDown ] = useState(false)
-    const [ isMouseOut,setIsMouseOut ] = useState(true)
+    const [ isHover,setIsHover ] = useState(false)
     const bar = useRef<HTMLUListElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
     const cursorOuter = useRef<HTMLDivElement | null>(null)
@@ -32,10 +32,14 @@ const Carosel = () => {
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
 
-        const cursorContainerHeight = cursorContainer.current!.offsetHeight
         const target = e.target as HTMLDivElement
-        let { clientX, offsetY } = e.nativeEvent
-        // console.log(e)
+        let { clientX,pageY } = e
+        
+        let cursorOuterOffset = cursorOuter.current!.offsetTop
+        let caroselContainerOffset = caroselContainer.current!.offsetTop
+        let cursorOuterY = cursorOuterOffset + caroselContainerOffset
+        let test = pageY - cursorOuterY - 80
+
         if(isMouseDown) {
             let currentPosition = caroselStage.current!.scrollLeft
             let movement = e.movementX
@@ -43,13 +47,14 @@ const Carosel = () => {
         }
         //adjusting the horizontal position by half the cursor width
         clientX -= window.innerWidth - 160
-        offsetY -= target.className === "company-anchor" ? 0 : cursorContainerHeight / 2
-        cursorOuter.current!.style.transform = `translate(${clientX}px,${offsetY}px)`
+   
+        cursorOuter.current!.style.transform = `translate(${clientX}px,${test}px)`
         cursorOuter.current!.style.transition = isMouseDown ? "unset": "transform 0.1s"
     }
 
     function handleAnchor() {
         cursorOuter.current!.style.opacity = ".7"
+
     }
 
     function handleMouseDown() {
@@ -118,3 +123,11 @@ const Carosel = () => {
 }
 
 export default Carosel
+
+/*
+Goal is to find cursor position without needing pointer event target node 
+
+Probably can be done with either client Y or screen Y with some calculations 
+
+
+*/

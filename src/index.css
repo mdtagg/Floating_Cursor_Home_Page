@@ -40,7 +40,8 @@
 }
 
 main {
-  margin-top:200px;
+  /* padding-top:200px; */
+  position:relative;
 }
 
 .title {
