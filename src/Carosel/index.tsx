@@ -34,19 +34,18 @@ const Carosel = () => {
 
         const cursorContainerHeight = cursorContainer.current!.offsetHeight
         const target = e.target as HTMLDivElement
-        let { screenX, offsetY } = e.nativeEvent
-        console.log(e)
+        let { clientX, offsetY } = e.nativeEvent
+        // console.log(e)
         if(isMouseDown) {
-
             let currentPosition = caroselStage.current!.scrollLeft
             let movement = e.movementX
             caroselStage.current!.scrollLeft = currentPosition - movement
         }
         //adjusting the horizontal position by half the cursor width
-        screenX -= window.innerWidth - 160
+        clientX -= window.innerWidth - 160
         offsetY -= target.className === "company-anchor" ? 0 : cursorContainerHeight / 2
-        cursorOuter.current!.style.transform = `translate(${screenX}px,${offsetY}px)`
-        cursorOuter.current!.style.transition = "transform 0.1s"
+        cursorOuter.current!.style.transform = `translate(${clientX}px,${offsetY}px)`
+        cursorOuter.current!.style.transition = isMouseDown ? "unset": "transform 0.1s"
     }
 
     function handleAnchor() {
