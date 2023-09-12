@@ -8,7 +8,7 @@ const Carousel = () => {
     const Companies = getCompanyData()
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isHover,setIsHover ] = useState(false)
-    const bar = useRef<HTMLUListElement | null>(null)
+    const scrollBar = useRef<HTMLUListElement | null>(null)
     const cursorContainer = useRef<HTMLDivElement | null>(null)
     const cursorOuter = useRef<HTMLDivElement | null>(null)
     const carouselContainer = useRef<HTMLDivElement | null>(null)
@@ -19,8 +19,9 @@ const Carousel = () => {
         const target = e.target as HTMLUListElement
         const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
         const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll space left
-        const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including bar width
-        bar.current!.style.left = `${adjusted}%`
+        const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
+        scrollBar.current!.style.left = `${adjusted}%`
+        
     }
 
     function handleMouseOut() {
@@ -30,22 +31,18 @@ const Carousel = () => {
         cursorStyle.opacity = "1"
     }
 
-    function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {        let { clientX,pageY } = e
+    function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {       
+        let { clientX,pageY } = e
+        const cursorOuterY = cursorOuter.current!.offsetTop + carouselContainer.current!.offsetTop
+        const nextY = pageY - cursorOuterY - 80  // calculates the next position of the cursor height adjusted for the offset from top of page and half the cursor width
+        clientX -= window.innerWidth - 160 //adjusting the horizontal position by half the cursor width
         
-        let cursorOuterOffset = cursorOuter.current!.offsetTop
-        let carouselContainerOffset = carouselContainer.current!.offsetTop
-        let cursorOuterY = cursorOuterOffset + carouselContainerOffset
-        let test = pageY - cursorOuterY - 80
-
         if(isMouseDown) {
             let currentPosition = carouselStage.current!.scrollLeft
             let movement = e.movementX
             carouselStage.current!.scrollLeft = currentPosition - movement
         }
-        //adjusting the horizontal position by half the cursor width
-        clientX -= window.innerWidth - 160
-   
-        cursorOuter.current!.style.transform = `translate(${clientX}px,${test}px)`
+        cursorOuter.current!.style.transform = `translate(${clientX}px,${nextY}px)`
         cursorOuter.current!.style.transition = isMouseDown ? "unset": "transform 0.1s"
     }
 
@@ -99,7 +96,7 @@ const Carousel = () => {
             </ul>
             <div className="progress-bar-container">
                 <span 
-                    ref={bar} 
+                    ref={scrollBar} 
                     className="progress-bar-thumb" 
                 ></span>
             </div>
@@ -114,11 +111,3 @@ const Carousel = () => {
 }
 
 export default Carousel
-
-/*
-Goal is to find cursor position without needing pointer event target node 
-
-Probably can be done with either client Y or screen Y with some calculations 
-
-
-*/

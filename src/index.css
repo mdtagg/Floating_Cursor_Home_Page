@@ -7,7 +7,7 @@
 }
 
 :root {
-  --main-padding:2rem 6rem;
+  --main-padding:0rem 6rem;
 }
 
 .bg {
@@ -40,7 +40,6 @@
 }
 
 main {
-  /* padding-top:200px; */
   position:relative;
 }
 

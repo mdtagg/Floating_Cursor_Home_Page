@@ -17,10 +17,11 @@
     justify-content: space-evenly;
     align-items: center;
     margin-right:4rem;
+    /* position:fixed; */
 }
 
 .cursor-takeover-cursor {
-    background:#f9cdcd;
+    background:#efbfbf;
     border-radius:100%;
     display:flex;
     justify-content: center;

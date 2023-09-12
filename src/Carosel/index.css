@@ -4,10 +4,11 @@ ul {
 
 .carousel-container {
     position:relative;
+    overflow:hidden;
 }
 
 .carousel-container:hover {
-    cursor:none;
+    /* cursor:none; */
 }
 
 .carousel-stage {
