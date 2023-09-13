@@ -8,7 +8,11 @@ ul {
 }
 
 #carousel-container:hover {
-    cursor:none;
+    /* cursor:none; */
+}
+
+#carousel-test {
+    overflow:hidden;
 }
 
 #carousel-stage {

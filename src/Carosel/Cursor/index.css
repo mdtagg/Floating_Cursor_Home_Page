@@ -26,6 +26,7 @@
     display:flex;
     justify-content: center;
     align-items: center;
+    /* opacity:1; */
 }
 
 .mouse-up {
@@ -36,6 +37,10 @@
 .mouse-down {
     height:80px;
     width:80px;
+}
+
+.hoverStyle {
+    opacity:0.7;
 }
 
 .caret {

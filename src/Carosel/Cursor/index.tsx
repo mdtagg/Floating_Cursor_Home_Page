@@ -12,6 +12,7 @@ const Cursor = (props:TCursor) => {
 
     const { cursorContainer,cursorOuter,isMouseDown,isHover } = props
     const mouseStyle = isMouseDown ? "mouse-down" : "mouse-up"
+    const hoverStyle = isHover ? "hoverStyle" : ""
 
     return (
         <div 
@@ -29,7 +30,7 @@ const Cursor = (props:TCursor) => {
                     />
                 }
                 <div 
-                    className={`cursor-takeover-cursor ${mouseStyle}`} 
+                    className={`cursor-takeover-cursor ${mouseStyle} ${hoverStyle}`} 
                 >
                     {isMouseDown || isHover ? "" : "DRAG"}
                 </div>

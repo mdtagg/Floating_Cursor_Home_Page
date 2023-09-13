@@ -6,6 +6,10 @@
   margin:0;
 }
 
+body {
+  overflow:auto;
+}
+
 :root {
   --main-padding:0rem 6rem;
 }
