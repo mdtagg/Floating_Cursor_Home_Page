@@ -2,24 +2,25 @@ ul {
     list-style: none;
 }
 
-.carousel-container {
+#carousel-container {
     position:relative;
     overflow:hidden;
 }
 
-.carousel-container:hover {
-    /* cursor:none; */
+#carousel-container:hover {
+    cursor:none;
 }
 
-.carousel-stage {
+#carousel-stage {
     display:flex;
     overflow-x:scroll;
-    padding:var(--main-padding);
+    /* padding:var(--main-padding); */
+    padding:4rem 6rem;
     gap:8rem;
     user-select: none;
 }
 
-.carousel-stage::-webkit-scrollbar {
+#carousel-stage::-webkit-scrollbar {
     height:0;
     width:0;
 }

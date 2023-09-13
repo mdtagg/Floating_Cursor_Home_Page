@@ -24,39 +24,46 @@ const Carousel = () => {
         
     }
 
-    function handleMouseOut() {
-        let cursorStyle = cursorOuter.current!.style
+    function handleMouseOut(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        const target = e.target as HTMLElement
+        const cursorStyle = cursorOuter.current!.style
         cursorStyle.transform = `translate(0)`
         cursorStyle.transition = `transform 0.5s`
         cursorStyle.opacity = "1"
+        if(target.id === 'carousel-stage' || target.id === 'carousel-container') {
+            cursorStyle.position = "static"
+        }
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {       
-        let { clientX,pageY } = e
-        const cursorOuterY = cursorOuter.current!.offsetTop + carouselContainer.current!.offsetTop
-        const nextY = pageY - cursorOuterY - 80  // calculates the next position of the cursor height adjusted for the offset from top of page and half the cursor width
+        let { clientX,clientY } = e
+        const cursorOffset = cursorOuter.current!.offsetTop
         clientX -= window.innerWidth - 160 //adjusting the horizontal position by half the cursor width
-        
+        clientY -= cursorOffset + 80 // calculates the next position of the cursor height adjusted for half the cursor width
+
         if(isMouseDown) {
             let currentPosition = carouselStage.current!.scrollLeft
             let movement = e.movementX
             carouselStage.current!.scrollLeft = currentPosition - movement
         }
-        cursorOuter.current!.style.transform = `translate(${clientX}px,${nextY}px)`
+        cursorOuter.current!.style.position = "fixed"
+        cursorOuter.current!.style.transform = `translate(${clientX}px,${clientY}px)`
         cursorOuter.current!.style.transition = isMouseDown ? "unset": "transform 0.1s"
     }
 
     return (
         <div 
-            className="carousel-container" 
-            onMouseOut={handleMouseOut} 
+            // className="carousel-container" 
+            id="carousel-container"
+            onMouseOut={(e) => handleMouseOut(e)} 
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={() => setIsMouseDown(false)}
             ref={carouselContainer}
         >
             <ul 
-                className="carousel-stage" 
+                // className="carousel-stage" 
+                id="carousel-stage"
                 onScroll={(e) => handleScroll(e)}
                 ref={carouselStage}
                 draggable={false}
@@ -79,10 +86,13 @@ const Carousel = () => {
                                         href={company.anchor}
                                         onMouseEnter={() => {
                                             cursorOuter.current!.style.opacity = ".7"
+                                            cursorOuter.current!.style.position = "fixed"
                                             setIsHover(true)
                                         }}
                                         onMouseLeave={() => {
                                             setIsHover(false)
+                                            // cursorOuter.current!.style.position = "fixed"
+
                                         }}
                                     >
                                         here
