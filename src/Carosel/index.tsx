@@ -24,8 +24,6 @@ const Carousel = () => {
     }
 
     function handleMouseLeave(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        console.log(e)
-        // const target = e.target as HTMLElement
         const cursorStyle = cursorOuter.current!.style
         cursorStyle.transform = `translate(0)`
         cursorStyle.transition = `transform 1s`
@@ -36,9 +34,9 @@ const Carousel = () => {
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {      
         // const test = cursorContainer.current!.offsetHeight 
         let { clientX,clientY } = e
-        const cursorOffset = cursorOuter.current!.offsetTop
+        // const cursorOffset = cursorOuter.current!.offsetTop
         clientX -= window.innerWidth - 160 //adjusting the horizontal position by half the cursor width
-        clientY -= cursorOffset + 80 // calculates the next position of the cursor height adjusted for half the cursor width
+        clientY -= cursorOuter.current!.offsetTop + 80 // calculates the next position of the cursor height adjusted for half the cursor width
         
         if(isMouseDown) {
             carouselStage.current!.scrollLeft = carouselStage.current!.scrollLeft - e.movementX
@@ -87,10 +85,7 @@ const Carousel = () => {
                                         className="company-anchor" 
                                         href={company.anchor}
                                         onMouseEnter={() => setIsHover(true)}
-                                        onMouseLeave={(e) => {
-                                            setIsHover(false)
-                                            console.log(e)
-                                        }}
+                                        onMouseLeave={() => setIsHover(false)}
                                     >
                                         here
                                     </a>
