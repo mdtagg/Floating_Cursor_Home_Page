@@ -25,14 +25,12 @@ const Carousel = () => {
         transition:""
     })
     
-    const cursorCoordsRef = useRef(cursorCoords)
-    const cursorOuter = useRef<HTMLDivElement | null>(null)
-    const carouselContainer = useRef<HTMLDivElement | null>(null)
-    const carouselStage = useRef<HTMLUListElement | null>(null)
-    const cursorBody = useRef<HTMLDivElement | null>(null)
+    const cursorCoordsRef = useRef(cursorCoords) //used to pass cursor information to the scroll handler on window
+    const cursorOuter = useRef<HTMLDivElement | null>(null) //used to grab offset from document
+    const carouselContainer = useRef<HTMLDivElement | null>(null) //used to grab offset from container
+    const carouselStage = useRef<HTMLUListElement | null>(null) //used to apply scroll position to progress bar element
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
-        
         const target = e.target as HTMLUListElement
         const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
         const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll space left
@@ -59,9 +57,7 @@ const Carousel = () => {
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {      
         const totalPageOffset = carouselContainer.current!.offsetTop + cursorOuter.current!.offsetTop
-        // const { top } = cursorBody.current!.getBoundingClientRect() 
-        
-        let { clientX,pageY,clientY } = e
+        let { clientX,pageY } = e
 
         clientX -= window.innerWidth - 160 //adjusting the horizontal position by the cursor width
         pageY -= totalPageOffset + 80 //adjusting the vertical position by the total offset from the top of the carousel and half the cursor width
@@ -157,7 +153,6 @@ const Carousel = () => {
                 isMouseDown={isMouseDown}
                 isAnchorHover={isAnchorHover}
                 cursorCoords={cursorCoords}
-                cursorBody={cursorBody}
             />
         </div>
     )
