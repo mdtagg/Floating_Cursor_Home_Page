@@ -1,6 +1,12 @@
-import { Icon } from '@iconify/react';
 import "./index.css"
 import { TCoords } from '..';
+import CursorBody from '../CursorBody';
+import FloatingCarets from '../FloatingCarets';
+
+export interface TCursorStyles {
+    isMouseDown:boolean 
+    isAnchorHover:boolean
+}
 
 interface TCursor {
     cursorOuter: React.MutableRefObject<HTMLDivElement | null>
@@ -12,8 +18,6 @@ interface TCursor {
 const Cursor = (props:TCursor) => {
 
     const { cursorOuter,isMouseDown,isAnchorHover,cursorCoords } = props
-    const mouseStyle = isMouseDown ? "mouse-down" : "mouse-up"
-    const hoverStyle = isAnchorHover ? "hoverStyle" : ""
     const cursorPosition = {
         transform:`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
         transition: cursorCoords.transition
@@ -28,24 +32,16 @@ const Cursor = (props:TCursor) => {
                 ref={cursorOuter}
                 style={cursorPosition}
             >
-                {isMouseDown && 
-                    <Icon 
-                        icon="bx:caret-left" 
-                        className="caret" 
+                {isMouseDown ?
+                    <FloatingCarets
+                        isMouseDown={isMouseDown} 
+                        isAnchorHover={isAnchorHover}
+                    /> :
+                    <CursorBody
+                        isMouseDown={isMouseDown} 
+                        isAnchorHover={isAnchorHover}
                     />
                 }
-                <div 
-                    className={`cursor-takeover-cursor ${mouseStyle} ${hoverStyle}`} 
-                    style={{"border":"1px solid black"}}
-                >
-                    {isMouseDown || isAnchorHover ? "" : "DRAG"}
-                </div>
-                {isMouseDown && 
-                    <Icon 
-                        icon="bx:caret-right" 
-                        className="caret"
-                    />
-                    }
             </div>
         </div>
     )

@@ -20,7 +20,7 @@
     position:absolute;
 }
 
-.cursor-takeover-cursor {
+/* .cursor-takeover-cursor {
     background:#efbfbf;
     border-radius:100%;
     display:flex;
@@ -40,10 +40,10 @@
 
 .hoverStyle {
     opacity:0.7;
-}
+} */
 
-.caret {
+/* .caret {
     height:25px;
     width:25px;
     color:pink;
-}
+} */

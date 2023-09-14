@@ -22,19 +22,6 @@
     width:0;
 }
 
-/* .carousel-panel {
-    display:flex;
-    flex-direction: column;
-    font-size:1.5rem;
-    flex-shrink:0;
-    width:300px;
-    pointer-events: none;
-}
-
-.carousel-content {
-    width:100%;
-} */
-
 .progress-bar-container {
     position:relative;
     height:3px;
@@ -51,19 +38,3 @@
     height:3px;
     pointer-events: none;
 } 
-
-/* .company-logo {
-    font-style: italic;
-}
-
-.company-information {
-    margin-top:4rem;
-}
-
-.company-anchor {
-    pointer-events: auto;
-}
-
-.company-anchor:hover {
-    cursor:pointer;
-} */
