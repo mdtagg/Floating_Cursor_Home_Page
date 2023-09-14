@@ -1,13 +1,12 @@
 
-
 * {
   box-sizing: border-box;
   padding:0;
   margin:0;
 }
 
-body {
-  overflow:auto;
+ul {
+  list-style: none;
 }
 
 :root {
@@ -41,10 +40,6 @@ body {
     80% { transform: translate(-15%,0) }
     90% { transform: translate(10%,5%) }
     100% { transform: translate(5%,0) }
-}
-
-main {
-  position:relative;
 }
 
 .title {
