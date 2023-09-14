@@ -17,7 +17,7 @@
     justify-content: space-evenly;
     align-items: center;
     margin-right:4rem;
-    /* position:fixed; */
+    position:absolute;
 }
 
 .cursor-takeover-cursor {

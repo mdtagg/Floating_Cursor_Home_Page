@@ -34,7 +34,6 @@ const Carousel = () => {
     const carouselContainer = useRef<HTMLDivElement | null>(null)
     const carouselStage = useRef<HTMLUListElement | null>(null)
 
-
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
         
         const target = e.target as HTMLUListElement
@@ -44,23 +43,32 @@ const Carousel = () => {
         scrollBar.current!.style.left = `${adjusted}%`
     }
 
+    function handleMouseEnter(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        setIsCarouselHover(true)
+        handleMouseMove(e)
+    }
+
     function handleMouseLeave() {
+        setIsCarouselHover(false)
         const cursorStyle = cursorOuter.current!.style
         cursorStyle.transform = `translate(0)`
         cursorStyle.transition = `transform 1s`
-        cursorStyle.position = "absolute"
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {      
         const totalPageOffset = carouselContainer.current!.offsetTop + cursorOuter.current!.offsetTop
         let { clientX,pageY } = e
-        pageY -= totalPageOffset + 80
+        pageY -= totalPageOffset + 80 //adjusting the vertical position by the total offset from the top of the carousel and half the cursor width
         clientX -= window.innerWidth - 160 //adjusting the horizontal position by half the cursor width
-        // clientY -= cursorOuter.current!.offsetTop + 80 // calculates the next position of the cursor height adjusted for half the cursor width
         
-        setCoordState({x:clientX,y:pageY,offset:window.scrollY})
+        setCoordState({
+            x:clientX,
+            y:pageY,
+            offset:window.scrollY
+        })
 
-        if(isMouseDown) {
+        if(isMouseDown) { 
+            //scrolls the carousel position horizonally with the mouse position
             carouselStage.current!.scrollLeft = carouselStage.current!.scrollLeft - e.movementX
         }
 
@@ -89,21 +97,10 @@ const Carousel = () => {
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={() => setIsMouseDown(false)}
-            onMouseEnter={(e) => {
-                cursorOuter.current!.style.position = "absolute"
-                setIsCarouselHover(true)
-                handleMouseMove(e)
-            }}
-
+            onMouseEnter={(e) => handleMouseEnter(e)}
+            onMouseLeave={handleMouseLeave}
             ref={carouselContainer}
         >
-            <div 
-                id="carousel-test"
-                onMouseLeave={() => {
-                    handleMouseLeave()
-                    setIsCarouselHover(false)
-                }} 
-            >
             <ul 
                 id="carousel-stage"
                 onScroll={(e) => handleScroll(e)}
@@ -138,13 +135,14 @@ const Carousel = () => {
                 )
             })}
             </ul>
+
             <div className="progress-bar-container">
                 <span 
                     ref={scrollBar} 
                     className="progress-bar-thumb" 
                 ></span>
             </div>
-            </div>
+           
             <Cursor
                 cursorContainer={cursorContainer}
                 cursorOuter={cursorOuter}
