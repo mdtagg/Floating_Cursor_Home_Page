@@ -1,4 +1,9 @@
 
+export type TCompanyData = {
+    title: string;
+    content: string;
+    anchor?: string;
+}
 
 export const getCompanyData = () => {
 

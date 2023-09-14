@@ -1,0 +1,28 @@
+.carousel-panel {
+    display:flex;
+    flex-direction: column;
+    font-size:1.5rem;
+    flex-shrink:0;
+    width:300px;
+    pointer-events: none;
+}
+
+.carousel-content {
+    width:100%;
+}
+
+.company-logo {
+    font-style: italic;
+}
+
+.company-information {
+    margin-top:4rem;
+}
+
+.company-anchor {
+    pointer-events: auto;
+}
+
+.company-anchor:hover {
+    cursor:pointer;
+}

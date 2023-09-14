@@ -5,7 +5,7 @@
 }
 
 #carousel-container:hover {
-    /* cursor:none; */
+    cursor:none;
 }
 
 #carousel-stage {
@@ -22,7 +22,7 @@
     width:0;
 }
 
-.carousel-panel {
+/* .carousel-panel {
     display:flex;
     flex-direction: column;
     font-size:1.5rem;
@@ -33,7 +33,7 @@
 
 .carousel-content {
     width:100%;
-}
+} */
 
 .progress-bar-container {
     position:relative;
@@ -52,7 +52,7 @@
     pointer-events: none;
 } 
 
-.company-logo {
+/* .company-logo {
     font-style: italic;
 }
 
@@ -66,4 +66,4 @@
 
 .company-anchor:hover {
     cursor:pointer;
-}
+} */

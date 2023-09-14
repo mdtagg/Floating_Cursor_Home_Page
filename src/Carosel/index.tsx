@@ -2,6 +2,7 @@ import "./index.css"
 import { useState,useRef,useEffect,useCallback } from "react"
 import { getCompanyData } from "./utils/companies"
 import Cursor from "./Cursor"
+import Panel from "./Panel"
 
 export type TCoords = {
     x:number,
@@ -115,28 +116,32 @@ const Carousel = () => {
             {Companies.map(company => {
 
                 return (
-                    <div className="carousel-panel">
-                        <p className="company-logo">{company.title}</p>
-                        <p>_</p>
-                        <div className="company-information">
-                            <p>{company.title}</p>
-                            <p 
-                                className="carousel-content"
-                            >
-                                {company.content}
-                                {company.anchor && 
-                                    <a 
-                                        className="company-anchor" 
-                                        href={company.anchor}
-                                        onMouseEnter={() => setIsAnchorHover(true)}
-                                        onMouseLeave={() => setIsAnchorHover(false)}
-                                    >
-                                        here
-                                    </a>
-                                }
-                            </p>
-                        </div>
-                    </div>
+                    <Panel
+                        company={company}
+                        setIsAnchorHover={setIsAnchorHover}
+                    />
+                    // <div className="carousel-panel">
+                    //     <p className="company-logo">{company.title}</p>
+                    //     <p>_</p>
+                    //     <div className="company-information">
+                    //         <p>{company.title}</p>
+                    //         <p 
+                    //             className="carousel-content"
+                    //         >
+                    //             {company.content}
+                    //             {company.anchor && 
+                    //                 <a 
+                    //                     className="company-anchor" 
+                    //                     href={company.anchor}
+                    //                     onMouseEnter={() => setIsAnchorHover(true)}
+                    //                     onMouseLeave={() => setIsAnchorHover(false)}
+                    //                 >
+                    //                     here
+                    //                 </a>
+                    //             }
+                    //         </p>
+                    //     </div>
+                    // </div>
                 )
             })}
             </ul>
