@@ -5,14 +5,14 @@ interface TCursor {
     cursorContainer: React.MutableRefObject<HTMLDivElement | null>
     cursorOuter: React.MutableRefObject<HTMLDivElement | null>
     isMouseDown:boolean
-    isHover:boolean
+    isAnchorHover:boolean
 }
 
 const Cursor = (props:TCursor) => {
 
-    const { cursorContainer,cursorOuter,isMouseDown,isHover } = props
+    const { cursorContainer,cursorOuter,isMouseDown,isAnchorHover } = props
     const mouseStyle = isMouseDown ? "mouse-down" : "mouse-up"
-    const hoverStyle = isHover ? "hoverStyle" : ""
+    const hoverStyle = isAnchorHover ? "hoverStyle" : ""
 
     return (
         <div 
@@ -32,7 +32,7 @@ const Cursor = (props:TCursor) => {
                 <div 
                     className={`cursor-takeover-cursor ${mouseStyle} ${hoverStyle}`} 
                 >
-                    {isMouseDown || isHover ? "" : "DRAG"}
+                    {isMouseDown || isAnchorHover ? "" : "DRAG"}
                 </div>
                 {isMouseDown && 
                     <Icon 

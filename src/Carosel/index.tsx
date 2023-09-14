@@ -5,19 +5,21 @@ import Cursor from "./Cursor"
 
 type TCoords = {
     x:number,
-    y:number
+    y:number,
+    offset:number
 }
 
 const Carousel = () => {
 
     const Companies = getCompanyData()
     const [ isMouseDown, setIsMouseDown ] = useState(false)
-    const [ isHover, setIsHover ] = useState(false)
+    const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
 
     const [ cursorCoords,setCursorCoords ] = useState({
         x:0,
-        y:0
+        y:0,
+        offset:0
     })
     
     const cursorCoordsRef = useRef(cursorCoords)
@@ -42,7 +44,7 @@ const Carousel = () => {
         scrollBar.current!.style.left = `${adjusted}%`
     }
 
-    function handleMouseLeave(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    function handleMouseLeave() {
         const cursorStyle = cursorOuter.current!.style
         cursorStyle.transform = `translate(0)`
         cursorStyle.transition = `transform 1s`
@@ -51,14 +53,12 @@ const Carousel = () => {
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {      
         const totalPageOffset = carouselContainer.current!.offsetTop + cursorOuter.current!.offsetTop
-       
-        let { clientX,clientY,pageY } = e
+        let { clientX,pageY } = e
         pageY -= totalPageOffset + 80
-        
         clientX -= window.innerWidth - 160 //adjusting the horizontal position by half the cursor width
         // clientY -= cursorOuter.current!.offsetTop + 80 // calculates the next position of the cursor height adjusted for half the cursor width
         
-        setCoordState({x:clientX,y:pageY})
+        setCoordState({x:clientX,y:pageY,offset:window.scrollY})
 
         if(isMouseDown) {
             carouselStage.current!.scrollLeft = carouselStage.current!.scrollLeft - e.movementX
@@ -69,10 +69,8 @@ const Carousel = () => {
     }
 
     const handleWindowScroll = useCallback(() => {
-        const { x,y } = cursorCoordsRef.current!
-        console.log({x,y})
-        console.log(window.scrollY)
-        const adjustedY = y - 42
+        const { x,y,offset } = cursorCoordsRef.current!
+        const adjustedY = y - offset
         cursorOuter.current!.style.transform = `translate(${x}px,${adjustedY + window.scrollY}px)`
         cursorOuter.current!.style.transition = "transform unset"
     },[])
@@ -101,8 +99,8 @@ const Carousel = () => {
         >
             <div 
                 id="carousel-test"
-                onMouseLeave={(e) => {
-                    handleMouseLeave(e)
+                onMouseLeave={() => {
+                    handleMouseLeave()
                     setIsCarouselHover(false)
                 }} 
             >
@@ -128,8 +126,8 @@ const Carousel = () => {
                                     <a 
                                         className="company-anchor" 
                                         href={company.anchor}
-                                        onMouseEnter={() => setIsHover(true)}
-                                        onMouseLeave={() => setIsHover(false)}
+                                        onMouseEnter={() => setIsAnchorHover(true)}
+                                        onMouseLeave={() => setIsAnchorHover(false)}
                                     >
                                         here
                                     </a>
@@ -151,7 +149,7 @@ const Carousel = () => {
                 cursorContainer={cursorContainer}
                 cursorOuter={cursorOuter}
                 isMouseDown={isMouseDown}
-                isHover={isHover}
+                isAnchorHover={isAnchorHover}
             />
         </div>
     )
