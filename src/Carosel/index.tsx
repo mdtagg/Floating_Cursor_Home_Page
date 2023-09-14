@@ -3,10 +3,11 @@ import { useState,useRef,useEffect,useCallback } from "react"
 import { getCompanyData } from "./utils/companies"
 import Cursor from "./Cursor"
 
-type TCoords = {
+export type TCoords = {
     x:number,
     y:number,
-    offset:number
+    offset:number,
+    transition:string
 }
 
 const Carousel = () => {
@@ -15,24 +16,20 @@ const Carousel = () => {
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
+    const [ scrollPosition, setScrollPosition ] = useState(0)
 
     const [ cursorCoords,setCursorCoords ] = useState({
         x:0,
         y:0,
-        offset:0
+        offset:0,
+        transition:""
     })
     
     const cursorCoordsRef = useRef(cursorCoords)
-    const setCoordState = (coords:TCoords) => {
-        cursorCoordsRef.current = coords
-        setCursorCoords(coords)
-    } 
-
-    const scrollBar = useRef<HTMLUListElement | null>(null)
-    const cursorContainer = useRef<HTMLDivElement | null>(null)
     const cursorOuter = useRef<HTMLDivElement | null>(null)
     const carouselContainer = useRef<HTMLDivElement | null>(null)
     const carouselStage = useRef<HTMLUListElement | null>(null)
+    const cursorBody = useRef<HTMLDivElement | null>(null)
 
     function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
         
@@ -40,7 +37,7 @@ const Carousel = () => {
         const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
         const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll space left
         const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
-        scrollBar.current!.style.left = `${adjusted}%`
+        setScrollPosition(adjusted)
     }
 
     function handleMouseEnter(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -50,37 +47,49 @@ const Carousel = () => {
 
     function handleMouseLeave() {
         setIsCarouselHover(false)
-        const cursorStyle = cursorOuter.current!.style
-        cursorStyle.transform = `translate(0)`
-        cursorStyle.transition = `transform 1s`
+        const cursorPosition = {
+            x:0,
+            y:0,
+            offset:window.scrollY,
+            transition: "transform 1s"
+        }
+        setCursorCoords(cursorPosition)
+        cursorCoordsRef.current! = cursorPosition
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {      
         const totalPageOffset = carouselContainer.current!.offsetTop + cursorOuter.current!.offsetTop
-        let { clientX,pageY } = e
-        pageY -= totalPageOffset + 80 //adjusting the vertical position by the total offset from the top of the carousel and half the cursor width
-        clientX -= window.innerWidth - 160 //adjusting the horizontal position by half the cursor width
+        // const { top } = cursorBody.current!.getBoundingClientRect() 
         
-        setCoordState({
+        let { clientX,pageY,clientY } = e
+
+        clientX -= window.innerWidth - 160 //adjusting the horizontal position by the cursor width
+        pageY -= totalPageOffset + 80 //adjusting the vertical position by the total offset from the top of the carousel and half the cursor width
+     
+        const cursorPosition = {
             x:clientX,
             y:pageY,
-            offset:window.scrollY
-        })
+            offset:window.scrollY,
+            transition: isMouseDown ? "unset": "transform 0.1s"
+        }
+        setCursorCoords(cursorPosition)
+        cursorCoordsRef.current! = cursorPosition
 
         if(isMouseDown) { 
-            //scrolls the carousel position horizonally with the mouse position
-            carouselStage.current!.scrollLeft = carouselStage.current!.scrollLeft - e.movementX
+            carouselStage.current!.scrollLeft = carouselStage.current!.scrollLeft - e.movementX //scrolls the carousel position horizonally with the mouse position
         }
-
-        cursorOuter.current!.style.transform = `translate(${clientX}px,${pageY}px)`
-        cursorOuter.current!.style.transition = isMouseDown ? "unset": "transform 0.1s"
     }
 
     const handleWindowScroll = useCallback(() => {
         const { x,y,offset } = cursorCoordsRef.current!
         const adjustedY = y - offset
-        cursorOuter.current!.style.transform = `translate(${x}px,${adjustedY + window.scrollY}px)`
-        cursorOuter.current!.style.transition = "transform unset"
+
+        setCursorCoords({
+            ...cursorCoords,
+            x:x,
+            y:adjustedY + window.scrollY
+        })
+
     },[])
 
     useEffect(() => {
@@ -138,16 +147,17 @@ const Carousel = () => {
 
             <div className="progress-bar-container">
                 <span 
-                    ref={scrollBar} 
                     className="progress-bar-thumb" 
+                    style={{"left":`${scrollPosition}%`}}
                 ></span>
             </div>
            
             <Cursor
-                cursorContainer={cursorContainer}
                 cursorOuter={cursorOuter}
                 isMouseDown={isMouseDown}
                 isAnchorHover={isAnchorHover}
+                cursorCoords={cursorCoords}
+                cursorBody={cursorBody}
             />
         </div>
     )

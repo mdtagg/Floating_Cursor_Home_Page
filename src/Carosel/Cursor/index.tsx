@@ -1,27 +1,33 @@
 import { Icon } from '@iconify/react';
 import "./index.css"
+import { TCoords } from '..';
 
 interface TCursor {
-    cursorContainer: React.MutableRefObject<HTMLDivElement | null>
     cursorOuter: React.MutableRefObject<HTMLDivElement | null>
+    cursorBody: React.MutableRefObject<HTMLDivElement | null>
     isMouseDown:boolean
     isAnchorHover:boolean
+    cursorCoords:TCoords
 }
 
 const Cursor = (props:TCursor) => {
 
-    const { cursorContainer,cursorOuter,isMouseDown,isAnchorHover } = props
+    const { cursorOuter,isMouseDown,isAnchorHover,cursorCoords,cursorBody } = props
     const mouseStyle = isMouseDown ? "mouse-down" : "mouse-up"
     const hoverStyle = isAnchorHover ? "hoverStyle" : ""
+    const cursorPosition = {
+        transform:`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
+        transition: cursorCoords.transition
+    }
 
     return (
         <div 
             className="cursor-takeover-container"
-            ref={cursorContainer}
         >
             <div 
                 className="cursor-takeover-outer" 
                 ref={cursorOuter}
+                style={cursorPosition}
             >
                 {isMouseDown && 
                     <Icon 
@@ -31,6 +37,8 @@ const Cursor = (props:TCursor) => {
                 }
                 <div 
                     className={`cursor-takeover-cursor ${mouseStyle} ${hoverStyle}`} 
+                    ref={cursorBody}
+                    style={{"border":"1px solid black"}}
                 >
                     {isMouseDown || isAnchorHover ? "" : "DRAG"}
                 </div>
