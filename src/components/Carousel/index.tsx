@@ -1,11 +1,8 @@
 import "./index.css"
 import { useState,useRef,useEffect,useCallback } from "react"
-// import Cursor from "./Cursor"
-// import { Cursor } from "../libs/index"
 import { TCarouselContent } from "../CarouselContent"
 import { TProgressBar } from "../ProgressBar"
 import { TCursor } from "../Cursor"
-// import ProgressBar from "./ProgressBar"
 
 interface TCarousel {
     CaroselContent?: (props:TCarouselContent) => JSX.Element 

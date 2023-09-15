@@ -1,0 +1,10 @@
+.cursor-takeover-cursor {
+    position:absolute;
+    height:120px;
+    width:120px;
+    background:#efbfbf;
+    border-radius:100%;
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}

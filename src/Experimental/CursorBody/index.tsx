@@ -2,7 +2,12 @@
 
 const CursorBody = () => {
     return (
-        <div></div>
+        <div 
+            className={`cursor-takeover-cursor`} 
+            style={{"backgroundColor":`pink`,"height":"150px","width":"150px"}}
+        >
+            DRAG
+        </div>
     )
 }
 
