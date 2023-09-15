@@ -1,3 +1,5 @@
 import CaroselContent from "../Carosel/CaroselContent"; 
+import ProgressBar from "../Carosel/ProgressBar";
+import Cursor from "../Carosel/Cursor";
 
-export default CaroselContent
+export { CaroselContent, ProgressBar,Cursor }

@@ -1,23 +1,29 @@
 import "./index.css"
 import { useState,useRef,useEffect,useCallback } from "react"
-import Cursor from "./Cursor"
+// import Cursor from "./Cursor"
+// import { Cursor } from "../libs/index"
 import { TCarouselContent } from "./CaroselContent"
-// import CaroselContent from "./CaroselContent"
+import { TProgressBar } from "./ProgressBar"
+import { TCursor } from "./Cursor"
+// import ProgressBar from "./ProgressBar"
 
 interface TCarousel {
     CaroselContent?: (props:TCarouselContent) => JSX.Element 
+    ProgressBar?:(props:TProgressBar) => JSX.Element
+    Cursor?:(props:TCursor) =>  JSX.Element
+    color?:string | undefined
 }
 
 export type TCoords = {
     x:number,
     y:number,
     offset:number,
-    transition:string
+    transition:string 
 }
 
 const Carousel = (props:TCarousel) => {
 
-    const { CaroselContent } = props
+    const { CaroselContent,ProgressBar,Cursor,color } = props
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
@@ -111,20 +117,20 @@ const Carousel = (props:TCarousel) => {
                 carouselStage={carouselStage}
             />
             }
-
-            <div className="progress-bar-container">
-                <span 
-                    className="progress-bar-thumb" 
-                    style={{"left":`${scrollPosition}%`}}
-                ></span>
-            </div>
-           
+            {ProgressBar &&
+            <ProgressBar
+                scrollPosition={scrollPosition}
+            />
+            }
+            {Cursor &&
             <Cursor
                 cursorOuter={cursorOuter}
                 isMouseDown={isMouseDown}
                 isAnchorHover={isAnchorHover}
                 cursorCoords={cursorCoords}
+                color={color}
             />
+}
         </div>
     )
 }

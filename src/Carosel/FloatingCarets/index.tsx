@@ -5,7 +5,7 @@ import "./index.css"
 
 const FloatingCarets = (props:TCursorStyles) => {
 
-    const { isMouseDown,isAnchorHover } = props
+    const { isMouseDown,isAnchorHover,color } = props
 
     return (
         <>
@@ -17,6 +17,7 @@ const FloatingCarets = (props:TCursorStyles) => {
             <CursorBody
                 isMouseDown={isMouseDown}
                 isAnchorHover={isAnchorHover}
+                color={color}
             />
             <Icon 
                 icon="bx:caret-right" 

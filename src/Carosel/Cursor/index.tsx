@@ -6,18 +6,20 @@ import FloatingCarets from '../FloatingCarets';
 export interface TCursorStyles {
     isMouseDown:boolean 
     isAnchorHover:boolean
+    color:string | undefined
 }
 
-interface TCursor {
+export interface TCursor {
     cursorOuter: React.MutableRefObject<HTMLDivElement | null>
     isMouseDown:boolean
     isAnchorHover:boolean
     cursorCoords:TCoords
+    color:string | undefined
 }
 
 const Cursor = (props:TCursor) => {
 
-    const { cursorOuter,isMouseDown,isAnchorHover,cursorCoords } = props
+    const { cursorOuter,isMouseDown,isAnchorHover,cursorCoords,color } = props
     const cursorPosition = {
         transform:`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
         transition: cursorCoords.transition
@@ -36,10 +38,12 @@ const Cursor = (props:TCursor) => {
                     <FloatingCarets
                         isMouseDown={isMouseDown} 
                         isAnchorHover={isAnchorHover}
+                        color={color}
                     /> :
                     <CursorBody
                         isMouseDown={isMouseDown} 
                         isAnchorHover={isAnchorHover}
+                        color={color}
                     />
                 }
             </div>
