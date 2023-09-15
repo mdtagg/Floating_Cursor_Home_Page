@@ -1,5 +1,5 @@
 
-import Carosel from './Carosel'
+import Carousel from './components/Carousel'
 import { CaroselContent } from './libs'
 import { ProgressBar } from './libs'
 import { Cursor } from './libs'
@@ -11,14 +11,14 @@ function App() {
       <main id="main">
         
         <div className="bg"></div>
-        <Carosel
+        <Carousel
           CaroselContent={() => <div className="landing"></div>}
           Cursor={Cursor}
           color="white"
         />
         
         <h2 className="title">FEATURED ENGAGEMENTS</h2>
-        <Carosel
+        <Carousel
           CaroselContent={CaroselContent}
           ProgressBar={ProgressBar}
           Cursor={Cursor}

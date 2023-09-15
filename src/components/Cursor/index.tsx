@@ -1,5 +1,5 @@
 import "./index.css"
-import { TCoords } from '..';
+import { TCoords } from '../Carousel';
 import CursorBody from '../CursorBody';
 import FloatingCarets from '../FloatingCarets';
 

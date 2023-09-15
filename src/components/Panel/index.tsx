@@ -1,4 +1,4 @@
-import { TCompanyData } from "../utils/companies"
+import { TCompanyData } from "../Carousel/utils/companies"
 import "./index.css"
 
 interface TPanel {

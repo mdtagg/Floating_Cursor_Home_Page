@@ -1,4 +1,4 @@
-import { getCompanyData } from "../utils/companies"
+import { getCompanyData } from "../Carousel/utils/companies"
 import Panel from "../Panel"
 
 export interface TCarouselContent {
