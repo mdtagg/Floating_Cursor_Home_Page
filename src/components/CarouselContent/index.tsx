@@ -7,7 +7,7 @@ export interface TCarouselContent {
     carouselStage: React.MutableRefObject<HTMLUListElement | null>
 }
 
-const CaroselContent = (props:TCarouselContent) => {
+const CarouselContent = (props:TCarouselContent) => {
 
     const { setScrollPosition,carouselStage,setIsAnchorHover } = props
     const Companies = getCompanyData()
@@ -39,4 +39,4 @@ const CaroselContent = (props:TCarouselContent) => {
     )
 }
 
-export default CaroselContent
+export default CarouselContent

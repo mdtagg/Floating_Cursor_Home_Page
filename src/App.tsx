@@ -1,6 +1,6 @@
 
 import Carousel from './components/Carousel'
-import { CaroselContent } from './libs'
+import { CarouselContent } from './libs'
 import { ProgressBar } from './libs'
 import { Cursor } from './libs'
 
@@ -19,7 +19,7 @@ function App() {
         
         <h2 className="title">FEATURED ENGAGEMENTS</h2>
         <Carousel
-          CaroselContent={CaroselContent}
+          CaroselContent={CarouselContent}
           ProgressBar={ProgressBar}
           Cursor={Cursor}
         />

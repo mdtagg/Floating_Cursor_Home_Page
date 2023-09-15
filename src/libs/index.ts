@@ -1,5 +1,5 @@
-import CaroselContent from "../components/CarouselContent";
+import CarouselContent from "../components/CarouselContent";
 import ProgressBar from "../components/ProgressBar";
 import Cursor from "../components/Cursor";
 
-export { CaroselContent, ProgressBar,Cursor }
+export { CarouselContent, ProgressBar,Cursor }
