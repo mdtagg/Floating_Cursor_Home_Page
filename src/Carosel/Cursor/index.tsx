@@ -25,7 +25,7 @@ const Cursor = (props:TCursor) => {
 
     return (
         <div 
-            className="cursor-takeover-container"
+            className="cursor-takeover-container right-floating"
         >
             <div 
                 className="cursor-takeover-outer" 

@@ -1,17 +1,16 @@
 
-#carousel-container {
+.carousel-container {
     position:relative;
     overflow:hidden;
 }
 
-#carousel-container:hover {
+.carousel-container:hover {
     cursor:none;
 }
 
 #carousel-stage {
     display:flex;
     overflow-x:scroll;
-    /* padding:var(--main-padding); */
     padding:4rem 6rem;
     gap:8rem;
     user-select: none;

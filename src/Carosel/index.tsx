@@ -1,8 +1,12 @@
 import "./index.css"
 import { useState,useRef,useEffect,useCallback } from "react"
-import { getCompanyData } from "./utils/companies"
 import Cursor from "./Cursor"
-import Panel from "./Panel"
+import { TCarouselContent } from "./CaroselContent"
+// import CaroselContent from "./CaroselContent"
+
+interface TCarousel {
+    CaroselContent?: (props:TCarouselContent) => JSX.Element 
+}
 
 export type TCoords = {
     x:number,
@@ -11,9 +15,10 @@ export type TCoords = {
     transition:string
 }
 
-const Carousel = () => {
+const Carousel = (props:TCarousel) => {
 
-    const Companies = getCompanyData()
+    const { CaroselContent } = props
+
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
@@ -30,14 +35,6 @@ const Carousel = () => {
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to grab offset from document
     const carouselContainer = useRef<HTMLDivElement | null>(null) //used to grab offset from container
     const carouselStage = useRef<HTMLUListElement | null>(null) //used to apply scroll position to progress bar element
-
-    function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
-        const target = e.target as HTMLUListElement
-        const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
-        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll space left
-        const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
-        setScrollPosition(adjusted)
-    }
 
     function handleMouseEnter(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         setIsCarouselHover(true)
@@ -99,7 +96,7 @@ const Carousel = () => {
 
     return (
         <div 
-            id="carousel-container"
+            className="carousel-container"
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={() => setIsMouseDown(false)}
@@ -107,21 +104,13 @@ const Carousel = () => {
             onMouseLeave={handleMouseLeave}
             ref={carouselContainer}
         >
-            <ul 
-                id="carousel-stage"
-                onScroll={(e) => handleScroll(e)}
-                ref={carouselStage}
-                draggable={false}
-            >
-            {Companies.map(company => {
-                return (
-                    <Panel
-                        company={company}
-                        setIsAnchorHover={setIsAnchorHover}
-                    />
-                )
-            })}
-            </ul>
+            {CaroselContent &&
+            <CaroselContent
+                setIsAnchorHover={setIsAnchorHover}
+                setScrollPosition={setScrollPosition}
+                carouselStage={carouselStage}
+            />
+            }
 
             <div className="progress-bar-container">
                 <span 
