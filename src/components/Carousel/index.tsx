@@ -27,7 +27,7 @@ const Carousel = (props:TCarousel) => {
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
     const [ scrollPosition, setScrollPosition ] = useState(0)
 
-    const [ cursorCoords,setCursorCoords ] = useState({
+    const [ cursorCoords, setCursorCoords ] = useState({
         x:0,
         y:0,
         offset:0,

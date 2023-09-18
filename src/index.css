@@ -26,6 +26,7 @@ ul {
   animation: bg-animation .2s infinite;
   opacity: .9;
   visibility: visible;
+  pointer-events: none;
 }
 
 @keyframes bg-animation {
@@ -52,3 +53,6 @@ ul {
   margin-left:6rem;
 }
 
+.cursor-wrapper {
+  margin-top:4rem;
+}

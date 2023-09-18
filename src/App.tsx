@@ -3,6 +3,7 @@ import Carousel from './components/Carousel'
 import { CarouselContent } from './libs'
 import { ProgressBar } from './libs'
 import { Cursor } from './libs'
+import CursorWrapper from './Experimental/CursorWrapper'
 
 function App() {
 
@@ -23,7 +24,9 @@ function App() {
           ProgressBar={ProgressBar}
           Cursor={Cursor}
         />
-        {/* <CursorWrapper/> */}
+        <CursorWrapper
+          className="cursor-wrapper"
+        />
 
       </main>
       <div style={{"height":"500px"}}></div>
