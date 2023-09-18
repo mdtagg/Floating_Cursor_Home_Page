@@ -97,7 +97,7 @@ const CursorBody = ({cursorEvent}:TCursorBody) => {
 return (
     <div style={{
         "height":"100%",
-        "width":`100%`,
+        "width":`${document.documentElement.clientWidth}px`,
         "border":"1px solid black",
         "pointerEvents":"none",
         "display":"flex",
