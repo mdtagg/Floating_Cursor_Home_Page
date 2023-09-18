@@ -25,7 +25,7 @@ function App() {
           Cursor={Cursor}
         />
         <CursorWrapper
-          className="cursor-wrapper"
+          
         />
 
       </main>

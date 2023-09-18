@@ -43,9 +43,9 @@ const CursorWrapper = () => {
     function handleMouseMove(cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent>) {      
         // const totalPageOffset = carouselContainer.current!.offsetTop + cursorOuter.current!.offsetTop
         const target = cursorEvent.target as HTMLElement
-        const cursorTarget = cursorEvent.target
         console.log(cursorEvent)
-        const elementOffset = findOffset(target)
+        // const elementOffset = findOffset(target)
+        // console.log(elementOffset)
 
         let { clientX,pageY } = cursorEvent
         // pageY -= elementOffset - 
@@ -91,16 +91,26 @@ const CursorWrapper = () => {
     },[cursorEvent])
 
     return (
-        
-        <div style={{
-            "display":"flex",
-            }}>
+        <>
+            {/* <div style={{
+                // "display":"flex",
+                // "marginTop":"8rem",
+                "backgroundColor":"red",
+                "position":"absolute",
+                "border":"1px solid green"
+                }}>
+                
+                <CursorBody
+
+                />
+            </div> */}
             <Content 
                 setCursorEvent={setCursorEvent} 
                 cursorCoords={cursorCoords}
                 cursorOuter={cursorOuter}
+                // setCursorCoords={setCursorCoords}
             />
-        </div>
+    </>
         
     )
 }

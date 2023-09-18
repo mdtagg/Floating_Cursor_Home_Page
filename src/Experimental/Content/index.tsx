@@ -1,6 +1,7 @@
-import { forwardRef,useEffect,useRef } from 'react'
+import { forwardRef,useEffect,useRef,useState } from 'react'
 import CursorBody from '../CursorBody'
 import { TCoords } from '../../components/Carousel'
+import "./index.css"
 
 type TCursor = {
     setCursorEvent:React.Dispatch<React.SetStateAction<React.MouseEvent<HTMLDivElement, MouseEvent> | null>>
@@ -8,26 +9,26 @@ type TCursor = {
 }
 
     
-const Content = ({setCursorEvent,cursorCoords,cursorOuter}:TCursor) => {
+const Content = (props:TCursor) => {
+
+    const { cursorCoords,cursorOuter,setCursorCoords } = props
+    const [ cursorEvent,setCursorEvent ] = useState<null | React.MouseEvent<HTMLDivElement, MouseEvent>>(null)
 
     return (
         <div 
-            style={{
-                "height":"500px",
-                "border":"1px solid black",
-                "width":"100vw"
-            }} 
+            className="content-test"
             onMouseMove={(e) => setCursorEvent(e)}
         >
             <CursorBody
-                cursorCoords={cursorCoords}
-                cursorOuter={cursorOuter}
+                cursorEvent={cursorEvent}
             />
         </div>
         )
 }
 
 export default Content
+
+//
 
 // interface TContent {
     //     setRefState: React.Dispatch<React.SetStateAction<React.SyntheticEvent<Element, Event> | null>>
