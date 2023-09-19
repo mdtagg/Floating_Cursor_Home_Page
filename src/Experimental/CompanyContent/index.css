@@ -1,0 +1,25 @@
+.company-list {
+    display:flex;
+    border:1px solid black;
+    overflow-x:scroll;
+    gap:8rem;
+    background-color: blue;
+    font-size:1.25rem;
+    padding:4rem;
+    user-select: none;
+
+}
+
+.company-list::-webkit-scrollbar {
+    height:0;
+    width:0;
+}
+
+.carousel-panel {
+    display:flex;
+    flex-direction: column;
+    font-size:1.5rem;
+    flex-shrink:0;
+    width:300px;
+    pointer-events: none;
+}

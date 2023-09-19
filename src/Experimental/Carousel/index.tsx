@@ -1,39 +1,43 @@
 import "./index.css"
+import { useState } from "react"
+import { FloatingCursor } from "../FloatingCursor"
+import { CompanyContent } from "../CompanyContent"
 
-const Carousel = (props) => {
+const Carousel = () => {
 
-    function handleScroll(e:React.UIEvent<HTMLUListElement, UIEvent>) {
+    const [ cursorEvent,setCursorEvent ] = useState<null | React.MouseEvent<HTMLDivElement, MouseEvent>>(null)
+    const [ scrollPosition, setScrollPosition ] = useState(0)
+    
+
+    function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
         const target = e.target as HTMLUListElement
         const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
-        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll space left
+        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll 
         const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
-        // setScrollPosition(adjusted)
+        setScrollPosition(adjusted)
     }
-
-    return (
-        <>
-        <ul 
+        return (
+        <div 
             id="carousel-stage"
             onScroll={(e) => handleScroll(e)}
-            // ref={carouselStage}
             draggable={false}
+            onMouseMove={(e) => setCursorEvent(e)}
+            onMouseLeave={(e) => setCursorEvent(e)}
         >
-            {Companies.map(company => {
-                return (
-                    <Panel
-                        company={company}
-                        setIsAnchorHover={setIsAnchorHover}
-                    />
-                )
-            })}
-        </ul>
-        <div className="progress-bar-container">
-        <span 
-            className="progress-bar-thumb" 
-            style={{"left":`${scrollPosition}%`}}
-        ></span>
-    </div>
-    </>
+            <CompanyContent
+                cursorEvent={cursorEvent}
+            />
+
+            {/* <div className="progress-bar-container">
+                <span 
+                    className="progress-bar-thumb" 
+                    style={{"left":`${scrollPosition}%`}}
+                ></span>
+            </div> */}
+            {/* <FloatingCursor
+                cursorEvent={cursorEvent}
+            /> */}
+        </div>
     )
 }
 

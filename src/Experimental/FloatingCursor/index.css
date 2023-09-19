@@ -1,9 +1,11 @@
 #cursor-takeover-container {
+    /* position:relative; */
     height:100%;
     pointer-events:none;
     display:flex;
     justify-content:flex-end;
     align-items:center;
+    /* border:5px solid black */
 }
 
 #cursor-takeover-outer {
@@ -14,6 +16,7 @@
     justify-content: center;
     position:absolute;
     margin-right:4rem;
+    border:1px solid black;
 }
 
 #cursor-takeover-body {

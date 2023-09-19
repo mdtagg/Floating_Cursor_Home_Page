@@ -10,7 +10,7 @@ const FloatingCursor = ({cursorEvent}:TCursorBody) => {
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
-    const [ scrollPosition, setScrollPosition ] = useState(0)
+    // const [ scrollPosition, setScrollPosition ] = useState(0)
 
     const [ cursorCoords, setCursorCoords ] = useState({
         x:0,
@@ -100,7 +100,8 @@ const FloatingCursor = ({cursorEvent}:TCursorBody) => {
 return (
     <div 
         id="cursor-takeover-container"
-        style={{"width":`${document.documentElement.clientWidth}px`}}>
+        style={{"width":`${document.documentElement.clientWidth}px`}}
+    >
 
         <div 
             id="cursor-takeover-outer"

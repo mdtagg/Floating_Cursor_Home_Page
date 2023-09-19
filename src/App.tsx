@@ -1,10 +1,11 @@
 
 // import Carousel from './components/Carousel'
-import { CarouselContent } from './libs'
-import { ProgressBar } from './libs'
-import { Cursor } from './libs'
+// import { CarouselContent } from './libs'
+// import { ProgressBar } from './libs'
+// import { Cursor } from './libs'
+// import { Carousel } from './Experimental/Carousel'
+// import Content from './Experimental/Content'
 import { Carousel } from './Experimental/Carousel'
-import Content from './Experimental/Content'
 // import CursorWrapper from './Experimental/CursorWrapper'
 
 function App() {
@@ -26,10 +27,11 @@ function App() {
           ProgressBar={ProgressBar}
           Cursor={Cursor}
         /> */}
-        <Content/>
+        {/* <Content/> */}
+        <Carousel/>
 
       </main>
-      <div style={{"height":"500px"}}></div>
+      {/* <div style={{"height":"500px"}}></div> */}
     </>
   )
 }
