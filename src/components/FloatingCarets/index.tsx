@@ -1,5 +1,5 @@
 import { Icon } from '@iconify/react';
-import CursorBody from '../CursorBody';
+import CursorBody from '../FloatingCursor';
 import { TCursorStyles } from '../Cursor';
 import "./index.css"
 

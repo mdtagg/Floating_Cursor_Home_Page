@@ -1,6 +1,6 @@
 import "./index.css"
 import { TCoords } from '../Carousel';
-import CursorBody from '../CursorBody';
+import CursorBody from '../FloatingCursor';
 import FloatingCarets from '../FloatingCarets';
 
 export interface TCursorStyles {
