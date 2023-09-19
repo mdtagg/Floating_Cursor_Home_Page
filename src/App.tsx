@@ -1,8 +1,9 @@
 
-import Carousel from './components/Carousel'
+// import Carousel from './components/Carousel'
 import { CarouselContent } from './libs'
 import { ProgressBar } from './libs'
 import { Cursor } from './libs'
+import { Carousel } from './Experimental/Carousel'
 import Content from './Experimental/Content'
 // import CursorWrapper from './Experimental/CursorWrapper'
 
@@ -13,7 +14,7 @@ function App() {
       <main id="main">
         
         <div className="bg"></div>
-        <Carousel
+        {/* <Carousel
           CaroselContent={() => <div className="landing"></div>}
           Cursor={Cursor}
           color="white"
@@ -24,11 +25,8 @@ function App() {
           CaroselContent={CarouselContent}
           ProgressBar={ProgressBar}
           Cursor={Cursor}
-        />
-        <Content/>
-        {/* <CursorWrapper
-          
         /> */}
+        <Content/>
 
       </main>
       <div style={{"height":"500px"}}></div>

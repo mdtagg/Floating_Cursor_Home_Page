@@ -113,11 +113,6 @@ return (
 
             <div 
                 id="cursor-takeover-body"
-                // style={{
-                //     "backgroundColor":`pink`,
-                //     "height":"120px",
-                //     "width":"120px",
-                // }}
             >
                 DRAG
             </div>
