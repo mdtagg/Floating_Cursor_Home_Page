@@ -1,5 +1,5 @@
 import { useState } from 'react'
-import { FloatingCursor } from '../CursorBody'
+import { FloatingCursor } from '../FloatingCursor'
 import "./index.css"
 
     

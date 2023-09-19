@@ -1,4 +1,5 @@
 import { useRef,useEffect,useState,useCallback } from 'react'
+import './index.css'
 
 type TCursorBody = {
     cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent> | null
@@ -97,41 +98,26 @@ const FloatingCursor = ({cursorEvent}:TCursorBody) => {
     },[isCarouselHover])
 
 return (
-    <div style={{
-        "height":"100%",
-        "width":`${document.documentElement.clientWidth}px`,
-        "pointerEvents":"none",
-        "display":"flex",
-        "justifyContent":"flex-end",
-        "alignItems":"center",
-    }}>
+    <div 
+        id="cursor-takeover-container"
+        style={{"width":`${document.documentElement.clientWidth}px`}}>
 
-    
         <div 
+            id="cursor-takeover-outer"
             ref={cursorOuter}
             style={{
-                "height":"160px",
-                "width":"160px",
-                "border":"1px solid black",
-                "display":"flex",
-                "alignItems":"center",
-                "justifyContent":"center",
-                "position":"absolute",
-                "marginRight":"4rem",
                 "transform":`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
                 "transition": `${cursorCoords.transition}`
             }}
-            id="cursor-outer"
         >
 
             <div 
-                className={`cursor-takeover-cursor`} 
-                style={{
-                    "backgroundColor":`pink`,
-                    "height":"120px",
-                    "width":"120px",
-                    // "transform":`translate(${cursorCoords.x}px,${cursorCoords.y}px)`
-                }}
+                id="cursor-takeover-body"
+                // style={{
+                //     "backgroundColor":`pink`,
+                //     "height":"120px",
+                //     "width":"120px",
+                // }}
             >
                 DRAG
             </div>
