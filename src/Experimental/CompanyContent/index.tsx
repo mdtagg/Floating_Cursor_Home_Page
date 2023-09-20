@@ -1,16 +1,53 @@
 import { getCompanyData } from "../../components/Carousel/utils/companies"
 import './index.css'
+import { useRef,useEffect } from "react"
 
-const CompanyContent = () => {
+interface CompanyContent {
+    setScrollPosition:React.Dispatch<React.SetStateAction<{
+        scroll: number;
+        width: number;
+    }>>
+}
+
+const CompanyContent = (props:CompanyContent) => {
 
     const companyData = getCompanyData()
+    const { setScrollPosition } = props
+    const listRef = useRef<HTMLUListElement | null>(null)
+
+    function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
+        const target = e.target as HTMLUListElement
+        // console.log(window.innerWidth,target.clientWidth)
+        let scrollBarWidth = (window.innerWidth / target.scrollWidth) * 100
+        const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
+        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll 
+        const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
+        console.log({adjusted})
+        setScrollPosition((prev) => {
+            return {
+                scroll:prev.scroll,
+                width: scrollBarWidth
+            }
+        })
+    }
+
+    useEffect(() => {
+        console.log(listRef.current.scrollWidth)
+        setScrollPosition((prev) => {
+            return {
+                scroll:prev.scroll,
+                width: (window.innerWidth / listRef.current.scrollWidth) * 100
+            }
+        })
+    },[])
   
     return (
         <>
         <ul 
-            // onScroll={(e) => handleScroll(e)}
-            // draggable={false}
+            onScroll={(e) => handleScroll(e)}
+            draggable={false}
             className="company-list"
+            ref={listRef}
         >
         {companyData.map(company => {
             return (

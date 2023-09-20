@@ -14,16 +14,14 @@
 }
 
 .progress-bar-container {
-    margin-left:4rem;
-    margin-right:4rem;
+    margin:0 4rem;
     height:3px;
     background-color: lightgray;
     pointer-events: none;
 }
 
 .progress-bar-thumb {
-    margin-left:4rem;
-    margin-right:4rem;
+    margin:0 4rem;
     width:60%;
     background-color: black;
     position:absolute;

@@ -9,15 +9,12 @@ export type CarouselProps = {
 const Carousel = (props:CarouselProps) => {
 
     const { setCursorEvent } = props
-    const [ scrollPosition, setScrollPosition ] = useState(0)
+    const [ scrollPosition, setScrollPosition ] = useState({
+        scroll:0,
+        width:0
+    })
 
-    function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
-        const target = e.target as HTMLUListElement
-        const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
-        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll 
-        const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
-        setScrollPosition(adjusted)
-    }
+    console.log({scrollPosition})
 
     function handleEvent(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         if(setCursorEvent) {
@@ -31,12 +28,13 @@ const Carousel = (props:CarouselProps) => {
         >
             <div 
                 id="carousel-stage"
-                onScroll={(e) => handleScroll(e)}
                 draggable={false}
                 onMouseMove={(e) => handleEvent(e)}
                 onMouseLeave={(e) => handleEvent(e)}
             >
-                <CompanyContent/>
+                <CompanyContent
+                    setScrollPosition={setScrollPosition}
+                />
             </div>
 
             <div 
@@ -44,7 +42,10 @@ const Carousel = (props:CarouselProps) => {
             >
                 <span 
                     className="progress-bar-thumb" 
-                    style={{"left":`${scrollPosition}%`}}
+                    style={{
+                        "width":`${scrollPosition.width}%`,
+                        "left":`${scrollPosition.scroll}%`
+                    }}
                 ></span>
             </div>
         </div>
