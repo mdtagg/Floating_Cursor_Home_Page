@@ -1,13 +1,12 @@
 import "./index.css"
 import { useState } from "react"
-// import { FloatingCursor } from "../FloatingCursor"
 import { CompanyContent } from "../CompanyContent"
 
-type Carousel = {
+export type CarouselProps = {
     setCursorEvent?:React.Dispatch<React.SetStateAction<React.MouseEvent<HTMLDivElement, MouseEvent> | null>>
 }
 
-const Carousel = (props:Carousel) => {
+const Carousel = (props:CarouselProps) => {
 
     const { setCursorEvent } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
@@ -28,20 +27,26 @@ const Carousel = (props:Carousel) => {
 
     return (
         <div 
-            id="carousel-stage"
-            onScroll={(e) => handleScroll(e)}
-            draggable={false}
-            onMouseMove={(e) => handleEvent(e)}
-            onMouseLeave={(e) => handleEvent(e)}
+            id="carousel-container"
         >
-            <CompanyContent/>
+            <div 
+                id="carousel-stage"
+                onScroll={(e) => handleScroll(e)}
+                draggable={false}
+                onMouseMove={(e) => handleEvent(e)}
+                onMouseLeave={(e) => handleEvent(e)}
+            >
+                <CompanyContent/>
+            </div>
 
-            {/* <div className="progress-bar-container">
+            <div 
+                className="progress-bar-container"
+            >
                 <span 
                     className="progress-bar-thumb" 
                     style={{"left":`${scrollPosition}%`}}
                 ></span>
-            </div> */}
+            </div>
         </div>
     )
 }

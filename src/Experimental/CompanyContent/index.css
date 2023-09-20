@@ -1,9 +1,7 @@
 .company-list {
     display:flex;
-    border:1px solid black;
     overflow-x:scroll;
     gap:8rem;
-    background-color: blue;
     font-size:1.25rem;
     padding:4rem;
     user-select: none;

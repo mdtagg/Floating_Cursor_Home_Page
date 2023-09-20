@@ -1,24 +1,29 @@
+#carousel-container {
+    overflow-x:scroll;
+}
+
 #carousel-stage {
     display:flex;
-    overflow-x:scroll;
     gap:8rem;
     user-select: none;
 }
 
-#carousel-stage::-webkit-scrollbar {
+#carousel-container::-webkit-scrollbar {
     height:0;
     width:0;
 }
 
 .progress-bar-container {
-    position:absolute;
+    margin-left:4rem;
+    margin-right:4rem;
     height:3px;
     background-color: lightgray;
-    margin:var(--main-padding);
     pointer-events: none;
 }
 
 .progress-bar-thumb {
+    margin-left:4rem;
+    margin-right:4rem;
     width:60%;
     background-color: black;
     position:absolute;

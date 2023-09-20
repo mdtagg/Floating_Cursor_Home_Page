@@ -1,10 +1,11 @@
 import { useRef,useEffect,useState,useCallback } from 'react'
 import './index.css'
+import { CarouselProps } from '../Carousel'
 
 type TCursorWrapper = {
     
     // children:JSX.Element
-    Content:() => JSX.Element
+    Content:(props:CarouselProps) => JSX.Element
 }
 
 const CursorWrapper = (props:TCursorWrapper) => {
@@ -12,8 +13,6 @@ const CursorWrapper = (props:TCursorWrapper) => {
     const { Content } = props
 
     const [ cursorEvent, setCursorEvent ] = useState<React.MouseEvent<HTMLDivElement, MouseEvent> | null>(null)
-    // console.log({cursorEvent})
-    // const cursorEvent = useRef<React.MouseEvent<HTMLDivElement, MouseEvent> | null>(null)
     // const [ isMouseDown, setIsMouseDown ] = useState(false)
     // const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
@@ -25,7 +24,6 @@ const CursorWrapper = (props:TCursorWrapper) => {
         offset:0,
         transition:""
     })
-    console.log({cursorCoords})
     const cursorCoordsRef = useRef(cursorCoords) //used to pass cursor information to the scroll handler on window
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to grab offset from document
 

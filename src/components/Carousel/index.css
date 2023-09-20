@@ -21,7 +21,7 @@
     width:0;
 }
 
-.progress-bar-container {
+/* .progress-bar-container {
     position:relative;
     height:3px;
     background-color: lightgray;
@@ -36,4 +36,4 @@
     z-index:1;
     height:3px;
     pointer-events: none;
-} 
+}  */

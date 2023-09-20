@@ -1,5 +1,4 @@
 import { getCompanyData } from "../../components/Carousel/utils/companies"
-import { FloatingCursor } from "../FloatingCursor"
 import './index.css'
 
 const CompanyContent = () => {
