@@ -14,18 +14,24 @@
 }
 
 .progress-bar-container {
-    margin:0 4rem;
+    padding:0 4rem;
     height:3px;
-    background-color: lightgray;
+    display:flex;
     pointer-events: none;
 }
 
-.progress-bar-thumb {
-    margin:0 4rem;
+.progress-bar-track {
+    width:100%;
+    background-color: lightgray;
+    position:relative;
+}
+
+.progress-bar-slider {
+    height:100%;
     width:60%;
     background-color: black;
     position:absolute;
     z-index:1;
-    height:3px;
+    display:inline;
     pointer-events: none;
 } 

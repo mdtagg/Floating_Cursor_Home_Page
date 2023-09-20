@@ -3,10 +3,11 @@ import './index.css'
 import { useRef,useEffect } from "react"
 
 interface CompanyContent {
-    setScrollPosition:React.Dispatch<React.SetStateAction<{
-        scroll: number;
-        width: number;
-    }>>
+    // setScrollPosition:React.Dispatch<React.SetStateAction<{
+    //     scroll: number;
+    //     width: number;
+    // }>>
+    setScrollPosition:React.Dispatch<React.SetStateAction<number>>
 }
 
 const CompanyContent = (props:CompanyContent) => {
@@ -17,29 +18,22 @@ const CompanyContent = (props:CompanyContent) => {
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
         const target = e.target as HTMLUListElement
-        // console.log(window.innerWidth,target.clientWidth)
-        let scrollBarWidth = (window.innerWidth / target.scrollWidth) * 100
         const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
         const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll 
         const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
-        console.log({adjusted})
-        setScrollPosition((prev) => {
-            return {
-                scroll:prev.scroll,
-                width: scrollBarWidth
-            }
-        })
+        console.log({maxScroll,scrollPosition,adjusted})
+        // console.log({adjusted})
+        setScrollPosition(adjusted)
     }
 
-    useEffect(() => {
-        console.log(listRef.current.scrollWidth)
-        setScrollPosition((prev) => {
-            return {
-                scroll:prev.scroll,
-                width: (window.innerWidth / listRef.current.scrollWidth) * 100
-            }
-        })
-    },[])
+    // useEffect(() => {
+    //     setScrollPosition((prev) => {
+    //         return {
+    //             scroll:prev.scroll,
+    //             width: (window.innerWidth / listRef.current.scrollWidth) * 100
+    //         }
+    //     })
+    // },[])
   
     return (
         <>
@@ -75,11 +69,7 @@ const CompanyContent = (props:CompanyContent) => {
             </div>
             )
         })}
-        {/* <FloatingCursor
-            cursorEvent={cursorEvent}
-        /> */}
         </ul> 
-        
     </>
     )
 }

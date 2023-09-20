@@ -9,12 +9,7 @@ export type CarouselProps = {
 const Carousel = (props:CarouselProps) => {
 
     const { setCursorEvent } = props
-    const [ scrollPosition, setScrollPosition ] = useState({
-        scroll:0,
-        width:0
-    })
-
-    console.log({scrollPosition})
+    const [ scrollPosition, setScrollPosition ] = useState(0)
 
     function handleEvent(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         if(setCursorEvent) {
@@ -36,17 +31,17 @@ const Carousel = (props:CarouselProps) => {
                     setScrollPosition={setScrollPosition}
                 />
             </div>
-
-            <div 
-                className="progress-bar-container"
-            >
-                <span 
-                    className="progress-bar-thumb" 
-                    style={{
-                        "width":`${scrollPosition.width}%`,
-                        "left":`${scrollPosition.scroll}%`
-                    }}
-                ></span>
+            <div className="progress-bar-container">
+                <div 
+                    className="progress-bar-track"
+                >
+                    <span 
+                        className="progress-bar-slider" 
+                        style={{
+                            "left":`${scrollPosition}%`
+                        }}
+                    ></span>
+                </div>
             </div>
         </div>
     )
