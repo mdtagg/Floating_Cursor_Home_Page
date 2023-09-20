@@ -3,8 +3,6 @@ import './index.css'
 import { CarouselProps } from '../Carousel'
 
 type TCursorWrapper = {
-    
-    // children:JSX.Element
     Content:(props:CarouselProps) => JSX.Element
 }
 

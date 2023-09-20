@@ -43,11 +43,11 @@ ul {
     100% { transform: translate(5%,0) }
 }
 
-.landing {
+/* .landing {
   height:100vh;
   background-image:url("./assets/pexels-eberhard-grossgasteiger-673018.jpg");
   background-size:cover;
-}
+} */
 
 .title {
   margin-left:6rem;

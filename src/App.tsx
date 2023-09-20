@@ -1,7 +1,7 @@
-
-
+import { Landing } from './Experimental/Landing'
 import { Carousel } from './Experimental/Carousel'
 import { CursorWrapper } from './Experimental/CursorWrapper'
+import './index.css'
 
 function App() {
 
@@ -10,6 +10,10 @@ function App() {
       <main id="main">
         
         <div className="bg"></div>
+        {/* <div className="landing"></div> */}
+        <CursorWrapper
+          Content={Landing}
+        />
         <CursorWrapper
           Content={Carousel}
         />
