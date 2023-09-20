@@ -10,6 +10,7 @@ const Carousel = (props:CarouselProps) => {
 
     const { setCursorEvent } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
+    const [ scrollWidth,setScrollWidth ] = useState(0)
 
     function handleEvent(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         if(setCursorEvent) {
@@ -28,6 +29,8 @@ const Carousel = (props:CarouselProps) => {
                 onMouseLeave={(e) => handleEvent(e)}
             >
                 <CompanyContent
+                    scrollWidth={scrollWidth}
+                    setScrollWidth={setScrollWidth}
                     setScrollPosition={setScrollPosition}
                 />
             </div>
@@ -38,6 +41,7 @@ const Carousel = (props:CarouselProps) => {
                     <span 
                         className="progress-bar-slider" 
                         style={{
+                            "width":`${scrollWidth}%`,
                             "left":`${scrollPosition}%`
                         }}
                     ></span>

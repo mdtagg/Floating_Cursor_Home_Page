@@ -3,37 +3,28 @@ import './index.css'
 import { useRef,useEffect } from "react"
 
 interface CompanyContent {
-    // setScrollPosition:React.Dispatch<React.SetStateAction<{
-    //     scroll: number;
-    //     width: number;
-    // }>>
+    scrollWidth:number
+    setScrollWidth:React.Dispatch<React.SetStateAction<number>>
     setScrollPosition:React.Dispatch<React.SetStateAction<number>>
 }
 
 const CompanyContent = (props:CompanyContent) => {
 
     const companyData = getCompanyData()
-    const { setScrollPosition } = props
+    const { setScrollPosition,setScrollWidth,scrollWidth } = props
     const listRef = useRef<HTMLUListElement | null>(null)
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
         const target = e.target as HTMLUListElement
         const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
         const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll 
-        const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
-        console.log({maxScroll,scrollPosition,adjusted})
-        // console.log({adjusted})
+        const adjusted = (100 - scrollPosition) * ((100 - scrollWidth) * 0.01) // The percentage of scroll to adjust right including scrollBar width
         setScrollPosition(adjusted)
     }
 
-    // useEffect(() => {
-    //     setScrollPosition((prev) => {
-    //         return {
-    //             scroll:prev.scroll,
-    //             width: (window.innerWidth / listRef.current.scrollWidth) * 100
-    //         }
-    //     })
-    // },[])
+    useEffect(() => {
+        setScrollWidth((window.innerWidth / listRef.current!.scrollWidth) * 100)
+    },[])
   
     return (
         <>
