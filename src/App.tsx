@@ -10,7 +10,6 @@ function App() {
       <main id="main">
         
         <div className="bg"></div>
-        {/* <div className="landing"></div> */}
         <CursorWrapper
           Content={Landing}
         />

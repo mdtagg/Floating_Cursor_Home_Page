@@ -1,6 +1,7 @@
 import "./index.css"
 import { useState } from "react"
 import { CompanyContent } from "../CompanyContent"
+import { handleEvent } from "../../utils/handleEvent"
 
 export type CarouselProps = {
     setCursorEvent?:React.Dispatch<React.SetStateAction<React.MouseEvent<HTMLDivElement, MouseEvent> | null>>
@@ -10,23 +11,17 @@ const Carousel = (props:CarouselProps) => {
 
     const { setCursorEvent } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
-    const [ scrollWidth,setScrollWidth ] = useState(0)
-
-    function handleEvent(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        if(setCursorEvent) {
-            setCursorEvent(e)
-        }
-    }
+    const [ scrollWidth, setScrollWidth ] = useState(0)
 
     return (
         <div 
             id="carousel-container"
+            onMouseMove={(e) => handleEvent(e,setCursorEvent!)}
+            onMouseLeave={(e) => handleEvent(e,setCursorEvent!)}
         >
             <div 
                 id="carousel-stage"
                 draggable={false}
-                onMouseMove={(e) => handleEvent(e)}
-                onMouseLeave={(e) => handleEvent(e)}
             >
                 <CompanyContent
                     scrollWidth={scrollWidth}
@@ -55,3 +50,9 @@ export { Carousel }
 
 // cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent> | null
     // const [ cursorEvent,setCursorEvent ] = useState<null | React.MouseEvent<HTMLDivElement, MouseEvent>>(null)
+    
+    // function handleEvent(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    //     if(setCursorEvent) {
+    //         setCursorEvent(e)
+    //     }
+    // }

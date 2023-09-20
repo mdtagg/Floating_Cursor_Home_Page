@@ -9,8 +9,10 @@ type TCursorWrapper = {
 const CursorWrapper = (props:TCursorWrapper) => {
 
     const { Content } = props
+    console.log(Content)
 
     const [ cursorEvent, setCursorEvent ] = useState<React.MouseEvent<HTMLDivElement, MouseEvent> | null>(null)
+    const elemRef = useRef<HTMLElement | null>(null)
     // const [ isMouseDown, setIsMouseDown ] = useState(false)
     // const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
@@ -89,7 +91,6 @@ const CursorWrapper = (props:TCursorWrapper) => {
                 handleMouseLeave()
                 break
         }
-
     },[cursorEvent])
 
     useEffect(() => {
@@ -99,6 +100,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
             window.removeEventListener("scroll",handleWindowScroll)
         }
     },[isCarouselHover])
+
 
     return (
         <div 
