@@ -1,13 +1,16 @@
 import "./index.css"
 import { useState } from "react"
-import { FloatingCursor } from "../FloatingCursor"
+// import { FloatingCursor } from "../FloatingCursor"
 import { CompanyContent } from "../CompanyContent"
 
-const Carousel = () => {
+type Carousel = {
+    setCursorEvent?:React.Dispatch<React.SetStateAction<React.MouseEvent<HTMLDivElement, MouseEvent> | null>>
+}
 
-    const [ cursorEvent,setCursorEvent ] = useState<null | React.MouseEvent<HTMLDivElement, MouseEvent>>(null)
+const Carousel = (props:Carousel) => {
+
+    const { setCursorEvent } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
-    
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
         const target = e.target as HTMLUListElement
@@ -16,17 +19,22 @@ const Carousel = () => {
         const adjusted = (100 - scrollPosition) * .4 // The percentage of scroll to adjust right including scrollBar width
         setScrollPosition(adjusted)
     }
-        return (
+
+    function handleEvent(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        if(setCursorEvent) {
+            setCursorEvent(e)
+        }
+    }
+
+    return (
         <div 
             id="carousel-stage"
             onScroll={(e) => handleScroll(e)}
             draggable={false}
-            onMouseMove={(e) => setCursorEvent(e)}
-            onMouseLeave={(e) => setCursorEvent(e)}
+            onMouseMove={(e) => handleEvent(e)}
+            onMouseLeave={(e) => handleEvent(e)}
         >
-            <CompanyContent
-                cursorEvent={cursorEvent}
-            />
+            <CompanyContent/>
 
             {/* <div className="progress-bar-container">
                 <span 
@@ -34,11 +42,11 @@ const Carousel = () => {
                     style={{"left":`${scrollPosition}%`}}
                 ></span>
             </div> */}
-            {/* <FloatingCursor
-                cursorEvent={cursorEvent}
-            /> */}
         </div>
     )
 }
 
 export { Carousel }
+
+// cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent> | null
+    // const [ cursorEvent,setCursorEvent ] = useState<null | React.MouseEvent<HTMLDivElement, MouseEvent>>(null)

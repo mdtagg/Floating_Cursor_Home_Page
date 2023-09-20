@@ -2,11 +2,10 @@ import { getCompanyData } from "../../components/Carousel/utils/companies"
 import { FloatingCursor } from "../FloatingCursor"
 import './index.css'
 
-const CompanyContent = (props) => {
+const CompanyContent = () => {
 
     const companyData = getCompanyData()
-    const { cursorEvent } = props
-
+  
     return (
         <>
         <ul 
@@ -40,9 +39,9 @@ const CompanyContent = (props) => {
             </div>
             )
         })}
-        <FloatingCursor
+        {/* <FloatingCursor
             cursorEvent={cursorEvent}
-        />
+        /> */}
         </ul> 
         
     </>
