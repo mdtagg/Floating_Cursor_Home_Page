@@ -28,11 +28,13 @@ const CustomCursor = (props:TCursorBody) => {
             {isMouseDown ?
                 <FloatingCarets
                     color="pink"
+                    isAnchorHover={isAnchorHover}
                 />
                 :
                 <CursorBody
                     isMouseDown={false}
                     color="pink"
+                    isAnchorHover={isAnchorHover}
                 />}
         </div>
         

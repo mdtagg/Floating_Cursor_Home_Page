@@ -4,11 +4,12 @@ import { CursorBody } from '../CursorBody';
 
 type TFloatingCarets = {
     color:string
+    isAnchorHover:boolean
 }
 
 const FloatingCarets = (props:TFloatingCarets) => {
 
-    const { color } = props
+    const { color,isAnchorHover } = props
 
     return (
         <>
@@ -20,6 +21,7 @@ const FloatingCarets = (props:TFloatingCarets) => {
             <CursorBody
                 isMouseDown={true}
                 color={color}
+                isAnchorHover={isAnchorHover}
             />
             <Icon 
                 icon="bx:caret-right" 

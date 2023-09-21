@@ -6,12 +6,13 @@ interface CompanyContent {
     scrollWidth:number
     setScrollWidth:React.Dispatch<React.SetStateAction<number>>
     setScrollPosition:React.Dispatch<React.SetStateAction<number>>
+    setIsAnchorHover:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const CompanyContent = (props:CompanyContent) => {
 
     const companyData = getCompanyData()
-    const { setScrollPosition,setScrollWidth,scrollWidth } = props
+    const { setScrollPosition,setScrollWidth,scrollWidth,setIsAnchorHover } = props
     const listRef = useRef<HTMLUListElement | null>(null)
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
@@ -49,8 +50,8 @@ const CompanyContent = (props:CompanyContent) => {
                             <a 
                                 className="company-anchor" 
                                 href={company.anchor}
-                                // onMouseEnter={() => setIsAnchorHover(true)}
-                                // onMouseLeave={() => setIsAnchorHover(false)}
+                                onMouseEnter={() => setIsAnchorHover(true)}
+                                onMouseLeave={() => setIsAnchorHover(false)}
                             >
                                 here
                             </a>

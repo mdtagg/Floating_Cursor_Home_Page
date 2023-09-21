@@ -5,11 +5,12 @@ import { handleEvent } from "../../utils/handleEvent"
 
 export type CarouselProps = {
     setCursorEvent?:React.Dispatch<React.SetStateAction<React.MouseEvent<HTMLDivElement, MouseEvent> | null>>
+    setIsAnchorHover?:React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const Carousel = (props:CarouselProps) => {
 
-    const { setCursorEvent } = props
+    const { setCursorEvent,setIsAnchorHover } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
     const [ scrollWidth, setScrollWidth ] = useState(0)
 
@@ -29,6 +30,7 @@ const Carousel = (props:CarouselProps) => {
                     scrollWidth={scrollWidth}
                     setScrollWidth={setScrollWidth}
                     setScrollPosition={setScrollPosition}
+                    setIsAnchorHover={setIsAnchorHover!}
                 />
             </div>
             <div className="progress-bar-container">

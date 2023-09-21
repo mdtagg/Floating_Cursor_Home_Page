@@ -1,21 +1,25 @@
+import './index.css'
 
 export type TCursorBody = {
     isMouseDown:boolean 
     color:string
+    isAnchorHover:boolean
 }
 
 const CursorBody = (props:TCursorBody) => {
 
-    const { isMouseDown,color } = props
+    const { isMouseDown,color,isAnchorHover } = props
     const cursorStyle = isMouseDown ? "mouse-down" : "mouse-up"
+    const cursorVisibility = isAnchorHover ? "anchor-hover" : ""
+    console.log(isAnchorHover)
 
     return (
         <div 
             id="cursor-takeover-body"
-            className={`${cursorStyle}`}
+            className={`${cursorStyle} ${cursorVisibility}`}
             // style={{"color":`${color}`}}
         >
-            {isMouseDown ? "" : "DRAG"}
+            {isMouseDown || isAnchorHover ? "" : "DRAG"}
         </div>
     )
 }
