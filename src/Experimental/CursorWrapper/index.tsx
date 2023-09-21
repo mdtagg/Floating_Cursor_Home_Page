@@ -1,22 +1,27 @@
 import { useRef,useEffect,useState,useCallback } from 'react'
 import './index.css'
 import { CarouselProps } from '../Carousel'
+import { CustomCursor } from '../CustomCursor'
 
 type TCursorWrapper = {
     Content:(props:CarouselProps) => JSX.Element
 }
 
+export type TCursorCoords = {
+    x: number;
+    y: number;
+    offset: number;
+    transition: string;
+}
+
 const CursorWrapper = (props:TCursorWrapper) => {
 
     const { Content } = props
-    console.log(Content)
 
     const [ cursorEvent, setCursorEvent ] = useState<React.MouseEvent<HTMLDivElement, MouseEvent> | null>(null)
-    const elemRef = useRef<HTMLElement | null>(null)
-    // const [ isMouseDown, setIsMouseDown ] = useState(false)
-    // const [ isAnchorHover, setIsAnchorHover ] = useState(false)
+    const [ isMouseDown, setIsMouseDown ] = useState(false)
+    const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isCarouselHover, setIsCarouselHover ] = useState(false)
-    // const [ scrollPosition, setScrollPosition ] = useState(0)
 
     const [ cursorCoords, setCursorCoords ] = useState({
         x:0,
@@ -24,8 +29,10 @@ const CursorWrapper = (props:TCursorWrapper) => {
         offset:0,
         transition:""
     })
+    // console.log(cursorCoords)
     const cursorCoordsRef = useRef(cursorCoords) //used to pass cursor information to the scroll handler on window
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to grab offset from document
+    // const cursorContainer = useRef<HTMLDivElement | null>(null)
 
     function handleMouseLeave() {
         setIsCarouselHover(false)
@@ -39,13 +46,15 @@ const CursorWrapper = (props:TCursorWrapper) => {
         cursorCoordsRef.current! = cursorPosition
     }
 
-    function handleMouseMove(cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent>) {      
-        // const test = cursorOuter.current!.offsetParent.offsetWidth
+    function handleMouseMove(cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent>) {  
         setIsCarouselHover(true)
-        const elementOffset = findOffset(cursorOuter.current!)
-    
+        const cursorOffsetTop = getElementOffset()
+        // const containerOffset = offsetParent!.getBoundingClientRect().top + window.scrollY
+        // const test = offsetParent!.offsetHeight / 2
+        // const offsetTotal = containerOffset + test
+   
         let { pageX,pageY } = cursorEvent
-        pageY -= elementOffset! + 80
+        pageY -= cursorOffsetTop
         pageX -= window.innerWidth - 160 //adjusting the horizontal position by the cursor width
       
         const cursorPosition = {
@@ -62,11 +71,12 @@ const CursorWrapper = (props:TCursorWrapper) => {
         // }
     }
 
-    function findOffset(target:HTMLElement,result=0) {
-        const offsetParent = target.offsetParent as HTMLElement
-        result += target.offsetTop
-        if(!offsetParent || !offsetParent.offsetTop) return result
-        findOffset(offsetParent,result)
+    function getElementOffset() {
+        const offsetParent = cursorOuter.current!.offsetParent as HTMLDivElement
+        const containerOffsetTop = offsetParent!.getBoundingClientRect().top + window.scrollY
+        const cursorOffset = offsetParent!.offsetHeight / 2
+        return containerOffsetTop + cursorOffset
+        
     }
 
     const handleWindowScroll = useCallback(() => {
@@ -90,6 +100,12 @@ const CursorWrapper = (props:TCursorWrapper) => {
             case "mouseleave":
                 handleMouseLeave()
                 break
+            case "mousedown":
+                setIsMouseDown(true)
+                break 
+            case "mouseup":
+                setIsMouseDown(false)
+                break
         }
     },[cursorEvent])
 
@@ -109,20 +125,12 @@ const CursorWrapper = (props:TCursorWrapper) => {
             <Content
                 setCursorEvent={setCursorEvent}
             />
-            <div 
-                id="cursor-takeover-outer"
-                ref={cursorOuter}
-                style={{
-                    "transform":`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
-                    "transition": `${cursorCoords.transition}`
-                }}
-            >
-                <div 
-                    id="cursor-takeover-body"
-                >
-                    DRAG
-                </div>
-            </div>
+            <CustomCursor
+                cursorOuter={cursorOuter}
+                cursorCoords={cursorCoords}
+                isMouseDown={isMouseDown}
+                isAnchorHover={isAnchorHover}
+            />
         </div>
     )
 }

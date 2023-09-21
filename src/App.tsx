@@ -10,9 +10,12 @@ function App() {
       <main id="main">
         
         <div className="bg"></div>
-        <CursorWrapper
+
+
+        <CursorWrapper 
           Content={Landing}
         />
+        
         <CursorWrapper
           Content={Carousel}
         />

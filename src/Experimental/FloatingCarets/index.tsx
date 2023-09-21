@@ -1,11 +1,14 @@
 import { Icon } from '@iconify/react';
-import CursorBody from '../FloatingCursor';
-import { TCursorStyles } from '../Cursor';
 import "./index.css"
+import { CursorBody } from '../CursorBody';
 
-const FloatingCarets = (props:TCursorStyles) => {
+type TFloatingCarets = {
+    color:string
+}
 
-    const { isMouseDown,isAnchorHover,color } = props
+const FloatingCarets = (props:TFloatingCarets) => {
+
+    const { color } = props
 
     return (
         <>
@@ -15,8 +18,7 @@ const FloatingCarets = (props:TCursorStyles) => {
                 className="caret" 
             />
             <CursorBody
-                isMouseDown={isMouseDown}
-                isAnchorHover={isAnchorHover}
+                isMouseDown={true}
                 color={color}
             />
             <Icon 

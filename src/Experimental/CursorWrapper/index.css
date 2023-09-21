@@ -1,33 +1,13 @@
 #cursor-takeover-container {
+    position:relative;
     width:100%;
     pointer-events:none;
     display:flex;
     justify-content:flex-end;
     align-items:center;
+    overflow:hidden;
 }
 
 #cursor-takeover-container > * {
     pointer-events: auto;
-}
-
-#cursor-takeover-outer {
-    height:160px;
-    width:160px;
-    display:flex;
-    align-items: center;
-    justify-content: center;
-    position:absolute;
-    margin-right:4rem;
-    pointer-events: none;
-}
-
-#cursor-takeover-body {
-    position:absolute;
-    height:120px;
-    width:120px;
-    background:#efbfbf;
-    border-radius:100%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
 }

@@ -1,7 +1,7 @@
 import "./index.css"
 import { TCoords } from '../Carousel';
 import CursorBody from '../FloatingCursor';
-import FloatingCarets from '../FloatingCarets';
+import FloatingCarets from '../../Experimental/FloatingCarets';
 
 export interface TCursorStyles {
     isMouseDown:boolean 

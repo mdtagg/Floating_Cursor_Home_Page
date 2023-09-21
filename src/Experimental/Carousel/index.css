@@ -1,11 +1,13 @@
 #carousel-container {
     overflow-x:scroll;
+    position:relative;
 }
 
 #carousel-stage {
     display:flex;
     gap:8rem;
     user-select: none;
+    position:relative;
 }
 
 #carousel-container::-webkit-scrollbar {

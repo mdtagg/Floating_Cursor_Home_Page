@@ -18,6 +18,8 @@ const Carousel = (props:CarouselProps) => {
             id="carousel-container"
             onMouseMove={(e) => handleEvent(e,setCursorEvent!)}
             onMouseLeave={(e) => handleEvent(e,setCursorEvent!)}
+            onMouseDown={(e) => handleEvent(e,setCursorEvent!)}
+            onMouseUp={(e) => handleEvent(e,setCursorEvent!)}
         >
             <div 
                 id="carousel-stage"
