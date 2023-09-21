@@ -120,6 +120,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
             <Content
                 setCursorEvent={setCursorEvent}
                 setIsAnchorHover={setIsAnchorHover}
+                isMouseDown={isMouseDown}
             />
             <CustomCursor
                 cursorOuter={cursorOuter}

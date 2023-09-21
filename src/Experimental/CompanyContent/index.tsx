@@ -7,12 +7,13 @@ interface CompanyContent {
     setScrollWidth:React.Dispatch<React.SetStateAction<number>>
     setScrollPosition:React.Dispatch<React.SetStateAction<number>>
     setIsAnchorHover:React.Dispatch<React.SetStateAction<boolean>>
+    isMouseDown:boolean
 }
 
 const CompanyContent = (props:CompanyContent) => {
 
     const companyData = getCompanyData()
-    const { setScrollPosition,setScrollWidth,scrollWidth,setIsAnchorHover } = props
+    const { setScrollPosition,setScrollWidth,scrollWidth,setIsAnchorHover,isMouseDown } = props
     const listRef = useRef<HTMLUListElement | null>(null)
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
@@ -23,6 +24,12 @@ const CompanyContent = (props:CompanyContent) => {
         setScrollPosition(adjusted)
     }
 
+    function handleMouseDown(e:React.MouseEvent<HTMLUListElement, MouseEvent>) {
+        if(!isMouseDown) return;
+        listRef.current!.scrollLeft = listRef.current!.scrollLeft - e.movementX //scrolls the carousel position horizonally with the mouse position
+        
+    }
+
     useEffect(() => {
         setScrollWidth((window.innerWidth / listRef.current!.scrollWidth) * 100)
     },[])
@@ -31,6 +38,7 @@ const CompanyContent = (props:CompanyContent) => {
         <>
         <ul 
             onScroll={(e) => handleScroll(e)}
+            onMouseMove={(e) => handleMouseDown(e)}
             draggable={false}
             className="company-list"
             ref={listRef}
