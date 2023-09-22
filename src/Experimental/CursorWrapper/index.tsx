@@ -1,10 +1,9 @@
 import { useRef,useEffect,useState,useCallback } from 'react'
 import './index.css'
-import { CarouselProps } from '../Carousel'
 import { CustomCursor } from '../CustomCursor'
 
 type TCursorWrapper = {
-    Content:(props:CarouselProps) => JSX.Element
+    Content:() => JSX.Element
 }
 
 export type TCursorCoords = {
@@ -43,8 +42,13 @@ const CursorWrapper = (props:TCursorWrapper) => {
         cursorCoordsRef.current! = cursorPosition
     }
 
-    function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {  
+    function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) { 
+        console.log(e) 
+        const target = e.target as HTMLElement
+        target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
+
         setIsContainerHover(true)
+
         const cursorOffsetTop = getElementOffset() // removes the total offset from top of cursor position and adds page the pageY coordinate
    
         let { pageX,pageY } = e
@@ -96,24 +100,23 @@ const CursorWrapper = (props:TCursorWrapper) => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={() => setIsMouseDown(false)}
-            onClick={(e) => console.log(e)}
-            
         >
-            <Content
-                setIsAnchorHover={setIsAnchorHover}
-                isMouseDown={isMouseDown}
-            />
-            <CustomCursor
-                cursorOuter={cursorOuter}
-                cursorCoords={cursorCoords}
-                isMouseDown={isMouseDown}
-                isAnchorHover={isAnchorHover}
-            />
+            <Content/>
+            <div 
+                id="cursor-takeover-outer"
+                ref={cursorOuter}
+                style={{
+                    "transform":`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
+                    "transition": `${cursorCoords.transition}`
+                }}
+            >
+                <CustomCursor
+                    isMouseDown={isMouseDown}
+                    isAnchorHover={isAnchorHover}
+                />
+            </div>
         </div>
     )
 }
 
 export { CursorWrapper }
-
-// could wrap content and cursor in context
-//

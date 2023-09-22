@@ -2,14 +2,8 @@ import "./index.css"
 import { useState } from "react"
 import { CompanyContent } from "../CompanyContent"
 
-export type CarouselProps = {
-    setIsAnchorHover?:React.Dispatch<React.SetStateAction<boolean>>
-    isMouseDown:boolean
-}
+const Carousel = () => {
 
-const Carousel = (props:CarouselProps) => {
-
-    const { setIsAnchorHover,isMouseDown } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
     const [ scrollWidth, setScrollWidth ] = useState(0)
 
@@ -25,8 +19,6 @@ const Carousel = (props:CarouselProps) => {
                     scrollWidth={scrollWidth}
                     setScrollWidth={setScrollWidth}
                     setScrollPosition={setScrollPosition}
-                    setIsAnchorHover={setIsAnchorHover!}
-                    isMouseDown={isMouseDown}
                 />
             </div>
             <div className="progress-bar-container">
@@ -47,12 +39,3 @@ const Carousel = (props:CarouselProps) => {
 }
 
 export { Carousel }
-
-// cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent> | null
-    // const [ cursorEvent,setCursorEvent ] = useState<null | React.MouseEvent<HTMLDivElement, MouseEvent>>(null)
-    
-    // function handleEvent(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-    //     if(setCursorEvent) {
-    //         setCursorEvent(e)
-    //     }
-    // }

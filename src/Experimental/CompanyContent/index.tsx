@@ -1,19 +1,18 @@
 import { getCompanyData } from "../../components/Carousel/utils/companies"
 import './index.css'
-import { useRef,useEffect } from "react"
+import { useRef,useEffect,useState } from "react"
 
 interface CompanyContent {
     scrollWidth:number
     setScrollWidth:React.Dispatch<React.SetStateAction<number>>
     setScrollPosition:React.Dispatch<React.SetStateAction<number>>
-    setIsAnchorHover:React.Dispatch<React.SetStateAction<boolean>>
-    isMouseDown:boolean
 }
 
 const CompanyContent = (props:CompanyContent) => {
 
     const companyData = getCompanyData()
-    const { setScrollPosition,setScrollWidth,scrollWidth,setIsAnchorHover,isMouseDown } = props
+    const { setScrollPosition, setScrollWidth, scrollWidth } = props
+    const [ mouseDown,setMouseDown ] = useState(false)
     const listRef = useRef<HTMLUListElement | null>(null)
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
@@ -25,11 +24,8 @@ const CompanyContent = (props:CompanyContent) => {
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLUListElement, MouseEvent>) {
-        if(!isMouseDown) return;
-        // listRef.current!.scrollLeft = listRef.current!.scrollLeft - e.movementX 
-        listRef.current!.scrollLeft -= e.movementX 
-
-        //scrolls the carousel position horizonally with the mouse position
+        if(!mouseDown) return;
+        listRef.current!.scrollLeft -= e.movementX  //scrolls the carousel position horizonally with the mouse position
         
     }
 
@@ -42,6 +38,8 @@ const CompanyContent = (props:CompanyContent) => {
         <ul 
             onScroll={(e) => handleScroll(e)}
             onMouseMove={(e) => handleMouseMove(e)}
+            onMouseDown={() => setMouseDown(true)}
+            onMouseUp={() => setMouseDown(false)}
             draggable={false}
             className="company-list"
             ref={listRef}
@@ -61,8 +59,6 @@ const CompanyContent = (props:CompanyContent) => {
                             <a 
                                 className="company-anchor" 
                                 href={company.anchor}
-                                onMouseEnter={() => setIsAnchorHover(true)}
-                                onMouseLeave={() => setIsAnchorHover(false)}
                             >
                                 here
                             </a>

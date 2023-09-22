@@ -1,33 +1,25 @@
 import { Icon } from '@iconify/react';
 import "./index.css"
-import { CursorBody } from '../CursorBody';
 
 type TFloatingCarets = {
-    color:string
-    isAnchorHover:boolean
+    children: JSX.Element
 }
 
 const FloatingCarets = (props:TFloatingCarets) => {
 
-    const { color,isAnchorHover } = props
+    const { children } = props
 
     return (
         <>
-        
             <Icon 
                 icon="bx:caret-left" 
                 className="caret" 
             />
-            <CursorBody
-                isMouseDown={true}
-                color={color}
-                isAnchorHover={isAnchorHover}
-            />
+            {children}
             <Icon 
                 icon="bx:caret-right" 
                 className="caret"
             />
-                
         </>
     )
 }
