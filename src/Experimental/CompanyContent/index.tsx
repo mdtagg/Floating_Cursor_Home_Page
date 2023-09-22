@@ -24,9 +24,12 @@ const CompanyContent = (props:CompanyContent) => {
         setScrollPosition(adjusted)
     }
 
-    function handleMouseDown(e:React.MouseEvent<HTMLUListElement, MouseEvent>) {
+    function handleMouseMove(e:React.MouseEvent<HTMLUListElement, MouseEvent>) {
         if(!isMouseDown) return;
-        listRef.current!.scrollLeft = listRef.current!.scrollLeft - e.movementX //scrolls the carousel position horizonally with the mouse position
+        // listRef.current!.scrollLeft = listRef.current!.scrollLeft - e.movementX 
+        listRef.current!.scrollLeft -= e.movementX 
+
+        //scrolls the carousel position horizonally with the mouse position
         
     }
 
@@ -38,7 +41,7 @@ const CompanyContent = (props:CompanyContent) => {
         <>
         <ul 
             onScroll={(e) => handleScroll(e)}
-            onMouseMove={(e) => handleMouseDown(e)}
+            onMouseMove={(e) => handleMouseMove(e)}
             draggable={false}
             className="company-list"
             ref={listRef}

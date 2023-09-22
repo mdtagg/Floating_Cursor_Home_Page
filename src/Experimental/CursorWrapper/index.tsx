@@ -18,7 +18,6 @@ const CursorWrapper = (props:TCursorWrapper) => {
 
     const { Content } = props
 
-    const [ cursorEvent, setCursorEvent ] = useState<React.MouseEvent<HTMLDivElement, MouseEvent> | null>(null)
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isContainerlHover, setIsContainerHover ] = useState(false)
@@ -44,11 +43,11 @@ const CursorWrapper = (props:TCursorWrapper) => {
         cursorCoordsRef.current! = cursorPosition
     }
 
-    function handleMouseMove(cursorEvent:React.MouseEvent<HTMLDivElement, MouseEvent>) {  
+    function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {  
         setIsContainerHover(true)
         const cursorOffsetTop = getElementOffset() // removes the total offset from top of cursor position and adds page the pageY coordinate
    
-        let { pageX,pageY } = cursorEvent
+        let { pageX,pageY } = e
         pageY -= cursorOffsetTop 
         pageX -= window.innerWidth - 160 //adjusting the horizontal position by the cursor width
       
@@ -59,7 +58,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
             transition: "transform 0.1s" 
         }
         setCursorCoords(cursorPosition)
-        cursorCoordsRef.current! = cursorPosition
+        cursorCoordsRef.current! = cursorPosition // ref is used for coords in addition to state for handling window scroll
     }
 
     function getElementOffset() {
@@ -82,25 +81,6 @@ const CursorWrapper = (props:TCursorWrapper) => {
     },[])
 
     useEffect(() => {
-
-        if(!cursorEvent) return
-        switch(cursorEvent.type) {
-            case "mousemove":
-                handleMouseMove(cursorEvent)
-                break 
-            case "mouseleave":
-                handleMouseLeave()
-                break
-            case "mousedown":
-                setIsMouseDown(true)
-                break 
-            case "mouseup":
-                setIsMouseDown(false)
-                break
-        }
-    },[cursorEvent])
-
-    useEffect(() => {
         if(isContainerlHover) {
             window.addEventListener("scroll",handleWindowScroll)
         }else {
@@ -112,9 +92,14 @@ const CursorWrapper = (props:TCursorWrapper) => {
     return (
         <div 
             id="cursor-takeover-container"
+            onMouseMove={(e) => handleMouseMove(e)}
+            onMouseLeave={handleMouseLeave}
+            onMouseDown={() => setIsMouseDown(true)}
+            onMouseUp={() => setIsMouseDown(false)}
+            onClick={(e) => console.log(e)}
+            
         >
             <Content
-                setCursorEvent={setCursorEvent}
                 setIsAnchorHover={setIsAnchorHover}
                 isMouseDown={isMouseDown}
             />
@@ -129,3 +114,6 @@ const CursorWrapper = (props:TCursorWrapper) => {
 }
 
 export { CursorWrapper }
+
+// could wrap content and cursor in context
+//

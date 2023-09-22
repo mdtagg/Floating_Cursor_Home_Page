@@ -24,6 +24,7 @@ const CustomCursor = (props:TCursorBody) => {
                 "transform":`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
                 "transition": `${cursorCoords.transition}`
             }}
+            onClick={(e) => console.log(e)}
         >
             {isMouseDown ?
                 <FloatingCarets
