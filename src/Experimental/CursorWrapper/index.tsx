@@ -60,10 +60,6 @@ const CursorWrapper = (props:TCursorWrapper) => {
         }
         setCursorCoords(cursorPosition)
         cursorCoordsRef.current! = cursorPosition
-
-        // if(isMouseDown) { 
-        //     carouselStage.current!.scrollLeft = carouselStage.current!.scrollLeft - e.movementX //scrolls the carousel position horizonally with the mouse position
-        // }
     }
 
     function getElementOffset() {
