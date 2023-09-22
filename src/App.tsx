@@ -7,10 +7,12 @@ function App() {
 
   return (
     <>
-      <main id="main">
-        
-        <div className="bg"></div>
+      <div className="bg"></div>
 
+      <main 
+        // className="bg"
+      >
+        
 
         <CursorWrapper 
           Content={Landing}
@@ -19,9 +21,10 @@ function App() {
         <CursorWrapper
           Content={Carousel}
         />
-          
+        
       </main>
       <div style={{"height":"500px"}}></div>
+      
     </>
   )
 }

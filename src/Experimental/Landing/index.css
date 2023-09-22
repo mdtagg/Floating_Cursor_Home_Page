@@ -1,7 +1,6 @@
 
 .landing {
     height:100vh;
-    /* background-image:url("../../assets/pexels-анна-рыжкова-3077882.jpg");
-    background-size:cover; */
-    /* background-color: blue; */
+    width:100%;
+    background-size:cover;
 }
