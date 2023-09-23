@@ -12,13 +12,27 @@ function App() {
 
       <main>
         
-        <CursorWrapper 
-          Content={Landing}
-        />
-        
+        {/* <CursorWrapper
+          CustomCursor={CustomCursor}
+        >
+          <Landing/>
+        <ContentWrapper/> */}
         <CursorWrapper
+          CustomCursor={CustomCursor}
+        >
+          <Landing/>
+        </CursorWrapper>
+
+        <CursorWrapper
+          CustomCursor={CustomCursor}
+        >
+          <Carousel/>
+        </CursorWrapper>
+        
+        {/* <CursorWrapper
           Content={Carousel}
-        />
+          CustomCursor={CustomCursor}
+        /> */}
         
       </main>
       <div style={{"height":"500px"}}></div>

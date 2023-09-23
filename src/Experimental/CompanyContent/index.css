@@ -18,5 +18,5 @@
     font-size:1.5rem;
     flex-shrink:0;
     width:300px;
-    pointer-events: none;
+    /* pointer-events: none; */
 }

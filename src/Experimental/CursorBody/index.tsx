@@ -17,7 +17,7 @@ const CursorBody = (props:TCursorBody) => {
             id="cursor-takeover-body"
             className={`${cursorStyle} ${cursorVisibility}`}
             // style={{"color":`${color}`}}
-            // onMouseDown={(e) => console.log(e)}
+            
         >
             { isMouseDown || isAnchorHover ? "" : "DRAG" }
         </div>

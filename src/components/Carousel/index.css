@@ -20,20 +20,3 @@
     height:0;
     width:0;
 }
-
-/* .progress-bar-container {
-    position:relative;
-    height:3px;
-    background-color: lightgray;
-    margin:var(--main-padding);
-    pointer-events: none;
-}
-
-.progress-bar-thumb {
-    width:60%;
-    background-color: black;
-    position:absolute;
-    z-index:1;
-    height:3px;
-    pointer-events: none;
-}  */

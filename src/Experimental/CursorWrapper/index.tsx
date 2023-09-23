@@ -1,9 +1,14 @@
 import { useRef,useEffect,useState,useCallback } from 'react'
 import './index.css'
-import { CustomCursor } from '../CustomCursor'
+
+type TCustomCursor = {
+    isMouseDown:boolean 
+    isAnchorHover:boolean
+}
 
 type TCursorWrapper = {
-    Content:() => JSX.Element
+    children:JSX.Element
+    CustomCursor:(props:TCustomCursor) => JSX.Element
 }
 
 export type TCursorCoords = {
@@ -15,11 +20,12 @@ export type TCursorCoords = {
 
 const CursorWrapper = (props:TCursorWrapper) => {
 
-    const { Content } = props
+    const { children,CustomCursor } = props
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isContainerlHover, setIsContainerHover ] = useState(false)
+    
 
     const [ cursorCoords, setCursorCoords ] = useState({
         x:0,
@@ -42,8 +48,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
         cursorCoordsRef.current! = cursorPosition
     }
 
-    function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) { 
-        console.log(e) 
+    function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
         const target = e.target as HTMLElement
         target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
 
@@ -101,7 +106,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={() => setIsMouseDown(false)}
         >
-            <Content/>
+            {children}
             <div 
                 id="cursor-takeover-outer"
                 ref={cursorOuter}
@@ -114,6 +119,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
                     isMouseDown={isMouseDown}
                     isAnchorHover={isAnchorHover}
                 />
+                
             </div>
         </div>
     )
