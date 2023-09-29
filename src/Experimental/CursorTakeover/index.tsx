@@ -1,14 +1,16 @@
-import { useRef,useEffect,useState,useCallback } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import './index.css'
 
 type TCustomCursor = {
     isMouseDown:boolean 
     isAnchorHover:boolean
+    color:string
 }
 
 type TCursorWrapper = {
     children:JSX.Element
     CustomCursor:(props:TCustomCursor) => JSX.Element
+    color:string
 }
 
 export type TCursorCoords = {
@@ -18,13 +20,13 @@ export type TCursorCoords = {
     transition: string;
 }
 
-const CursorWrapper = (props:TCursorWrapper) => {
+const CursorTakeover = (props:TCursorWrapper) => {
 
-    const { children,CustomCursor } = props
+    const { children, CustomCursor, color } = props
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
-    const [ isContainerlHover, setIsContainerHover ] = useState(false)
+    const [ isContainerHover, setIsContainerHover ] = useState(false)
     
 
     const [ cursorCoords, setCursorCoords ] = useState({
@@ -56,7 +58,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
 
         const cursorOffsetTop = getElementOffset() // removes the total offset from top of cursor position and adds page the pageY coordinate
    
-        let { pageX,pageY } = e
+        let { pageX, pageY } = e
         pageY -= cursorOffsetTop 
         pageX -= window.innerWidth - 160 //adjusting the horizontal position by the cursor width
       
@@ -79,7 +81,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
     }
 
     const handleWindowScroll = useCallback(() => {
-        const { x,y,offset } = cursorCoordsRef.current!
+        const { x, y, offset } = cursorCoordsRef.current!
         const adjustedY = y - offset
 
         setCursorCoords({
@@ -90,12 +92,12 @@ const CursorWrapper = (props:TCursorWrapper) => {
     },[])
 
     useEffect(() => {
-        if(isContainerlHover) {
+        if(isContainerHover) {
             window.addEventListener("scroll",handleWindowScroll)
         }else {
             window.removeEventListener("scroll",handleWindowScroll)
         }
-    },[isContainerlHover])
+    },[isContainerHover])
 
 
     return (
@@ -118,6 +120,7 @@ const CursorWrapper = (props:TCursorWrapper) => {
                 <CustomCursor
                     isMouseDown={isMouseDown}
                     isAnchorHover={isAnchorHover}
+                    color={color}
                 />
                 
             </div>
@@ -125,4 +128,4 @@ const CursorWrapper = (props:TCursorWrapper) => {
     )
 }
 
-export { CursorWrapper }
+export { CursorTakeover }

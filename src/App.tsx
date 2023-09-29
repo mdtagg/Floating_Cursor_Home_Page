@@ -1,6 +1,6 @@
 import { Landing } from './Experimental/Landing'
 import { Carousel } from './Experimental/Carousel'
-import { CursorWrapper } from './Experimental/CursorWrapper'
+import { CursorTakeover } from './Experimental/CursorTakeover'
 import { CustomCursor } from './Experimental/CustomCursor'
 import './index.css'
 
@@ -11,28 +11,20 @@ function App() {
       <div className="bg"></div>
 
       <main>
-        
-        {/* <CursorWrapper
-          CustomCursor={CustomCursor}
-        >
-          <Landing/>
-        <ContentWrapper/> */}
-        <CursorWrapper
-          CustomCursor={CustomCursor}
-        >
-          <Landing/>
-        </CursorWrapper>
 
-        <CursorWrapper
+        <CursorTakeover
           CustomCursor={CustomCursor}
+          color='white'
+        >
+          <Landing/>
+        </CursorTakeover>
+
+        <CursorTakeover
+          CustomCursor={CustomCursor}
+          color="pink"
         >
           <Carousel/>
-        </CursorWrapper>
-        
-        {/* <CursorWrapper
-          Content={Carousel}
-          CustomCursor={CustomCursor}
-        /> */}
+        </CursorTakeover>
         
       </main>
       <div style={{"height":"500px"}}></div>
