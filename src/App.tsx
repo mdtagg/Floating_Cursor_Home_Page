@@ -1,7 +1,7 @@
-import { Landing } from './Experimental/Landing'
-import { Carousel } from './Experimental/Carousel'
-import { CursorTakeover } from './Experimental/CursorTakeover'
-import { CustomCursor } from './Experimental/CustomCursor'
+import { Landing } from './Components/Landing'
+import { Carousel } from './Components/Carousel'
+import { CursorTakeover } from './Components/CursorTakeover'
+import { CustomCursor } from './Components/CustomCursor'
 import './index.css'
 
 function App() {
