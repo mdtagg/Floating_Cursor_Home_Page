@@ -31,7 +31,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
-    const [ isContainerHover, setIsContainerHover ] = useState(false)
+    const [ isContainerHover, setIsContainerHover ] = useState(false) // adds and removes scroll event on window
     const [ cursorAdjustments, setCursorAdjustments ] = useState<null | TCursorAdjustments>(null)
 
     const [ cursorCoords, setCursorCoords ] = useState({
@@ -42,36 +42,39 @@ const CursorTakeover = (props:TCursorWrapper) => {
     })
 
     const cursorCoordsRef = useRef(cursorCoords) //used to pass cursor information to the scroll handler on window
-    const cursorOuter = useRef<HTMLDivElement | null>(null) //used to grab offset from document
+    const cursorOuter = useRef<HTMLDivElement | null>(null) //used to get the cursors current positions
 
-    function handleMouseLeave() {
-        setIsContainerHover(false)
-        const cursorPosition = {
-            x:0,
-            y:0,
-            offset:window.scrollY,
-            transition: "transform 1s"
-        }
-        setCursorCoords(cursorPosition)
-        cursorCoordsRef.current! = cursorPosition
+    function handleEnter(e:React.MouseEvent<HTMLElement, MouseEvent>) {
+
+        if(isContainerHover) return 
+
+        setIsContainerHover(true)
+
+        const cursorOffsets = getElementOffsets() // removes the total offset from top of cursor position and adds page to the pageY coordinate
+   
+        let { pageX, pageY } = e
+        pageY -= cursorOffsets.cursorOffsetTop
+        pageX -= cursorOffsets.cursorOffsetLeft
+      
+        changeCursorCoords(pageX,pageY,window.scrollY,"transform 0.1s")
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
 
         if(!isContainerHover) return;
+        const target = e.target as HTMLElement
+        target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
         const { x, y, offset, transition } = cursorCoordsRef.current!
-
-        const cursorPosition = {
-            x: x + e.movementX,
-            y: y + e.movementY,
-            offset: offset,
-            transition: transition
-        }
-        setCursorCoords(cursorPosition)
-        cursorCoordsRef.current! = cursorPosition
+        
+        changeCursorCoords(x + e.movementX,y + e.movementY,offset,transition)
     }
 
-    function getElementOffset() {
+    function handleMouseLeave() {
+        setIsContainerHover(false)
+        changeCursorCoords(0,0,window.scrollY,"transform 1s")
+    }
+
+    function getElementOffsets() {
 
         const { top, left } = cursorOuter.current!.getBoundingClientRect()
         const { offsetHeight, offsetWidth } = cursorOuter.current!
@@ -81,11 +84,15 @@ const CursorTakeover = (props:TCursorWrapper) => {
             topAdjust: top - cursorAdjustments!.top,
             leftAdjust: left - cursorAdjustments!.left
         }
+        
+        return {
+            cursorOffsetTop: getOffset(top,offsetHeight,window.scrollY,adjustments.topAdjust),
+            cursorOffsetLeft: getOffset(left,offsetWidth,window.scrollX,adjustments.leftAdjust)
+        }
+    }
 
-        const cursorOffsetTop = top + (offsetHeight / 2) + window.scrollY - adjustments.topAdjust
-        const cursorOffsetLeft = left + (offsetWidth / 2) + window.scrollX - adjustments.leftAdjust
-
-        return { cursorOffsetTop, cursorOffsetLeft }
+    function getOffset(offset:number,dimension:number,scroll:number,adjustment:number) {
+        return offset + (dimension / 2) + scroll - adjustment
     }
 
     const handleWindowScroll = useCallback(() => {
@@ -99,29 +106,15 @@ const CursorTakeover = (props:TCursorWrapper) => {
         })
     },[])
 
-    function handleEnter(e:React.MouseEvent<HTMLElement, MouseEvent>) {
-
-        if(isContainerHover) return 
-        
-        const target = e.target as HTMLElement
-        target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
-
-        setIsContainerHover(true)
-
-        const cursorOffsets = getElementOffset() // removes the total offset from top of cursor position and adds page to the pageY coordinate
-   
-        let { pageX, pageY } = e
-        pageY -= cursorOffsets.cursorOffsetTop
-        pageX -= cursorOffsets.cursorOffsetLeft
-      
+    function changeCursorCoords(x:number,y:number,offset:number,transition:string) {
         const cursorPosition = {
-            x:pageX,
-            y:pageY,
-            offset:window.scrollY,
-            transition: "transform 0.1s" 
+            x,
+            y,
+            offset,
+            transition
         }
         setCursorCoords(cursorPosition)
-        cursorCoordsRef.current! = cursorPosition // ref is used for coords in addition to state for handling window scroll
+        cursorCoordsRef.current! = cursorPosition
     }
 
     useEffect(() => {

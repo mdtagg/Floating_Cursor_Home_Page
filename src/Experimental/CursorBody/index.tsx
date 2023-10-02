@@ -11,6 +11,7 @@ const CursorBody = (props:TCursorBody) => {
     const { isMouseDown, color, isAnchorHover } = props
     const cursorStyle = isMouseDown ? "mouse-down" : "mouse-up"
     const cursorVisibility = isAnchorHover ? "anchor-hover" : ""
+    console.log(isAnchorHover)
 
     return (
         <div 
