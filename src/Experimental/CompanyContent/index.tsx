@@ -1,4 +1,4 @@
-import { getCompanyData } from "../../components/Carousel/utils/companies"
+import { getCompanyData } from '../../utils/getCompanyData'
 import './index.css'
 import { useRef,useEffect,useState } from "react"
 
