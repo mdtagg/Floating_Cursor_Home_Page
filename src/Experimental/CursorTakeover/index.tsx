@@ -74,32 +74,18 @@ const CursorTakeover = (props:TCursorWrapper) => {
     function getElementOffset() {
 
         const { top, left } = cursorOuter.current!.getBoundingClientRect()
-
-        // used for adjusting cursor position if reentry occurs before full cursor reset on leave
-        let adjustments = {
-            topAdjust:0,
-            leftAdjust:0
-        }
-
-        // set the cursor adjustment positions to the starting position of the cursor outer
-        if(cursorAdjustments === null) {
-            setCursorAdjustments({
-                    top:top,
-                    left:left
-                });
-        }
-        else {
-            adjustments = {
-                topAdjust: top - cursorAdjustments.top,
-                leftAdjust: left - cursorAdjustments.left
-            }
-        }
-
         const { offsetHeight, offsetWidth } = cursorOuter.current!
-        const cursorOffsetTop = (top + offsetHeight / 2 + window.scrollY) - adjustments.topAdjust
-        const cursorOffsetLeft = left + offsetWidth / 2 + window.scrollX - adjustments.leftAdjust
 
-        return { cursorOffsetTop,cursorOffsetLeft }
+        //adjusts cursor position if reentry into container occurs before cursor is fully reset
+        const adjustments = {
+            topAdjust: top - cursorAdjustments!.top,
+            leftAdjust: left - cursorAdjustments!.left
+        }
+
+        const cursorOffsetTop = top + (offsetHeight / 2) + window.scrollY - adjustments.topAdjust
+        const cursorOffsetLeft = left + (offsetWidth / 2) + window.scrollX - adjustments.leftAdjust
+
+        return { cursorOffsetTop, cursorOffsetLeft }
     }
 
     const handleWindowScroll = useCallback(() => {
@@ -127,9 +113,6 @@ const CursorTakeover = (props:TCursorWrapper) => {
         let { pageX, pageY } = e
         pageY -= cursorOffsets.cursorOffsetTop
         pageX -= cursorOffsets.cursorOffsetLeft
-        // console.log({pageX,pageY})
-
-        // pageX -= window.innerWidth - 160 //adjusting the horizontal position by the cursor width
       
         const cursorPosition = {
             x:pageX,
@@ -149,10 +132,15 @@ const CursorTakeover = (props:TCursorWrapper) => {
         }
     },[isContainerHover])
 
-    // useEffect(() => {
+    useEffect(() => {
+        const { top, left } = cursorOuter.current!.getBoundingClientRect()
         
-    //     setCursorAdjustments()
-    // },[window.innerWidth, window.innerHeight])
+        setCursorAdjustments({
+            top:top,
+            left:left
+        })
+
+    },[window.innerWidth, window.innerHeight])
 
     return (
         <div 
