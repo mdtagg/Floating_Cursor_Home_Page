@@ -1,6 +1,11 @@
 import { useRef, useEffect, useState, useCallback } from 'react'
 import './index.css'
 
+type TCursorAdjustments = {
+    top:number 
+    left:number
+}
+
 type TCustomCursor = {
     isMouseDown:boolean 
     isAnchorHover:boolean
@@ -27,9 +32,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ isContainerHover, setIsContainerHover ] = useState(false)
-    const [ cursorAdjustment,setCursorAdjustment ] = useState({top:0,left:0})
-    console.log(cursorAdjustment)
-    
+    const [ cursorAdjustments, setCursorAdjustments ] = useState<null | TCursorAdjustments>(null)
 
     const [ cursorCoords, setCursorCoords ] = useState({
         x:0,
@@ -72,27 +75,32 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
         const { top, left } = cursorOuter.current!.getBoundingClientRect()
 
-        let test = {topAdjust:0,leftAdjust:0}
-        if(cursorAdjustment.top == 0 || cursorAdjustment.left == 0) setCursorAdjustment({top:top,left:left});
+        // used for adjusting cursor position if reentry occurs before full cursor reset on leave
+        let adjustments = {
+            topAdjust:0,
+            leftAdjust:0
+        }
+
+        // set the cursor adjustment positions to the starting position of the cursor outer
+        if(cursorAdjustments === null) {
+            setCursorAdjustments({
+                    top:top,
+                    left:left
+                });
+        }
         else {
-            test.topAdjust = top - cursorAdjustment.top
-            test.leftAdjust = left - cursorAdjustment.left
+            adjustments = {
+                topAdjust: top - cursorAdjustments.top,
+                leftAdjust: left - cursorAdjustments.left
+            }
         }
 
         const { offsetHeight, offsetWidth } = cursorOuter.current!
-        const cursorOffsetTop = (top + offsetHeight / 2 + window.scrollY) - test.topAdjust
-        const cursorOffsetLeft = left + offsetWidth / 2 + window.scrollX - test.leftAdjust
+        const cursorOffsetTop = (top + offsetHeight / 2 + window.scrollY) - adjustments.topAdjust
+        const cursorOffsetLeft = left + offsetWidth / 2 + window.scrollX - adjustments.leftAdjust
 
         return { cursorOffsetTop,cursorOffsetLeft }
     }
-
-    /*
-    Bug: the transform property gets set to 0 on leave but
-    getBoundingClientRect takes the value from where the cursor
-    outer is. Since the outer is still transitioning back
-    on leave the cursor coords are off by the amount
-    left for the cursor to get back to starting position
-    */
 
     const handleWindowScroll = useCallback(() => {
         const { x, y, offset } = cursorCoordsRef.current!
@@ -141,6 +149,10 @@ const CursorTakeover = (props:TCursorWrapper) => {
         }
     },[isContainerHover])
 
+    // useEffect(() => {
+        
+    //     setCursorAdjustments()
+    // },[window.innerWidth, window.innerHeight])
 
     return (
         <div 
