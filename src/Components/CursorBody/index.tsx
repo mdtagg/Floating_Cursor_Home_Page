@@ -4,13 +4,16 @@ export type TCursorBody = {
     isMouseDown:boolean 
     color:string
     isAnchorHover?:boolean
+    text:string
 }
 
 const CursorBody = (props:TCursorBody) => {
 
-    const { isMouseDown, color, isAnchorHover } = props
+    const { isMouseDown, color, isAnchorHover, text } = props
     const cursorStyle = isMouseDown ? "mouse-down" : "mouse-up"
     const cursorVisibility = isAnchorHover ? "anchor-hover" : ""
+
+    const words = text.split(' ')
 
     return (
         <div 
@@ -19,7 +22,11 @@ const CursorBody = (props:TCursorBody) => {
             style={{"backgroundColor":`${color}`}}
             
         >
-            { isMouseDown || isAnchorHover ? "" : "DRAG" }
+            { 
+            isMouseDown || isAnchorHover ? 
+            "" : 
+            words.map(word => <span>{word}</span>)
+            }
         </div>
     )
 }

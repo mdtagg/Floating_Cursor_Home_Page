@@ -2,9 +2,11 @@
     background:#efbfbf;
     border-radius:100%;
     display:flex;
+    flex-direction:column;
     justify-content: center;
     align-items: center;
     pointer-events:none;
+    font-family: 'Kanit', sans-serif;
 }
 
 .mouse-down {

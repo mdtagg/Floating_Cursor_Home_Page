@@ -11,13 +11,15 @@ type TCustomCursor = {
     isMouseDown:boolean 
     isAnchorHover:boolean
     color:string
+    text:string
 }
 
 type TCursorWrapper = {
     children:JSX.Element
     CustomCursor:(props:TCustomCursor) => JSX.Element
     color:string
-    position:string
+    position:"center" | "left"
+    text:string
 }
 
 export type TCursorCoords = {
@@ -29,7 +31,7 @@ export type TCursorCoords = {
 
 const CursorTakeover = (props:TCursorWrapper) => {
 
-    const { children, CustomCursor, color, position } = props
+    const { children, CustomCursor, color, position, text } = props
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
@@ -150,6 +152,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
                     isMouseDown={isMouseDown}
                     isAnchorHover={isAnchorHover}
                     color={color}
+                    text={text}
                 />
                 
             </div>

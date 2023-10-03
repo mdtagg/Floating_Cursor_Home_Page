@@ -16,14 +16,16 @@ function App() {
           CustomCursor={CustomCursor}
           color='white'
           position='center'
+          text="WATCH REEL"
         >
           <Landing/>
         </CursorTakeover>
 
         <CursorTakeover
           CustomCursor={CustomCursor}
-          color="pink"
+          color="#f9cdcd"
           position='left'
+          text='DRAG'
         >
           <Carousel/>
         </CursorTakeover>

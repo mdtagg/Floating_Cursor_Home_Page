@@ -6,11 +6,12 @@ interface TCursorBody {
     isMouseDown?:boolean
     isAnchorHover?:boolean
     color:string
+    text:string
 }
 
 const CustomCursor = (props:TCursorBody) => {
 
-    const { isMouseDown, isAnchorHover,color } = props
+    const { isMouseDown, isAnchorHover,color,text } = props
 
     return (
         <>
@@ -22,6 +23,7 @@ const CustomCursor = (props:TCursorBody) => {
                     isMouseDown={isMouseDown}
                     isAnchorHover={isAnchorHover}
                     color={color}
+                    text={text}
                 />
             </FloatingCarets>
 
@@ -31,6 +33,7 @@ const CustomCursor = (props:TCursorBody) => {
                 isMouseDown={false}
                 color={color}
                 isAnchorHover={isAnchorHover}
+                text={text}
             />}
         
         </>
