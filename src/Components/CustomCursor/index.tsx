@@ -11,7 +11,7 @@ interface TCursorBody {
 
 const CustomCursor = (props:TCursorBody) => {
 
-    const { isMouseDown, isAnchorHover,color,text } = props
+    const { isMouseDown, isAnchorHover, color, text } = props
 
     return (
         <>

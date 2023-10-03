@@ -1,16 +1,23 @@
 #carousel-container {
     overflow-x:scroll;
-    position:relative;
-}
-
-#carousel-stage {
-    display:flex;
-    gap:8rem;
-    user-select: none;
-    position:relative;
+    pointer-events: none;
 }
 
 #carousel-container::-webkit-scrollbar {
+    height:0;
+    width:0;
+}
+
+.carousel-stage {
+    display:flex;
+    overflow-x:scroll;
+    gap:8rem;
+    font-size:1.25rem;
+    padding:4rem;
+    user-select: none;
+}
+
+.carousel-stage::-webkit-scrollbar {
     height:0;
     width:0;
 }

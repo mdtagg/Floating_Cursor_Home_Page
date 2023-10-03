@@ -8,27 +8,3 @@
     margin-right:4rem;
     pointer-events: none;
 }
-
-#cursor-takeover-body {
-    background:#efbfbf;
-    border-radius:100%;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.mouse-down {
-    height:80px;
-    width:80px;
-}
-
-.mouse-up {
-    height:120px;
-    width:120px
-}
-
-.caret {
-    height:25px;
-    width:25px;
-    color:pink;
-}

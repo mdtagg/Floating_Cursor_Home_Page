@@ -110,6 +110,15 @@ const CursorTakeover = (props:TCursorWrapper) => {
         cursorCoordsRef.current! = cursorPosition
     }
 
+    function handleMouseDown(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
+        // console.log(e)
+        const target = e.target as HTMLDivElement
+        if(target.id === "carousel-container") {
+            // console.log("win")
+        }
+        setIsMouseDown(true)
+    }
+
     useEffect(() => {
         const { top, left } = cursorOuter.current!.getBoundingClientRect()
 
@@ -134,7 +143,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
             id="cursor-takeover-container"
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseLeave={handleMouseLeave}
-            onMouseDown={() => setIsMouseDown(true)}
+            onMouseDown={(e) => handleMouseDown(e)}
             onMouseUp={() => setIsMouseDown(false)}
             onMouseEnter={handleEnter}
             style={{"justifyContent":`${position === 'center' ? 'center' : 'flex-end'}`}}
