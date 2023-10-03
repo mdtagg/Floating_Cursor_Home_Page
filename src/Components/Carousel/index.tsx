@@ -12,7 +12,6 @@ const Carousel = () => {
 
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
-        console.log(e)
         const target = e.target as HTMLDivElement
         const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
         const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll 

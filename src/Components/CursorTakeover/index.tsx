@@ -49,15 +49,14 @@ const CursorTakeover = (props:TCursorWrapper) => {
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to get the cursors current positions
 
     function handleEnter(e:React.MouseEvent<HTMLElement, MouseEvent>) {
-
         if(isContainerHoverRef.current) return 
         isContainerHoverRef.current = true
 
-        const cursorOffsets = getElementOffsets() // removes the total offset from top of cursor position and adds page to the pageY coordinate
+        const { cursorOffsetTop, cursorOffsetLeft } = getElementOffsets() 
    
         let { pageX, pageY } = e
-        pageY -= cursorOffsets.cursorOffsetTop
-        pageX -= cursorOffsets.cursorOffsetLeft
+        pageY -= cursorOffsetTop
+        pageX -= cursorOffsetLeft
       
         changeCursorCoords(pageX,pageY,window.scrollY,"transform 0.1s")
     }
@@ -85,7 +84,6 @@ const CursorTakeover = (props:TCursorWrapper) => {
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
-
         if(!isContainerHoverRef.current) return;
         const target = e.target as HTMLElement
         target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
@@ -111,10 +109,8 @@ const CursorTakeover = (props:TCursorWrapper) => {
     }
 
     function handleMouseDown(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        // console.log(e)
         const target = e.target as HTMLDivElement
         if(target.id === "carousel-container") {
-            // console.log("win")
         }
         setIsMouseDown(true)
     }
