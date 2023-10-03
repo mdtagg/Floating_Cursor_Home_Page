@@ -15,6 +15,7 @@ function App() {
         <CursorTakeover
           CustomCursor={CustomCursor}
           color='white'
+          position='center'
         >
           <Landing/>
         </CursorTakeover>
@@ -22,6 +23,7 @@ function App() {
         <CursorTakeover
           CustomCursor={CustomCursor}
           color="pink"
+          position='left'
         >
           <Carousel/>
         </CursorTakeover>

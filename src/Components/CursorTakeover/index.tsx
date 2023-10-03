@@ -17,6 +17,7 @@ type TCursorWrapper = {
     children:JSX.Element
     CustomCursor:(props:TCustomCursor) => JSX.Element
     color:string
+    position:string
 }
 
 export type TCursorCoords = {
@@ -28,11 +29,10 @@ export type TCursorCoords = {
 
 const CursorTakeover = (props:TCursorWrapper) => {
 
-    const { children, CustomCursor, color } = props
+    const { children, CustomCursor, color, position } = props
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
-    const isContainerHoverRef = useRef(false)
     const [ cursorAdjustments, setCursorAdjustments ] = useState<null | TCursorAdjustments>(null)
 
     const [ cursorCoords, setCursorCoords ] = useState({
@@ -41,6 +41,8 @@ const CursorTakeover = (props:TCursorWrapper) => {
         offset:0,
         transition:""
     })
+
+    const isContainerHoverRef = useRef(false)
     const cursorCoordsRef = useRef(cursorCoords) //used to pass cursor information to the scroll handler on window
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to get the cursors current positions
 
@@ -133,6 +135,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
             onMouseDown={() => setIsMouseDown(true)}
             onMouseUp={() => setIsMouseDown(false)}
             onMouseEnter={handleEnter}
+            style={{"justifyContent":`${position === 'center' ? 'center' : 'flex-end'}`}}
         >
             {children}
             <div 
