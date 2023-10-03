@@ -4,6 +4,7 @@ import './index.css'
 type TCursorAdjustments = {
     top:number 
     left:number
+    scrollY:number
 }
 
 type TCustomCursor = {
@@ -46,7 +47,6 @@ const CursorTakeover = (props:TCursorWrapper) => {
     function handleEnter(e:React.MouseEvent<HTMLElement, MouseEvent>) {
 
         if(isContainerHoverRef.current) return 
-
         isContainerHoverRef.current = true
 
         const cursorOffsets = getElementOffsets() // removes the total offset from top of cursor position and adds page to the pageY coordinate
@@ -56,6 +56,28 @@ const CursorTakeover = (props:TCursorWrapper) => {
         pageX -= cursorOffsets.cursorOffsetLeft
       
         changeCursorCoords(pageX,pageY,window.scrollY,"transform 0.1s")
+    }
+
+    function getElementOffsets() {
+
+        const { top, left } = cursorOuter.current!.getBoundingClientRect()
+        const { offsetHeight, offsetWidth } = cursorOuter.current!
+
+        //adjusts cursor position if reentry into container occurs before cursor is fully reset
+        const adjustments = {
+            topAdjust: top - cursorAdjustments!.top,
+            leftAdjust: left - cursorAdjustments!.left,
+            scrollY: cursorAdjustments!.scrollY
+        }
+        
+        return {
+            cursorOffsetTop: getOffset(top,offsetHeight,adjustments.scrollY,adjustments.topAdjust),
+            cursorOffsetLeft: getOffset(left,offsetWidth,0,adjustments.leftAdjust)
+        }
+    }
+
+    function getOffset(offset:number,dimension:number,scroll:number=0,adjustment:number) {
+        return offset + (dimension / 2) + scroll - adjustment // removes the total offset and adds back the difference between the initial position and current position
     }
 
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
@@ -73,27 +95,6 @@ const CursorTakeover = (props:TCursorWrapper) => {
         changeCursorCoords(0,0,window.scrollY,"transform 1s")
     }
 
-    function getElementOffsets() {
-
-        const { top, left } = cursorOuter.current!.getBoundingClientRect()
-        const { offsetHeight, offsetWidth } = cursorOuter.current!
-
-        //adjusts cursor position if reentry into container occurs before cursor is fully reset
-        const adjustments = {
-            topAdjust: top - cursorAdjustments!.top,
-            leftAdjust: left - cursorAdjustments!.left
-        }
-        
-        return {
-            cursorOffsetTop: getOffset(top,offsetHeight,window.scrollY,adjustments.topAdjust),
-            cursorOffsetLeft: getOffset(left,offsetWidth,window.scrollX,adjustments.leftAdjust)
-        }
-    }
-
-    function getOffset(offset:number,dimension:number,scroll:number,adjustment:number) {
-        return offset + (dimension / 2) + scroll - adjustment
-    }
-
     function changeCursorCoords(x:number,y:number,offset:number,transition:string) {
         const cursorPosition = {
             x,
@@ -106,6 +107,8 @@ const CursorTakeover = (props:TCursorWrapper) => {
     }
 
     useEffect(() => {
+        const { top, left } = cursorOuter.current!.getBoundingClientRect()
+
         const handleWindowScroll = () => {
 
             if(isContainerHoverRef.current) {
@@ -113,16 +116,13 @@ const CursorTakeover = (props:TCursorWrapper) => {
                 const scrollDiff = window.scrollY - offset
                 changeCursorCoords(x,y + scrollDiff,offset + scrollDiff,transition)
             } 
-            else {
-                const { top, left } = cursorOuter.current!.getBoundingClientRect()
-        
-                setCursorAdjustments({
-                    top:top,
-                    left:left
-                })
-            }
         }
         window.addEventListener("scroll",handleWindowScroll)
+        setCursorAdjustments({
+            top:top,
+            left:left,
+            scrollY:window.scrollY
+        })
     },[])
 
     return (
