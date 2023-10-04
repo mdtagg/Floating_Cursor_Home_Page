@@ -1,12 +1,6 @@
 import { useRef, useEffect, useState } from 'react'
 import './index.css'
 
-type TCursorAdjustments = {
-    top:number 
-    left:number
-    scrollY:number
-}
-
 type TCustomCursor = {
     isMouseDown:boolean 
     isAnchorHover:boolean
@@ -35,77 +29,52 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
-    const [ cursorAdjustments, setCursorAdjustments ] = useState<null | TCursorAdjustments>(null)
+    const [ cursorTransition,setCursorTransition ] = useState({x:0,y:0})
 
-    const [ cursorCoords, setCursorCoords ] = useState({
+    const cursorPosition = useRef({
         x:0,
         y:0,
-        offset:0,
-        transition:""
+        transitionX:0,
+        transitionY:0,
+        scroll:0,
+        scrollChange:0
     })
 
     const isContainerHoverRef = useRef(false)
-    const cursorCoordsRef = useRef(cursorCoords) //used to pass cursor information to the scroll handler on window
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to get the cursors current positions
 
-    function handleEnter(e:React.MouseEvent<HTMLElement, MouseEvent>) {
-        if(isContainerHoverRef.current) return 
-        isContainerHoverRef.current = true
-
-        const { cursorOffsetTop, cursorOffsetLeft } = getElementOffsets() 
-   
-        let { pageX, pageY } = e
-        pageY -= cursorOffsetTop
-        pageX -= cursorOffsetLeft
-      
-        changeCursorCoords(pageX,pageY,window.scrollY,"transform 0.1s")
-    }
-
-    function getElementOffsets() {
-
-        const { top, left } = cursorOuter.current!.getBoundingClientRect()
-        const { offsetHeight, offsetWidth } = cursorOuter.current!
-
-        //adjusts cursor position if reentry into container occurs before cursor is fully reset
-        const adjustments = {
-            topAdjust: top - cursorAdjustments!.top,
-            leftAdjust: left - cursorAdjustments!.left,
-            scrollY: cursorAdjustments!.scrollY
-        }
-        
-        return {
-            cursorOffsetTop: getOffset(top,offsetHeight,adjustments.scrollY,adjustments.topAdjust),
-            cursorOffsetLeft: getOffset(left,offsetWidth,0,adjustments.leftAdjust)
-        }
-    }
-
-    function getOffset(offset:number,dimension:number,scroll:number=0,adjustment:number) {
-        return offset + (dimension / 2) + scroll - adjustment // removes the total offset and adds back the difference between the initial position and current position
-    }
-
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
-        if(!isContainerHoverRef.current) return;
+
+        isContainerHoverRef.current = true
+        cursorOuter.current!.style.transition = "transform 0.1s"
+
+        const { clientX, clientY } = e 
+        const changeY = clientY - cursorPosition.current.y + cursorPosition.current.scrollChange
+        const changeX = clientX - cursorPosition.current.x
+
+        cursorPosition.current! = {
+            ...cursorPosition.current!,
+            transitionX:changeX,
+            transitionY:changeY - cursorPosition.current.scrollChange,
+        }
+
+        setCursorTransition({
+            x:changeX,
+            y:changeY
+        })
+
         const target = e.target as HTMLElement
         target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
-        const { x, y, offset, transition } = cursorCoordsRef.current!
-        
-        changeCursorCoords(x + e.movementX,y + e.movementY,offset,transition)
+    
     }
 
     function handleMouseLeave() {
         isContainerHoverRef.current! = false
-        changeCursorCoords(0,0,window.scrollY,"transform 1s")
-    }
-
-    function changeCursorCoords(x:number,y:number,offset:number,transition:string) {
-        const cursorPosition = {
-            x,
-            y,
-            offset,
-            transition
-        }
-        setCursorCoords(cursorPosition)
-        cursorCoordsRef.current! = cursorPosition
+        cursorOuter.current!.style.transition = "transform 1s"
+        setCursorTransition({
+            x:0,
+            y:0
+        })
     }
 
     function handleMouseDown(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
@@ -116,23 +85,41 @@ const CursorTakeover = (props:TCursorWrapper) => {
     }
 
     useEffect(() => {
-        const { top, left } = cursorOuter.current!.getBoundingClientRect()
+
+        _setCursorPosition() //set cursor position within container on load
 
         const handleWindowScroll = () => {
-
             if(isContainerHoverRef.current) {
-                const { x, y, offset,transition } = cursorCoordsRef.current!
-                const scrollDiff = window.scrollY - offset
-                changeCursorCoords(x,y + scrollDiff,offset + scrollDiff,transition)
+                const { scroll,transitionX,transitionY } = cursorPosition.current!
+                const scrollChange = window.scrollY - scroll
+
+                cursorPosition.current! = {
+                    ...cursorPosition.current!,
+                    scrollChange:scrollChange
+                }
+        
+                setCursorTransition({
+                    x:transitionX,
+                    y:transitionY + cursorPosition.current.scrollChange
+                })
+
             } 
+            else _setCursorPosition();
         }
         window.addEventListener("scroll",handleWindowScroll)
-        setCursorAdjustments({
-            top:top,
-            left:left,
-            scrollY:window.scrollY
-        })
     },[])
+
+    function _setCursorPosition() {
+        const { top, left } = cursorOuter.current!.getBoundingClientRect()
+        const { offsetHeight,offsetWidth } = cursorOuter.current!
+
+        cursorPosition.current = {
+            ...cursorPosition.current!,
+            x:left + offsetWidth / 2,
+            y:top + offsetHeight / 2,
+            scroll:window.scrollY
+        }
+    }
 
     return (
         <div 
@@ -141,16 +128,17 @@ const CursorTakeover = (props:TCursorWrapper) => {
             onMouseLeave={handleMouseLeave}
             onMouseDown={(e) => handleMouseDown(e)}
             onMouseUp={() => setIsMouseDown(false)}
-            onMouseEnter={handleEnter}
-            style={{"justifyContent":`${position === 'center' ? 'center' : 'flex-end'}`}}
+            style={{
+                "justifyContent":`${position === 'center' ? 'center' : 'flex-end'}`
+            }}
         >
             {children}
             <div 
                 id="cursor-takeover-outer"
                 ref={cursorOuter}
                 style={{
-                    "transform":`translate(${cursorCoords.x}px,${cursorCoords.y}px)`,
-                    "transition": `${cursorCoords.transition}`
+                    "transform":`translate(${cursorTransition.x}px,${cursorTransition.y}px)`,
+                    "transition": `transform 1s`
                 }}
             >
                 <CustomCursor
