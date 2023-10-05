@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect, useState, useCallback } from 'react'
 import './index.css'
 
 type TCustomCursor = {
@@ -29,9 +29,8 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
-    const [ cursorTransition,setCursorTransition ] = useState({x:0,y:0})
 
-    const cursorPosition = useRef({
+    const [ cursor, setCursor ] = useState({
         x:0,
         y:0,
         transitionX:0,
@@ -49,18 +48,13 @@ const CursorTakeover = (props:TCursorWrapper) => {
         cursorOuter.current!.style.transition = "transform 0.1s"
 
         const { clientX, clientY } = e 
-        const changeY = clientY - cursorPosition.current.y + cursorPosition.current.scrollChange
-        const changeX = clientX - cursorPosition.current.x
+        const changeY = clientY - cursor.y 
+        const changeX = clientX - cursor.x
 
-        cursorPosition.current! = {
-            ...cursorPosition.current!,
+        setCursor({
+            ...cursor,
             transitionX:changeX,
-            transitionY:changeY - cursorPosition.current.scrollChange,
-        }
-
-        setCursorTransition({
-            x:changeX,
-            y:changeY
+            transitionY:changeY
         })
 
         const target = e.target as HTMLElement
@@ -71,9 +65,12 @@ const CursorTakeover = (props:TCursorWrapper) => {
     function handleMouseLeave() {
         isContainerHoverRef.current! = false
         cursorOuter.current!.style.transition = "transform 1s"
-        setCursorTransition({
-            x:0,
-            y:0
+        
+        setCursor({
+            ...cursor,
+            transitionX:0,
+            transitionY:0,
+            scrollChange:0
         })
     }
 
@@ -84,41 +81,40 @@ const CursorTakeover = (props:TCursorWrapper) => {
         setIsMouseDown(true)
     }
 
+    const handleWindowScroll = useCallback(() => {
+        if(isContainerHoverRef.current) {
+            const { scrollChange,scroll,transitionY,y } = cursor
+            const change = window.scrollY - scroll 
+
+            setCursor({
+                ...cursor,
+                y:y - scrollChange,
+                transitionY:transitionY + scrollChange,
+                scroll:window.scrollY,
+                scrollChange:change
+            })
+
+        } 
+        else _setCursorPosition();
+    },[cursor])
+
+    window.onscroll = handleWindowScroll
+
     useEffect(() => {
-
         _setCursorPosition() //set cursor position within container on load
-
-        const handleWindowScroll = () => {
-            if(isContainerHoverRef.current) {
-                const { scroll,transitionX,transitionY } = cursorPosition.current!
-                const scrollChange = window.scrollY - scroll
-
-                cursorPosition.current! = {
-                    ...cursorPosition.current!,
-                    scrollChange:scrollChange
-                }
-        
-                setCursorTransition({
-                    x:transitionX,
-                    y:transitionY + cursorPosition.current.scrollChange
-                })
-
-            } 
-            else _setCursorPosition();
-        }
-        window.addEventListener("scroll",handleWindowScroll)
     },[])
 
     function _setCursorPosition() {
         const { top, left } = cursorOuter.current!.getBoundingClientRect()
         const { offsetHeight,offsetWidth } = cursorOuter.current!
 
-        cursorPosition.current = {
-            ...cursorPosition.current!,
+        setCursor({
+            ...cursor,
             x:left + offsetWidth / 2,
             y:top + offsetHeight / 2,
             scroll:window.scrollY
-        }
+        })
+        
     }
 
     return (
@@ -137,7 +133,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
                 id="cursor-takeover-outer"
                 ref={cursorOuter}
                 style={{
-                    "transform":`translate(${cursorTransition.x}px,${cursorTransition.y}px)`,
+                    "transform":`translate(${cursor.transitionX}px,${cursor.transitionY}px)`,
                     "transition": `transform 1s`
                 }}
             >

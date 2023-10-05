@@ -12,14 +12,14 @@ function App() {
 
       <main>
 
-        <CursorTakeover
+        {/* <CursorTakeover
           CustomCursor={CustomCursor}
           color='white'
           position='center'
           text="WATCH REEL"
         >
           <Landing/>
-        </CursorTakeover>
+        </CursorTakeover> */}
 
         <CursorTakeover
           CustomCursor={CustomCursor}
