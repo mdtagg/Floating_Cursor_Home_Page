@@ -44,6 +44,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
 
+        console.log(cursor)
         isContainerHoverRef.current = true
         cursorOuter.current!.style.transition = "transform 0.1s"
 

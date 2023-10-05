@@ -47,6 +47,12 @@ a {
   pointer-events: auto;
 }
 
+main {
+  display:flex;
+  flex-direction:column;
+  gap:7rem;
+}
+
 .title {
   margin-left:6rem;
 }
