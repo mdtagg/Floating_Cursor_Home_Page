@@ -23,6 +23,8 @@ export type TCursorCoords = {
     transition: string;
 }
 
+//bug: when the cursor is transitioning back on leave and the user renters, the scroll handler sets the position values to where the cursor is before its back to its starting location
+
 const CursorTakeover = (props:TCursorWrapper) => {
 
     const { children, CustomCursor, color, position, text } = props
@@ -49,6 +51,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     const isContainerHoverRef = useRef(false) // used to perform positional calculations on the cursor one way if the container is hovered over and another way for components that arnt hovered over
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to get the cursors current positions
+    const transitionRef = useRef(false)
 
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
 
@@ -81,6 +84,8 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     function handleMouseLeave() {
 
+        transitionRef.current = true
+
         changeHover(false,"transform 1s")
         
         setCursorTransition({
@@ -103,11 +108,11 @@ const CursorTakeover = (props:TCursorWrapper) => {
     }
 
     const handleWindowScroll = () => {
-       
-        if(isContainerHoverRef.current) {
 
-            const { prevScroll, y, transitionY, transitionX } = cursorPositionRef.current
-            const scrollDiff = window.scrollY - prevScroll
+        const { prevScroll, y, transitionY, transitionX } = cursorPositionRef.current
+        const scrollDiff = window.scrollY - prevScroll
+
+        if(isContainerHoverRef.current) {
             
             cursorPositionRef.current = {
                 ...cursorPositionRef.current,
@@ -122,6 +127,15 @@ const CursorTakeover = (props:TCursorWrapper) => {
             })
             
         } 
+        else if(transitionRef.current === true) {
+            // if window is scrolled while cursor is transitioning back on leave its position is 
+            //calculated from its starting position, not where it is in the transition
+            cursorPositionRef.current = {
+                ...cursorPositionRef.current,
+                y:y - scrollDiff,
+                prevScroll:window.scrollY
+            }
+        }
         else _setCursorPosition()
     }
 
@@ -132,7 +146,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     function _setCursorPosition() {
         const { top, left } = cursorOuter.current!.getBoundingClientRect()
-        const { offsetHeight,offsetWidth } = cursorOuter.current!
+        const { offsetHeight, offsetWidth } = cursorOuter.current!
 
         cursorPositionRef.current = {
             ...cursorPositionRef.current,
@@ -161,6 +175,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
                     "transform":`translate(${cursorTransition.transitionX}px,${cursorTransition.transitionY}px)`,
                     "transition": `transform 1s`
                 }}
+                onTransitionEnd={() => transitionRef.current = false}
             >
                 <CustomCursor
                     isMouseDown={isMouseDown}
