@@ -85,7 +85,6 @@ const CursorTakeover = (props:TCursorWrapper) => {
     function handleMouseLeave() {
 
         transitionRef.current = true
-
         changeHover(false,"transform 1s")
         
         setCursorTransition({
