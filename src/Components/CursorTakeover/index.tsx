@@ -30,33 +30,43 @@ const CursorTakeover = (props:TCursorWrapper) => {
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
 
-    const [ cursor, setCursor ] = useState({
-        x:0,
-        y:0,
+    const [ cursorTransition, setCursorTransition ] = useState({
+        // x:0,
+        // y:0,
         transitionX:0,
         transitionY:0,
-        scroll:0,
-        scrollChange:0
+        // scroll:0,
+        // scrollChange:0
     })
+
+    const cursorPositionRef = useRef({x:0,y:0,prevScroll:0,transitionX:0,transitionY:0})
 
     const isContainerHoverRef = useRef(false)
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to get the cursors current positions
 
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
 
-        console.log(cursor)
         isContainerHoverRef.current = true
         cursorOuter.current!.style.transition = "transform 0.1s"
 
+        // const { pageX,pageY } = e
         const { clientX, clientY } = e 
-        const changeY = clientY - cursor.y 
-        const changeX = clientX - cursor.x
+        const changeY = clientY - cursorPositionRef.current!.y 
+        const changeX = clientX - cursorPositionRef.current!.x
+        console.log(clientY,cursorPositionRef.current.y)
 
-        setCursor({
-            ...cursor,
+        cursorPositionRef.current = {
+            ...cursorPositionRef.current,
+            transitionX:changeX,
+            transitionY:changeY
+        }
+
+        setCursorTransition({
             transitionX:changeX,
             transitionY:changeY
         })
+
+        // console.log(cursorPositionRef.current)
 
         const target = e.target as HTMLElement
         target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
@@ -67,11 +77,11 @@ const CursorTakeover = (props:TCursorWrapper) => {
         isContainerHoverRef.current! = false
         cursorOuter.current!.style.transition = "transform 1s"
         
-        setCursor({
-            ...cursor,
+        setCursorTransition({
+            ...cursorTransition,
             transitionX:0,
             transitionY:0,
-            scrollChange:0
+            // scrollChange:0
         })
     }
 
@@ -82,40 +92,51 @@ const CursorTakeover = (props:TCursorWrapper) => {
         setIsMouseDown(true)
     }
 
-    const handleWindowScroll = useCallback(() => {
+    const handleWindowScroll = () => {
+       
+
+        //incorrectly sets cursor position becuase after the cursor moves its no longer default position
+
         if(isContainerHoverRef.current) {
-            const { scrollChange,scroll,transitionY,y } = cursor
-            const change = window.scrollY - scroll 
 
-            setCursor({
-                ...cursor,
-                y:y - scrollChange,
-                transitionY:transitionY + scrollChange,
-                scroll:window.scrollY,
-                scrollChange:change
+            const { prevScroll } = cursorPositionRef.current
+            const currentScroll = window.scrollY
+            
+
+            cursorPositionRef.current ={
+                ...cursorPositionRef.current,
+                y: cursorPositionRef.current.y - (currentScroll - prevScroll),
+                transitionY:cursorPositionRef.current.transitionY + (currentScroll - prevScroll),
+                prevScroll:currentScroll
+            }
+
+            setCursorTransition({
+                transitionX:cursorPositionRef.current.transitionX,
+                transitionY:cursorPositionRef.current.transitionY 
             })
-
+            
         } 
-        else _setCursorPosition();
-    },[cursor])
+        else _setCursorPosition()
+    }
 
-    window.onscroll = handleWindowScroll
+
 
     useEffect(() => {
         _setCursorPosition() //set cursor position within container on load
+        window.addEventListener("scroll",handleWindowScroll)
     },[])
 
     function _setCursorPosition() {
         const { top, left } = cursorOuter.current!.getBoundingClientRect()
         const { offsetHeight,offsetWidth } = cursorOuter.current!
 
-        setCursor({
-            ...cursor,
+        cursorPositionRef.current = {
+            ...cursorPositionRef.current,
             x:left + offsetWidth / 2,
             y:top + offsetHeight / 2,
-            scroll:window.scrollY
-        })
-        
+            prevScroll:window.scrollY
+        }
+        // console.log(cursorPositionRef.current)
     }
 
     return (
@@ -134,7 +155,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
                 id="cursor-takeover-outer"
                 ref={cursorOuter}
                 style={{
-                    "transform":`translate(${cursor.transitionX}px,${cursor.transitionY}px)`,
+                    "transform":`translate(${cursorTransition.transitionX}px,${cursorTransition.transitionY}px)`,
                     "transition": `transform 1s`
                 }}
             >
