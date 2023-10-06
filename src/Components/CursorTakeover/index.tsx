@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState, useCallback } from 'react'
+import { useRef, useEffect, useState } from 'react'
 import './index.css'
 
 type TCustomCursor = {
@@ -30,6 +30,10 @@ const CursorTakeover = (props:TCursorWrapper) => {
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
 
+    /*
+    cursorTransition state is used to trigger renrenders when the transition values are updated
+    cursorPositionRef is used to transfer positional information on the cursor between rerenders
+     */
     const [ cursorTransition, setCursorTransition ] = useState({
         transitionX:0,
         transitionY:0,
@@ -43,16 +47,14 @@ const CursorTakeover = (props:TCursorWrapper) => {
         transitionY:0
     })
 
-    const isContainerHoverRef = useRef(false)
+    const isContainerHoverRef = useRef(false) // used to perform positional calculations on the cursor one way if the container is hovered over and another way for components that arnt hovered over
     const cursorOuter = useRef<HTMLDivElement | null>(null) //used to get the cursors current positions
 
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
 
-        const target = e.target as HTMLElement
-        target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
+        checkIsAnchor(e) // changes cursor body opacity if an anchor element is hovered
 
-        isContainerHoverRef.current = true
-        cursorOuter.current!.style.transition = "transform 0.1s"
+        changeHover(true,"transform 0.1s") // changes cursorHoverRef boolean based on if container is hovered over and sets a new transition value
 
         const { x, y } = cursorPositionRef.current
         const { clientX, clientY } = e 
@@ -72,15 +74,25 @@ const CursorTakeover = (props:TCursorWrapper) => {
         })
     }
 
+    function checkIsAnchor(e:React.MouseEvent<HTMLElement, MouseEvent>) {
+        const target = e.target as HTMLElement
+        target.nodeName === "A" ? setIsAnchorHover(true) : setIsAnchorHover(false)
+    }
+
     function handleMouseLeave() {
-        isContainerHoverRef.current! = false
-        cursorOuter.current!.style.transition = "transform 1s"
+
+        changeHover(false,"transform 1s")
         
         setCursorTransition({
             ...cursorTransition,
             transitionX:0,
             transitionY:0,
         })
+    }
+
+    function changeHover(isHover:boolean,transitionVal:string) {
+        isContainerHoverRef.current! = isHover
+        cursorOuter.current!.style.transition = transitionVal
     }
 
     function handleMouseDown(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
