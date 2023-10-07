@@ -1,9 +1,12 @@
 import './index.css'
 import { Icon } from '@iconify/react';
+import { useState } from 'react'
+import { v4 as uuidv4 } from 'uuid'
 
 const NavBar = () => {
 
     const navList = ['WORK','ABOUT','NEWS','THINKING','CAREERS','CONTACT']
+    const [ navItemId, setNavItemId ] = useState<number | null>(null)
 
     return (
         <nav>
@@ -15,18 +18,31 @@ const NavBar = () => {
             <ul
                 className="nav-list center"
             >
-                {navList.map(navLink => {
+                {navList.map((navLink,index) => {
+                    const underlineAnimation = 
+                    index === navItemId ? 
+                    "underline-animation-forwards" : 
+                    ""
+                    
                     return (
                         <li
                             className="nav-item"
+                            onMouseEnter={() => {
+                                setNavItemId(index)
+                            }}
+                            onMouseLeave={() => {
+                              
+                            }}
+                            key={uuidv4()}
                         >
                             <a
                                 className="nav-link"
+                                data-position={index}
                             >
                                 {navLink}
                             </a>
                             <div
-                                className="underline"
+                                className={`underline  ${underlineAnimation}`}
                             >
                                 
                             </div>
