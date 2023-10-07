@@ -28,7 +28,7 @@ const NavBar = () => {
                             <div
                                 className="underline"
                             >
-                                -
+                                
                             </div>
                         </li>
                     )

@@ -27,14 +27,16 @@ nav {
 
 }
 
-.nav-item {
-    line-height: .5rem;
-}
-
 .nav-link {
     display:flex;
     align-items:flex-end;
     cursor:pointer;
+}
+
+.nav-item {
+    height:max-content;
+    width:max-content;
+    line-height: 1rem;
 }
 
 button {
@@ -49,5 +51,8 @@ button {
 }
 
 .underline {
-    position:absolute;
+    height:.1rem;
+    width:100%;
+    background-color: white;
+    position:relative;
 }
