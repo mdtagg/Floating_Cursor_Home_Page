@@ -1,4 +1,5 @@
 import { getCompanyData } from '../../utils/getCompanyData'
+import { v4 as uuidv4 } from 'uuid'
 import './index.css'
 
 const CompanyContent = () => {
@@ -9,11 +10,24 @@ const CompanyContent = () => {
         <>
         {companyData.map(company => {
             return (
-                <div className="carousel-panel">
-                    <p className="company-logo">{company.title}</p>
-                    <p>_</p>
-                    <div className="company-information">
-                        <p>{company.title}</p>
+                <div 
+                    className="carousel-panel"
+                    key={uuidv4()}
+                >
+                    <p 
+                        className="company-logo"
+                    >
+                        {company.title}
+                    </p>
+                    <p>
+                        _
+                    </p>
+                    <div 
+                        className="company-information"
+                    >
+                        <p>
+                            {company.title}
+                        </p>
                         <p 
                             className="carousel-content"
                         >

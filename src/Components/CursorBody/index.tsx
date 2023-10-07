@@ -1,4 +1,5 @@
 import './index.css'
+import { v4 as uuidv4 } from 'uuid'
 
 export type TCursorBody = {
     isMouseDown:boolean 
@@ -25,7 +26,15 @@ const CursorBody = (props:TCursorBody) => {
             { 
             isMouseDown || isAnchorHover ? 
             "" : 
-            words.map(word => <span>{word}</span>)
+            words.map(word => {
+            return (
+                <span 
+                    key={uuidv4()}
+                >
+                    {word}
+                </span>
+                )
+        })
             }
         </div>
     )
