@@ -12,7 +12,7 @@ type TCursorWrapper = {
     children:JSX.Element
     CustomCursor:(props:TCustomCursor) => JSX.Element
     color:string
-    position:"center" | "left"
+    position:"center" | "right"
     text:string
 }
 

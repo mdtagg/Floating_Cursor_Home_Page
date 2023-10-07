@@ -2,6 +2,7 @@ import { Landing } from './Components/Landing'
 import { Carousel } from './Components/Carousel'
 import { CursorTakeover } from './Components/CursorTakeover'
 import { CustomCursor } from './Components/CustomCursor'
+import { NavBar } from './Components/NavBar'
 import './index.css'
 
 function App() {
@@ -11,7 +12,7 @@ function App() {
       <div className="bg"></div>
 
       <main>
-
+        <NavBar/>
         <CursorTakeover
           CustomCursor={CustomCursor}
           color='white'
@@ -24,7 +25,7 @@ function App() {
         <CursorTakeover
           CustomCursor={CustomCursor}
           color="#f9cdcd"
-          position='left'
+          position='right'
           text='DRAG'
         >
           <Carousel/>

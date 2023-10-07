@@ -1,0 +1,53 @@
+
+nav {
+    display:grid;
+    grid-template-columns: 1fr 3fr 1fr;
+    /* background-color: yellow; */
+    position:fixed;
+    height:150px;
+    width:100%;
+    z-index:2;
+    font-family: Kanit;
+    color:white;
+}
+
+.large {
+    font-size:1.5rem;
+}
+
+.center {
+    display:flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.nav-list {
+    gap:2rem;
+    font-size:1rem;
+
+}
+
+.nav-item {
+    line-height: .5rem;
+}
+
+.nav-link {
+    display:flex;
+    align-items:flex-end;
+    cursor:pointer;
+}
+
+button {
+    background:transparent;
+    border:none;
+    cursor:pointer;
+}
+
+.nav-more-button {
+    height:3rem;
+    width:3rem;
+}
+
+.underline {
+    position:absolute;
+}
