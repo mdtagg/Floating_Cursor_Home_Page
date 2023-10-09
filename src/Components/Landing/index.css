@@ -1,3 +1,16 @@
+iframe {
+    pointer-events: none;
+}
+
+.video-container {
+    height:100vh;
+}
+
+.video {
+    height:100%;
+    object-fit:fill;
+
+}
 
 .landing {
     height:100vh;

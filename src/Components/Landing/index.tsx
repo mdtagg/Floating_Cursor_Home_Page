@@ -3,12 +3,21 @@ import "./index.css"
 const Landing = () => {
 
     return (
-        <img 
-            className="landing"
-            src="src\assets\pexels-eberhard-grossgasteiger-673018.jpg"
+        <div
+            className="video-container"
         >
-
-            </img>
+            <video
+                className="video"
+                width={`${window.innerWidth}px`}
+                autoPlay
+                muted
+                loop
+            >
+                <source
+                    src="src\assets\178732 (1080p).mp4"
+                ></source>
+            </video>
+        </div>
     )
 }
 

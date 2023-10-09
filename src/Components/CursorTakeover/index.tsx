@@ -56,7 +56,6 @@ const CursorTakeover = (props:TCursorWrapper) => {
     function handleMouseMove(e:React.MouseEvent<HTMLElement, MouseEvent>) {
 
         checkIsAnchor(e) // changes cursor body opacity if an anchor element is hovered
-
         changeHover(true,"transform 0.1s") // changes cursorHoverRef boolean based on if container is hovered over and sets a new transition value
 
         const { x, y } = cursorPositionRef.current
