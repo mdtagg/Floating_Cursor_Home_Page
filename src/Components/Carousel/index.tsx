@@ -13,8 +13,8 @@ const Carousel = () => {
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
         const target = e.target as HTMLDivElement
-        const maxScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
-        const scrollPosition = ((maxScroll - target.scrollLeft) / maxScroll) * 100 //the percentage from 100 of scroll 
+        const overflowScroll = target.scrollWidth - target.clientWidth // Amount of overflow scroll
+        const scrollPosition = ((overflowScroll - target.scrollLeft) / overflowScroll) * 100 //the percentage from 100 of scroll 
         const adjusted = (100 - scrollPosition) * ((100 - scrollWidth) * 0.01) // The percentage of scroll to adjust right including scrollBar width
         setScrollPosition(adjusted)
     }
@@ -27,7 +27,6 @@ const Carousel = () => {
     useEffect(() => {
         setScrollWidth((window.innerWidth / stageRef.current!.scrollWidth) * 100)
     },[])
-
 
     return (
         <div 

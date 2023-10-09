@@ -31,6 +31,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
+    const [ cursor,setCursor ] = useState(false)
 
     /*
     cursorTransition state is used to trigger renrenders when the transition values are updated
@@ -104,6 +105,9 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
         if(hasCarousel) {
             setIsMouseDown(true)
+        }
+        else {
+            setCursor(!cursor)
         }
     }
 
@@ -191,12 +195,14 @@ const CursorTakeover = (props:TCursorWrapper) => {
                 }}
                 onTransitionEnd={() => transitionRef.current = false}
             >
+                {!cursor && 
                 <CustomCursor
                     isMouseDown={isMouseDown}
                     isAnchorHover={isAnchorHover}
                     color={color}
                     text={text}
                 />
+                }   
                 
             </div>
         </div>
