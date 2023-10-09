@@ -11,7 +11,7 @@ const Landing = () => {
                 width={`${window.innerWidth}px`}
                 autoPlay
                 muted
-                loop
+                // loop
             >
                 <source
                     src="src\assets\178732 (1080p).mp4"

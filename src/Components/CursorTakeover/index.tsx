@@ -100,9 +100,25 @@ const CursorTakeover = (props:TCursorWrapper) => {
 
     function handleMouseDown(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
         const target = e.target as HTMLDivElement
-        if(target.id === "carousel-container") {
+        const hasCarousel = checkCarousel(target)
+
+        if(hasCarousel) {
+            setIsMouseDown(true)
         }
-        setIsMouseDown(true)
+    }
+
+    function checkCarousel(target:HTMLElement) {
+        
+        const { parentElement } = target
+       
+        if(!parentElement) return false;
+        if(parentElement.id && parentElement.id === 'carousel-container') {
+            return true
+        }
+        
+        const present = checkCarousel(parentElement)
+        if(present) return true
+        return false
     }
 
     const handleWindowScroll = () => {
