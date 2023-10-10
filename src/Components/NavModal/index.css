@@ -9,7 +9,10 @@
 .modal-header {
     display:grid;
     grid-template-columns: 7fr 1fr;
-    padding:3rem 5rem;
+    height:150px;
+    justify-content:center;
+    align-items: center;
+    padding:var(--main-padding);
     font-family:Kanit;
     line-height: 1rem;
     color:var(--pink);

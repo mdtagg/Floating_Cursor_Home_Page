@@ -8,7 +8,7 @@ nav {
     z-index:1;
     font-family: Kanit;
     color:white;
-    padding:0 4rem;
+    padding:var(--main-padding);
 }
 
 .company-title {

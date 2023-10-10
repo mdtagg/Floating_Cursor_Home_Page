@@ -1,9 +1,15 @@
 import "./index.css"
 import { useState,useEffect,useRef } from "react"
 import { CompanyContent } from "../CompanyContent"
+import { TProgressBar } from "../ProgressBar"
 
-const Carousel = () => {
+type TCarousel = {
+    ProgressBar?:(props:TProgressBar) => JSX.Element
+}
 
+const Carousel = (props:TCarousel) => {
+
+    const { ProgressBar } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
     const [ scrollWidth, setScrollWidth ] = useState(0)
 
@@ -44,19 +50,11 @@ const Carousel = () => {
             >
                 <CompanyContent/>
             </div>
-            <div className="progress-bar-container">
-                <div 
-                    className="progress-bar-track"
-                >
-                    <span 
-                        className="progress-bar-slider" 
-                        style={{
-                            "width":`${scrollWidth}%`,
-                            "left":`${scrollPosition}%`
-                        }}
-                    ></span>
-                </div>
-            </div>
+            {ProgressBar && 
+            <ProgressBar
+                scrollWidth={scrollWidth}
+                scrollPosition={scrollPosition}
+            />}
         </div>
     )
 }

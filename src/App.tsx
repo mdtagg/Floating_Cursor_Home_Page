@@ -4,6 +4,7 @@ import { CursorTakeover } from './Components/CursorTakeover'
 import { CustomCursor } from './Components/CustomCursor'
 import { NavBar } from './Components/NavBar'
 import { NavModal } from './Components/NavModal'
+import { ProgressBar } from './Components/ProgressBar'
 import { useState } from 'react'
 import './index.css'
 
@@ -34,7 +35,9 @@ function App() {
           position='right'
           text='DRAG'
         >
-          <Carousel/>
+          <Carousel
+            ProgressBar={ProgressBar}
+          />
         </CursorTakeover> 
         
         {modalToggle &&

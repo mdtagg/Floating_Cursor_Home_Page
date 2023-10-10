@@ -17,7 +17,7 @@
     user-select: none;
 }
 
-.progress-bar-container {
+/* .progress-bar-container {
     padding:0 4rem;
     height:3px;
     display:flex;
@@ -35,4 +35,4 @@
     background-color: black;
     position:absolute;
     pointer-events: none;
-} 
+}  */
