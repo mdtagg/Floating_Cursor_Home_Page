@@ -6,6 +6,9 @@ const NavModal = (props:TNavBar) => {
     const { setModalToggle } = props
 
     return (
+        <section
+            className="nav-modal"
+        >
         <header
             className="modal-header"
         >
@@ -33,6 +36,7 @@ const NavModal = (props:TNavBar) => {
             </div>
             
         </header>
+        </section>
     )
 }
 

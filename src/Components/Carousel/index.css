@@ -3,7 +3,7 @@
     pointer-events: none;
 }
 
-#carousel-container::-webkit-scrollbar {
+#carousel-container::-webkit-scrollbar, .carousel-stage::-webkit-scrollbar {
     height:0;
     width:0;
 }
@@ -15,11 +15,6 @@
     font-size:1.25rem;
     padding:4rem;
     user-select: none;
-}
-
-.carousel-stage::-webkit-scrollbar {
-    height:0;
-    width:0;
 }
 
 .progress-bar-container {
@@ -37,10 +32,7 @@
 
 .progress-bar-slider {
     height:100%;
-    width:60%;
     background-color: black;
     position:absolute;
-    z-index:1;
-    display:inline;
     pointer-events: none;
 } 

@@ -10,21 +10,12 @@ import './index.css'
 function App() {
 
   const [ modalToggle,setModalToggle ] = useState(false)
-  const backgroundStyle = modalToggle ? "background-brown" : ""
 
   return (
     <>
-      {
-      !modalToggle && 
       <div className="bg"></div>
-      }
 
-      <main
-        className={`${backgroundStyle}`}
-      >
-        
-        {!modalToggle ? 
-        <>
+      <main>
         <NavBar
           setModalToggle={setModalToggle}
         />
@@ -45,14 +36,11 @@ function App() {
         >
           <Carousel/>
         </CursorTakeover> 
-        </>
-        :
+        
+        {modalToggle &&
         <NavModal
           setModalToggle={setModalToggle}
-        />
-        } 
-
-        
+        />}
       </main>
       <div style={{"height":"500px"}}></div>
       

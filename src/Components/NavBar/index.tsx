@@ -45,9 +45,9 @@ const NavBar = (props:TNavBar) => {
             }}
         >
             <p
-                className="large center"
+                className="company-title"
             >
-                BASIC/DEPT
+                COMPANY TITLE
             </p>
             <ul
                 className="nav-list center"
@@ -68,7 +68,7 @@ const NavBar = (props:TNavBar) => {
                 })}
             </ul>
             <div
-                className="center"
+                className="menu-button-container"
             >
                 <button
                     className="nav-more-button"

@@ -5,9 +5,17 @@ nav {
     position:fixed;
     height:150px;
     width:100%;
-    z-index:2;
+    z-index:1;
     font-family: Kanit;
     color:white;
+    padding:0 4rem;
+}
+
+.company-title {
+    font-size:1.5rem;
+    display:flex;
+    justify-content: flex-start;
+    align-items:center;
 }
 
 .large {
@@ -55,4 +63,10 @@ nav {
     cursor:pointer;
     height:3rem;
     width:3rem;
+}
+
+.menu-button-container {
+    display:flex;
+    justify-content: flex-end;
+    align-items: center;
 }
