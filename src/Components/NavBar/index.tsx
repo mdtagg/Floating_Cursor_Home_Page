@@ -3,8 +3,13 @@ import { Icon } from '@iconify/react';
 import { navList } from './utils/getNavLinks';
 import { useState,useEffect,useRef } from 'react'
 
-const NavBar = () => {
+export type TNavBar = {
+    setModalToggle: React.Dispatch<React.SetStateAction<boolean>>
+}
 
+const NavBar = (props:TNavBar) => {
+
+    const { setModalToggle } = props
     const [ navPosition, setNavPosition ] = useState(0)
     const navRef = useRef<HTMLElement | null>(null)
     const scrollRef = useRef(0)
@@ -67,6 +72,7 @@ const NavBar = () => {
             >
                 <button
                     className="nav-more-button"
+                    onClick={() => setModalToggle(true)}
                 >
                     <Icon 
                         icon="tabler:dots" 

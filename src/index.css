@@ -11,6 +11,8 @@ ul {
 
 :root {
   --main-padding:0rem 6rem;
+  --pink:#f9cdcd;
+  --brown:#252422;
 }
 
 .bg {
@@ -49,6 +51,10 @@ main {
   display:flex;
   flex-direction:column;
   gap:7rem;
+}
+
+.background-brown {
+  background-color: var(--brown);
 }
 
 .title {

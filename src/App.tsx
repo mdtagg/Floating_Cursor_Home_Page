@@ -3,16 +3,31 @@ import { Carousel } from './Components/Carousel'
 import { CursorTakeover } from './Components/CursorTakeover'
 import { CustomCursor } from './Components/CustomCursor'
 import { NavBar } from './Components/NavBar'
+import { NavModal } from './Components/NavModal'
+import { useState } from 'react'
 import './index.css'
 
 function App() {
 
+  const [ modalToggle,setModalToggle ] = useState(false)
+  const backgroundStyle = modalToggle ? "background-brown" : ""
+
   return (
     <>
+      {
+      !modalToggle && 
       <div className="bg"></div>
+      }
 
-      <main>
-        <NavBar/>
+      <main
+        className={`${backgroundStyle}`}
+      >
+        
+        {!modalToggle ? 
+        <>
+        <NavBar
+          setModalToggle={setModalToggle}
+        />
         <CursorTakeover
           CustomCursor={CustomCursor}
           color='white'
@@ -29,7 +44,14 @@ function App() {
           text='DRAG'
         >
           <Carousel/>
-        </CursorTakeover>
+        </CursorTakeover> 
+        </>
+        :
+        <NavModal
+          setModalToggle={setModalToggle}
+        />
+        } 
+
         
       </main>
       <div style={{"height":"500px"}}></div>

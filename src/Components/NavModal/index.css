@@ -1,0 +1,48 @@
+
+
+.modal-header {
+    display:grid;
+    grid-template-columns: 7fr 1fr;
+    padding:3rem 5rem;
+    font-family:Kanit;
+    line-height: 1rem;
+    color:var(--pink);
+}
+
+/* .modal-header > * {
+    border:1px solid black;
+} */
+
+.modal-info {
+    display:flex;
+    gap:4rem;
+    user-select: none;
+}
+
+.modal-dot {
+    display:flex;
+    justify-content: flex-end;
+    align-items: flex-start;
+    font-size:1.5rem;
+    line-height:.9rem;
+}
+
+.modal-exit-container {
+    display:flex;
+    justify-content: flex-end;
+}
+
+.modal-exit {
+    cursor:pointer;
+    position:relative;
+    height:40px;
+    width:40px;
+    border-radius:100%;
+    overflow:hidden;
+    font-size:1.5rem;
+    font-family:Nunito;
+    font-weight:800;
+    background:transparent;
+    border:2px solid white;
+    color:white;
+}
