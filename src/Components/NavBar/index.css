@@ -42,7 +42,6 @@ nav {
     transition: transform 0.25s;
     position:absolute;
     bottom:0;
-    /* left:0; */
 }
 
 .nav-link:hover::after {

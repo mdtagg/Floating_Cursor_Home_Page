@@ -126,7 +126,6 @@ const CursorTakeover = (props:TCursorWrapper) => {
     }
 
     const handleWindowScroll = () => {
-
         const { prevScroll, y, transitionY, transitionX } = cursorPositionRef.current
         const scrollDiff = window.scrollY - prevScroll
 

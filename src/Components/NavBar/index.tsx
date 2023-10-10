@@ -1,11 +1,44 @@
 import './index.css'
 import { Icon } from '@iconify/react';
 import { navList } from './utils/getNavLinks';
+import { useState,useEffect,useRef } from 'react'
 
 const NavBar = () => {
 
+    const [ navPosition, setNavPosition ] = useState(0)
+    const navRef = useRef<HTMLElement | null>(null)
+    const scrollRef = useRef(0)
+
+    function handleNavScroll() {
+
+        if(!navRef.current) return
+        const scrollDiff = scrollRef.current - window.scrollY
+        
+        if(scrollDiff < -navRef.current.offsetHeight) {
+           const test = window.scrollY - navRef.current.offsetHeight - scrollRef.current
+           scrollRef.current += test
+           setNavPosition(-150)
+        }
+        else if(scrollDiff > 0) {
+            scrollRef.current = window.scrollY
+            setNavPosition(0)
+        }
+        else {
+            setNavPosition(() => scrollDiff)
+        }
+    }
+
+    useEffect(() => {
+        window.addEventListener('scroll',handleNavScroll)
+    },[])
+
     return (
-        <nav>
+        <nav
+            ref={navRef}
+            style={{
+                "transform":`translateY(${navPosition}px)`
+            }}
+        >
             <p
                 className="large center"
             >
