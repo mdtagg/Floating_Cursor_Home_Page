@@ -1,0 +1,24 @@
+.image-panel {
+    display:flex;
+    flex-direction:column;
+    height:500px;
+    border-left:1px solid var(--pink);
+    padding:0 .5rem;
+    color:pink;
+    font-family:Kanit;
+}
+
+.menu-image {
+    pointer-events: none;
+}
+
+.border-right {
+    border-right:1px solid var(--pink);
+}
+
+.menu-panel-info {
+    display:flex;
+    justify-content: space-between;
+    padding:1rem 2rem;
+}
+

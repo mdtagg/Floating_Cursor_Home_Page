@@ -23,7 +23,7 @@ export type TCursorCoords = {
     transition: string;
 }
 
-//bug: when the cursor is transitioning back on leave and the user renters, the scroll handler sets the position values to where the cursor is before its back to its starting location
+//bug: when the cursor is transitioning back on leave and the user reenters, the scroll handler sets the position values to where the cursor is before its back to its starting location
 
 const CursorTakeover = (props:TCursorWrapper) => {
 
@@ -34,7 +34,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
     const [ cursor,setCursor ] = useState(false)
 
     /*
-    cursorTransition state is used to trigger renrenders when the transition values are updated
+    cursorTransition state is used to trigger rerenders when the transition values are updated
     cursorPositionRef is used to transfer positional information on the cursor between rerenders
      */
     const [ cursorTransition, setCursorTransition ] = useState({

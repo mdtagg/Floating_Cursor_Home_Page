@@ -1,21 +1,20 @@
 import "./index.css"
 import { useState,useEffect,useRef } from "react"
-import { CompanyContent } from "../CompanyContent"
 import { TProgressBar } from "../ProgressBar"
 
 type TCarousel = {
     ProgressBar?:(props:TProgressBar) => JSX.Element
+    children:JSX.Element
 }
 
 const Carousel = (props:TCarousel) => {
 
-    const { ProgressBar } = props
+    const { ProgressBar,children } = props
     const [ scrollPosition, setScrollPosition ] = useState(0)
     const [ scrollWidth, setScrollWidth ] = useState(0)
 
     const [ mouseDown, setMouseDown ] = useState(false)
     const stageRef = useRef<HTMLDivElement | null>(null)
-
 
     function handleScroll(e:React.UIEvent<HTMLElement, UIEvent>) {
         const target = e.target as HTMLDivElement
@@ -48,7 +47,7 @@ const Carousel = (props:TCarousel) => {
                 draggable={false}
                 ref={stageRef}
             >
-                <CompanyContent/>
+                {children}
             </div>
             {ProgressBar && 
             <ProgressBar

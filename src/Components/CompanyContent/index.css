@@ -5,4 +5,7 @@
     font-size:1.5rem;
     flex-shrink:0;
     width:300px;
+    padding:3rem 0;
+    margin-right:5rem;
+    gap:2rem;
 }

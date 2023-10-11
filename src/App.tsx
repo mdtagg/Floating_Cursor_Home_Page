@@ -5,6 +5,7 @@ import { CustomCursor } from './Components/CustomCursor'
 import { NavBar } from './Components/NavBar'
 import { NavModal } from './Components/NavModal'
 import { ProgressBar } from './Components/ProgressBar'
+import { CompanyContent } from './Components/CompanyContent'
 import { useState } from 'react'
 import './index.css'
 
@@ -37,7 +38,9 @@ function App() {
         >
           <Carousel
             ProgressBar={ProgressBar}
-          />
+          >
+            <CompanyContent/>
+          </Carousel>
         </CursorTakeover> 
         
         {modalToggle &&

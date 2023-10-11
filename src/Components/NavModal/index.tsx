@@ -3,6 +3,7 @@ import { TNavBar } from '../NavBar';
 import { CursorTakeover } from '../CursorTakeover';
 import { CustomCursor } from '../CustomCursor';
 import { Carousel } from '../Carousel';
+import { Projects } from '../Projects';
 
 const NavModal = (props:TNavBar) => {
 
@@ -45,7 +46,10 @@ const NavModal = (props:TNavBar) => {
                     position="right"
                     text="DRAG"
                 >
-                <Carousel/>
+                <Carousel>
+                    <Projects/>
+                </Carousel>
+                
             </CursorTakeover>
         </section>
     )
