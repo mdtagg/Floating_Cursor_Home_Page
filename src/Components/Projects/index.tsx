@@ -11,31 +11,6 @@ const Projects = () => {
         "src/assets/pexels-анна-рыжкова-3077882 (2).jpg"
      ]
 
-    // const projectsData = [
-    //     {
-    //         picture:"src/assets/pexels-brett-sayles-1574216.jpg",
-    //         company:"COMPANY",
-    //         project:"PROJECT",
-    //         date:"2023",
-    //         description:"DESCRIPTION",
-    //         key:"src/assets/pexels-brett-sayles-1574216.jpg"
-    //     },
-    //     {
-    //         picture:"src/assets/pexels-min-an-1543756 (1).jpg",
-    //         company:"COMPANY",
-    //         project:"PROJECT",
-    //         date:"2023",
-    //         description:"DESCRIPTION",
-    //         key:"src/assets/pexels-min-an-1543756 (1).jpg"
-    //     },
-    //     {
-    //         picture:"src/assets/pexels-noelle-otto-906094 (1).jpg",
-    //     },
-    //     {picture:"src/assets/pexels-pixabay-461593 (1).jpg"},
-    //     {picture:"src/assets/pexels-riccardo-303040 (1).jpg"},
-    //     {picture:"src/assets/pexels-анна-рыжкова-3077882 (2).jpg"}
-    // ]
-
     return (
         projectsData.map((picture,index) => {
 
@@ -43,16 +18,22 @@ const Projects = () => {
 
             return (
                 <div
+                    className="container"
+                >
+                <div
                     className={`image-panel ${borderRight}`}
                     key={picture}
                 >
-                    <img
-                        className="menu-image"
-                        height="350px"
-                        width="450px"
-                        src={picture}
+                    <div
+                        className="menu-image-container"
+                    >
+                        <img
+                            className="menu-image"
+                            src={picture}
                     >
                     </img>
+                    </div>
+                    
                     <div
                         className="menu-panel-info"
                     >
@@ -60,7 +41,13 @@ const Projects = () => {
                         <p>&copy;2023</p>
                     </div>
                 </div>
-                
+                <div
+                    className="menu-panel-number"
+                >
+                    {`0${index + 1}`}
+                    
+                </div>
+                </div>
             )
         })
     )
