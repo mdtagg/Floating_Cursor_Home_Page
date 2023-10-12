@@ -19,34 +19,59 @@ const Projects = () => {
             return (
                 <div
                     className="container"
-                >
-                <div
-                    className={`image-panel ${borderRight}`}
                     key={picture}
+                    id={picture}
                 >
                     <div
-                        className="menu-image-container"
+                        className={`image-panel ${borderRight}`}
+                        key={picture}
                     >
-                        <img
-                            className="menu-image"
-                            src={picture}
-                    >
-                    </img>
+                        <div
+                            className="menu-image-container"
+                        >
+                            <img
+                                className="menu-image"
+                                src={picture}
+                            >
+                            </img>
+                        </div>
+                        
+                        <div
+                            className="menu-panel-container"
+                        >
+                            <div className="menu-panel-info">
+                                <p>
+                                    COMPANY&reg; PROJECT
+                                    <br/>
+                                    <span 
+                                        className="small-font"
+                                    >
+                                        DESCRIPTION
+                                    </span>
+                                </p>
+                                <p>&copy;2023</p>
+                            </div>
+                
+                            <div
+                                className="menu-dropdown-info small-font"
+                            >
+                                <p className="opacity">
+                                    DESCRIPTION: Lorem ipsum dolor sit amet consectetur adipisicing elit.
+                                </p>
+                                <a className="opacity">
+                                    VISIT SITE
+                                </a>
+                            </div>
+                            
+                        </div>
+                        
                     </div>
-                    
                     <div
-                        className="menu-panel-info"
+                        className="menu-panel-number"
                     >
-                        <p>COMPANY&reg; PROJECT<br/>DESCRIPTION</p>
-                        <p>&copy;2023</p>
+                        {`0${index + 1}`}
+                        
                     </div>
-                </div>
-                <div
-                    className="menu-panel-number"
-                >
-                    {`0${index + 1}`}
-                    
-                </div>
                 </div>
             )
         })

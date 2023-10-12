@@ -45,6 +45,8 @@ ul {
 
 a {
   pointer-events: auto;
+  cursor:pointer;
+  width:max-content;
 }
 
 main {
