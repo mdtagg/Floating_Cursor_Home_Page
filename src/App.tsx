@@ -39,7 +39,7 @@ function App() {
           <Carousel
             ProgressBar={ProgressBar}
           >
-            <CompanyContent/>
+              <CompanyContent/>
           </Carousel>
         </CursorTakeover> 
         

@@ -47,7 +47,9 @@ const NavModal = (props:TNavBar) => {
                     text="DRAG"
                 >
                 <Carousel>
+
                     <Projects/>
+
                 </Carousel>
                 
             </CursorTakeover>

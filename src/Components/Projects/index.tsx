@@ -1,4 +1,5 @@
 import './index.css'
+import { useEffect,useRef,useState } from 'react'
 
 const Projects = () => {
 
@@ -11,12 +12,24 @@ const Projects = () => {
         "src/assets/pexels-анна-рыжкова-3077882 (2).jpg"
      ]
 
+     const invisibleRef = useRef(null)
+     const [ test,setTest ] = useState("")
+     
+     useEffect(() => {
+        
+        setTest('right')
+     },[])
+
     return (
         projectsData.map((picture,index) => {
 
             const borderRight = index === projectsData.length - 1 ? "border-right" : ""
 
             return (
+                <>
+                <div 
+                    ref={invisibleRef}
+                    className={`invisible-container ${test}`}></div>
                 <div
                     className="container"
                     key={picture}
@@ -73,6 +86,7 @@ const Projects = () => {
                         
                     </div>
                 </div>
+                </>
             )
         })
     )

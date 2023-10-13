@@ -18,10 +18,6 @@
     color:var(--pink);
 }
 
-/* .modal-header > * {
-    border:1px solid black;
-} */
-
 .modal-info {
     display:flex;
     gap:4rem;
