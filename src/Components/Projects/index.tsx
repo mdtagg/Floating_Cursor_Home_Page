@@ -29,27 +29,29 @@ const Projects = () => {
             return (
 
                 <div
-                    className={`project-card ${containerPosition}`}
+                    className={`project-card-container ${containerPosition}`}
                     key={picture}
-                    id={picture}
                 >
                     <div
-                        className={`image-panel ${borderRight}`}
+                        className={`project-card-content ${borderRight}`}
                     >
                         <div
-                            className="menu-image-container"
+                            className="image-container"
                         >
                             <img
-                                className="menu-image"
                                 src={picture}
+                                height="350px"
+                                width="450px"
                             >
                             </img>
                         </div>
                         
                         <div
-                            className="menu-panel-container"
+                            className="project-info-container"
                         >
-                            <div className="menu-panel-info">
+                            <div 
+                                className="project-info"
+                            >
                                 <p>
                                     COMPANY&reg; PROJECT
                                     <br/>
@@ -63,25 +65,26 @@ const Projects = () => {
                             </div>
                 
                             <div
-                                className="menu-dropdown-info small-font"
+                                className="info-popover small-font"
                             >
-                                <p className="opacity">
+                                <p>
                                     DESCRIPTION: Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                 </p>
-                                <a className="opacity">
+                                <a>
                                     VISIT SITE
                                 </a>
                             </div>
                             
                         </div>
-                        
                     </div>
+
                     <div
                         className="menu-panel-number"
                     >
                         {`0${index + 1}`}
                         
                     </div>
+                    
                 </div>
                 
             )
