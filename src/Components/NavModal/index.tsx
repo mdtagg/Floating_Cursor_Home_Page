@@ -17,15 +17,13 @@ const NavModal = (props:TNavBar) => {
     },[])
 
     return (
-        <>
-        <div 
-            className={`invisible-container ${overlayPosition}`}
-        >
-            
-        </div>
         <section
             className="nav-modal"
         >
+            <div 
+                className={`invisible-container ${overlayPosition}`}
+            >
+            </div>
             <header
                 className="modal-header"
             >
@@ -67,7 +65,6 @@ const NavModal = (props:TNavBar) => {
                 
             </CursorTakeover>
         </section>
-        </>
     )
 }
 

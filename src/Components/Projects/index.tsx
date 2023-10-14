@@ -12,28 +12,16 @@ const Projects = () => {
         "src/assets/pexels-анна-рыжкова-3077882 (2).jpg"
      ]
 
-     const [ test, setTest ] = useState({
-        overlayPosition:"",
-        containerPosition:""
-     })
+     const [ containerPosition, setContainerPosition ] = useState("")
      
      useEffect(() => {
         
-        setTest({
-            overlayPosition:'right',
-            containerPosition:'left'
-        })
+        setContainerPosition("left")
 
      },[])
 
     return (
         <>
-        {/* <div 
-            className={`invisible-container ${test.overlayPosition}`}
-        >
-            
-        </div> */}
-
         {projectsData.map((picture,index) => {
 
             const borderRight = index === projectsData.length - 1 ? "border-right" : ""
@@ -41,7 +29,7 @@ const Projects = () => {
             return (
 
                 <div
-                    className={`project-card ${test.containerPosition}`}
+                    className={`project-card ${containerPosition}`}
                     key={picture}
                     id={picture}
                 >
