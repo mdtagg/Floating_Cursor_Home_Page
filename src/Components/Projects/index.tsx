@@ -13,11 +13,17 @@ const Projects = () => {
      ]
 
      const invisibleRef = useRef(null)
-     const [ test,setTest ] = useState("")
+     const [ test, setTest ] = useState({
+        overlayPosition:"",
+        containerPosition:""
+     })
      
      useEffect(() => {
         
-        setTest('right')
+        setTest({
+            overlayPosition:'right',
+            containerPosition:'left'
+        })
      },[])
 
     return (
@@ -29,15 +35,16 @@ const Projects = () => {
                 <>
                 <div 
                     ref={invisibleRef}
-                    className={`invisible-container ${test}`}></div>
+                    className={`invisible-container ${test.overlayPosition}`}>
+                    
+                </div>
                 <div
-                    className="container"
+                    className={`project-card ${test.containerPosition}`}
                     key={picture}
                     id={picture}
                 >
                     <div
                         className={`image-panel ${borderRight}`}
-                        key={picture}
                     >
                         <div
                             className="menu-image-container"
