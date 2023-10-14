@@ -1,5 +1,5 @@
 import './index.css'
-import { useEffect,useRef,useState } from 'react'
+import { useEffect,useState } from 'react'
 
 const Projects = () => {
 
@@ -12,7 +12,6 @@ const Projects = () => {
         "src/assets/pexels-анна-рыжкова-3077882 (2).jpg"
      ]
 
-     const invisibleRef = useRef(null)
      const [ test, setTest ] = useState({
         overlayPosition:"",
         containerPosition:""
@@ -24,20 +23,23 @@ const Projects = () => {
             overlayPosition:'right',
             containerPosition:'left'
         })
+
      },[])
 
     return (
-        projectsData.map((picture,index) => {
+        <>
+        {/* <div 
+            className={`invisible-container ${test.overlayPosition}`}
+        >
+            
+        </div> */}
+
+        {projectsData.map((picture,index) => {
 
             const borderRight = index === projectsData.length - 1 ? "border-right" : ""
 
             return (
-                <>
-                <div 
-                    ref={invisibleRef}
-                    className={`invisible-container ${test.overlayPosition}`}>
-                    
-                </div>
+
                 <div
                     className={`project-card ${test.containerPosition}`}
                     key={picture}
@@ -93,9 +95,10 @@ const Projects = () => {
                         
                     </div>
                 </div>
-                </>
+                
             )
-        })
+        })}
+        </>
     )
 }
 

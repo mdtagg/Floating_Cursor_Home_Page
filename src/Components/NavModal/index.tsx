@@ -4,12 +4,25 @@ import { CursorTakeover } from '../CursorTakeover';
 import { CustomCursor } from '../CustomCursor';
 import { Carousel } from '../Carousel';
 import { Projects } from '../Projects';
+import { useState,useEffect } from 'react'
 
 const NavModal = (props:TNavBar) => {
 
     const { setModalToggle } = props
 
+    const [ overlayPosition, setOverlayPosition ] = useState("")
+
+    useEffect(() => {
+        setOverlayPosition("right")
+    },[])
+
     return (
+        <>
+        <div 
+            className={`invisible-container ${overlayPosition}`}
+        >
+            
+        </div>
         <section
             className="nav-modal"
         >
@@ -54,6 +67,7 @@ const NavModal = (props:TNavBar) => {
                 
             </CursorTakeover>
         </section>
+        </>
     )
 }
 

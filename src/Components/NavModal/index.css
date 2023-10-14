@@ -1,3 +1,21 @@
+
+.invisible-container {
+    width:100%;
+    height:100vh;
+    /* border:5px solid white; */
+    z-index:3;
+    background:var(--brown);
+    position:absolute;
+    pointer-events: none;
+    right:0;
+    margin-right:100px;
+    transition:right .5s ease-in;
+}
+
+.right {
+    right:100%;
+}
+
 .nav-modal {
     position:fixed;
     height:100vh;
@@ -39,7 +57,7 @@
 
 .modal-exit {
     cursor:pointer;
-    position:relative;
+    /* position:relative; */
     height:40px;
     width:40px;
     border-radius:100%;
