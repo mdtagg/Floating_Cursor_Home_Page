@@ -8,20 +8,26 @@ import { useState,useEffect } from 'react'
 
 const NavModal = (props:TNavBar) => {
 
-    const { setModalToggle } = props
+    const { modalToggle,setModalToggle } = props
 
-    const [ overlayPosition, setOverlayPosition ] = useState("")
+    const [ overlay, setOverlay ] = useState({
+        overlayPosition:"",
+        overlayOpacity:""
+    })
 
     useEffect(() => {
-        setOverlayPosition("right")
+        setOverlay({
+            overlayPosition:"right",
+            overlayOpacity:"opacity-1"
+        })
     },[])
 
     return (
         <section
-            className="nav-modal"
+            className={`nav-modal ${overlay.overlayOpacity}`}
         >
             <div 
-                className={`invisible-container ${overlayPosition}`}
+                className={`invisible-container ${overlay.overlayPosition}`}
             >
             </div>
             <header
@@ -44,7 +50,15 @@ const NavModal = (props:TNavBar) => {
                 >
                     <button
                         className="modal-exit"
-                        onClick={() => setModalToggle(false)}
+                        onClick={() => {
+                            if(modalToggle) {
+                            setOverlay({
+                                ...overlay,
+                                overlayOpacity:"opacity-0"
+                            })
+                        }
+                            setModalToggle(false)}
+                        }
                     >
                         X
                     </button>

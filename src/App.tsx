@@ -42,9 +42,9 @@ function App() {
               <CompanyContent/>
           </Carousel>
         </CursorTakeover> 
-        
         {modalToggle &&
         <NavModal
+          modalToggle={modalToggle}
           setModalToggle={setModalToggle}
         />}
       </main>

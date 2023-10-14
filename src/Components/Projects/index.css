@@ -1,8 +1,9 @@
 
 .project-card-container {
     color:var(--pink);
-    transition:left 0.5s;
-    left:150px;
+    transition:left .7s;
+    position:relative;
+    left:200px;
 }
 
 .left {
@@ -19,7 +20,7 @@
 
 .image-container {
     height:350px;
-    width:450px;
+    width:400px;
     object-fit: cover;
     position:relative;
     z-index:-1;
@@ -46,7 +47,7 @@
     height:100%;
     transition:bottom 0.5s;
     bottom:0;
-    background:var(--brown)
+    background:var(--brown);
 }
 
 .project-card-content:hover .project-info-container {

@@ -8,7 +8,8 @@
     pointer-events: none;
     right:0;
     margin-right:100px;
-    transition:right .5s ease-in;
+    transition:right .5s;
+    transition-timing-function:cubic-bezier(.8,.17,1,-0.01);
 }
 
 .right {
@@ -21,6 +22,16 @@
     width:100%;
     background-color: var(--brown);
     z-index:2;
+    opacity:0;
+    transition:opacity 0.5s ease-in-out;
+}
+
+.opacity-0 {
+    opacity:0;
+}
+
+.opacity-1 {
+    opacity:1;
 }
 
 .modal-header {
