@@ -3,7 +3,7 @@ import { Icon } from '@iconify/react';
 import { navList } from './utils/getNavLinks';
 import { useState,useEffect,useRef } from 'react'
 
-export type TNavBar = {
+export interface TNavBar  {
     setModalToggle: React.Dispatch<React.SetStateAction<boolean>>
 }
 

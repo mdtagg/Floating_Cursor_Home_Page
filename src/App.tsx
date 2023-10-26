@@ -11,7 +11,7 @@ import './index.css'
 
 function App() {
 
-  const [ modalToggle,setModalToggle ] = useState(false)
+  const [ modalToggle, setModalToggle ] = useState(false)
 
   return (
     <>

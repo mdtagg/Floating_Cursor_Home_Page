@@ -6,9 +6,13 @@ import { Carousel } from '../Carousel';
 import { Projects } from '../Projects';
 import { useState,useEffect } from 'react'
 
-const NavModal = (props:TNavBar) => {
+interface TNavModal extends TNavBar {
+    modalToggle:boolean
+}
 
-    const { modalToggle,setModalToggle } = props
+const NavModal = (props:TNavModal) => {
+
+    const { modalToggle, setModalToggle } = props
 
     const [ overlay, setOverlay ] = useState({
         overlayPosition:"",
@@ -50,15 +54,7 @@ const NavModal = (props:TNavBar) => {
                 >
                     <button
                         className="modal-exit"
-                        onClick={() => {
-                            if(modalToggle) {
-                            setOverlay({
-                                ...overlay,
-                                overlayOpacity:"opacity-0"
-                            })
-                        }
-                            setModalToggle(false)}
-                        }
+                        onClick={() => setModalToggle(false)}
                     >
                         X
                     </button>
