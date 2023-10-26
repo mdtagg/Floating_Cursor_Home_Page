@@ -6,13 +6,9 @@ import { Carousel } from '../Carousel';
 import { Projects } from '../Projects';
 import { useState,useEffect } from 'react'
 
-interface TNavModal extends TNavBar {
-    modalToggle:boolean
-}
+const NavModal = (props:TNavBar) => {
 
-const NavModal = (props:TNavModal) => {
-
-    const { modalToggle, setModalToggle } = props
+    const { setModalToggle } = props
 
     const [ overlay, setOverlay ] = useState({
         overlayPosition:"",
@@ -34,31 +30,30 @@ const NavModal = (props:TNavModal) => {
                 className={`invisible-container ${overlay.overlayPosition}`}
             >
             </div>
-            <header
-                className="modal-header"
-            >
+            <header>
                 <div
                     className="modal-info"
                 >
-                    <p 
-                        className="modal-dot"
-                    >
+                    <span>
                         ●
-                    </p>
-                    <span>(5) INTERNAL WORKS<br/>&copy;23 c/o COMPANY&reg;</span>
-                    <span>A COLLECTION OF INTERNAL PROJECTS AND INITIATIVES</span>
+                    </span>
+
+                    <span>
+                        (5) INTERNAL WORKS
+                        <br/>
+                        &copy;23 c/o COMPANY&reg;
+                    </span>
+
+                    <span>
+                        A COLLECTION OF INTERNAL PROJECTS AND INITIATIVES
+                    </span>
                 </div>
 
-                <div
-                    className="modal-exit-container"
+                <button
+                    onClick={() => setModalToggle(false)}
                 >
-                    <button
-                        className="modal-exit"
-                        onClick={() => setModalToggle(false)}
-                    >
-                        X
-                    </button>
-                </div>
+                    X
+                </button>
                 
             </header>
             <CursorTakeover

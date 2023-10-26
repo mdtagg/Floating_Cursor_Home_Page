@@ -44,7 +44,6 @@ function App() {
         </CursorTakeover> 
         {modalToggle &&
         <NavModal
-          modalToggle={modalToggle}
           setModalToggle={setModalToggle}
         />}
       </main>
