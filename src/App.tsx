@@ -3,7 +3,7 @@ import { Carousel } from './Components/Carousel'
 import { CursorTakeover } from './Components/CursorTakeover'
 import { CustomCursor } from './Components/CustomCursor'
 import { NavBar } from './Components/NavBar'
-import { NavModal } from './Components/NavModal'
+import { NavMenu } from './Components/NavMenu'
 import { ProgressBar } from './Components/ProgressBar'
 import { CompanyContent } from './Components/CompanyContent'
 import { useState } from 'react'
@@ -11,7 +11,7 @@ import './index.css'
 
 function App() {
 
-  const [ modalToggle, setModalToggle ] = useState(false)
+  const [ menuToggle, setMenuToggle ] = useState(false)
 
   return (
     <>
@@ -19,7 +19,7 @@ function App() {
 
       <main>
         <NavBar
-          setModalToggle={setModalToggle}
+          setMenuToggle={setMenuToggle}
         />
         <CursorTakeover
           CustomCursor={CustomCursor}
@@ -42,9 +42,9 @@ function App() {
               <CompanyContent/>
           </Carousel>
         </CursorTakeover> 
-        {modalToggle &&
-        <NavModal
-          setModalToggle={setModalToggle}
+        {menuToggle &&
+        <NavMenu
+          setMenuToggle={setMenuToggle}
         />}
       </main>
       <div style={{"height":"500px"}}></div>

@@ -6,9 +6,9 @@ import { Carousel } from '../Carousel';
 import { Projects } from '../Projects';
 import { useState,useEffect } from 'react'
 
-const NavModal = (props:TNavBar) => {
+const NavMenu = (props:TNavBar) => {
 
-    const { setModalToggle } = props
+    const { setMenuToggle } = props
 
     const [ overlay, setOverlay ] = useState({
         overlayPosition:"",
@@ -24,7 +24,7 @@ const NavModal = (props:TNavBar) => {
 
     return (
         <section
-            className={`nav-modal ${overlay.overlayOpacity}`}
+            className={`nav-menu ${overlay.overlayOpacity}`}
         >
             <div 
                 className={`invisible-container ${overlay.overlayPosition}`}
@@ -32,7 +32,7 @@ const NavModal = (props:TNavBar) => {
             </div>
             <header>
                 <div
-                    className="modal-info"
+                    className="menu-info"
                 >
                     <span>
                         ●
@@ -50,7 +50,7 @@ const NavModal = (props:TNavBar) => {
                 </div>
 
                 <button
-                    onClick={() => setModalToggle(false)}
+                    onClick={() => setMenuToggle(false)}
                 >
                     X
                 </button>
@@ -73,4 +73,4 @@ const NavModal = (props:TNavBar) => {
     )
 }
 
-export { NavModal }
+export { NavMenu }

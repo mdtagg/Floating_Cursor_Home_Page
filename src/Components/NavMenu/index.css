@@ -16,7 +16,7 @@
     right:100%;
 }
 
-.nav-modal {
+.nav-menu {
     position:fixed;
     height:100vh;
     width:100%;
@@ -34,7 +34,7 @@
     opacity:1;
 }
 
-.nav-modal header {
+.nav-menu header {
     display:flex;
     height:150px;
     justify-content: space-between;
@@ -45,17 +45,17 @@
     color:var(--pink);
 }
 
-.modal-info {
+.menu-info {
     display:flex;
     gap:4rem;
     user-select: none;
 }
 
-.modal-info span:first-of-type {
+.menu-info span:first-of-type {
     font-size:1.5rem;
 }
 
-.nav-modal button {
+.nav-menu button {
     cursor:pointer;
     height:40px;
     width:40px;

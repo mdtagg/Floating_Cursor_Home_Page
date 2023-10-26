@@ -4,12 +4,12 @@ import { navList } from './utils/getNavLinks';
 import { useState,useEffect,useRef } from 'react'
 
 export interface TNavBar  {
-    setModalToggle: React.Dispatch<React.SetStateAction<boolean>>
+    setMenuToggle: React.Dispatch<React.SetStateAction<boolean>>
 }
 
 const NavBar = (props:TNavBar) => {
 
-    const { setModalToggle } = props
+    const { setMenuToggle } = props
     const [ navPosition, setNavPosition ] = useState(0)
     const navRef = useRef<HTMLElement | null>(null)
     const scrollRef = useRef(0)
@@ -72,7 +72,7 @@ const NavBar = (props:TNavBar) => {
             >
                 <button
                     className="nav-more-button"
-                    onClick={() => setModalToggle(true)}
+                    onClick={() => setMenuToggle(true)}
                 >
                     <Icon 
                         icon="tabler:dots" 
