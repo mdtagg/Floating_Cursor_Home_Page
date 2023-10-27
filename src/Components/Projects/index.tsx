@@ -16,9 +16,7 @@ const Projects = () => {
      const [ containerPosition, setContainerPosition ] = useState("")
      
      useEffect(() => {
-        
         setContainerPosition("left")
-
      },[])
 
     return (
@@ -51,6 +49,7 @@ const Projects = () => {
                             <div 
                                 className="project-info"
                             >
+
                                 <p>
                                     COMPANY&reg; PROJECT
                                     <br/>
@@ -60,7 +59,11 @@ const Projects = () => {
                                         DESCRIPTION
                                     </span>
                                 </p>
-                                <p>&copy;2023</p>
+
+                                <p>
+                                    &copy;2023
+                                </p>
+
                             </div>
                 
                             <div
@@ -69,9 +72,11 @@ const Projects = () => {
                                 <p>
                                     DESCRIPTION: Lorem ipsum dolor sit amet consectetur adipisicing elit.
                                 </p>
+
                                 <a>
                                     VISIT SITE
                                 </a>
+
                             </div>
                             
                         </div>
@@ -85,7 +90,6 @@ const Projects = () => {
                     </div>
                     
                 </div>
-                
             )
         })}
         </>
