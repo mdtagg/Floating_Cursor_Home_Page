@@ -42,10 +42,12 @@ function App() {
               <CompanyContent/>
           </Carousel>
         </CursorTakeover> 
+
         {menuToggle &&
         <NavMenu
           setMenuToggle={setMenuToggle}
         />}
+        
       </main>
       <div style={{"height":"500px"}}></div>
       

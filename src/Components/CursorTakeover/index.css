@@ -11,3 +11,11 @@
 #cursor-takeover-container > * {
     pointer-events: auto;
 }
+
+.cursor-center {
+    justify-content:center;
+}
+
+.cursor-right {
+    justify-content:flex-end;
+}

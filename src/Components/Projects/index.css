@@ -18,6 +18,10 @@
     font-family:Kanit;
 }
 
+.project-card-container:nth-last-child(1) {
+    border-right:1px solid var(--pink);
+}
+
 .image-container {
     height:350px;
     width:400px;
@@ -34,9 +38,9 @@
     transition:height 0.5s ease-in-out, width 0.5s ease-in-out;
 }
 
-.border-right {
+/* .border-right {
     border-right:1px solid var(--pink);
-}
+} */
 
 .project-info-container {
     display:flex;

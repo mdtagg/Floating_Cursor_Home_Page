@@ -32,6 +32,7 @@ const CursorTakeover = (props:TCursorWrapper) => {
     const [ isMouseDown, setIsMouseDown ] = useState(false)
     const [ isAnchorHover, setIsAnchorHover ] = useState(false)
     const [ cursor,setCursor ] = useState(false)
+    const cursorLayout = position === "center" ? 'cursor-center' : 'cursor-right'
 
     /*
     cursorTransition state is used to trigger rerenders when the transition values are updated
@@ -100,15 +101,9 @@ const CursorTakeover = (props:TCursorWrapper) => {
     }
 
     function handleMouseDown(e:React.MouseEvent<HTMLDivElement, MouseEvent>) {
-        const target = e.target as HTMLDivElement
-        const hasCarousel = checkCarousel(target)
 
-        if(hasCarousel) {
-            setIsMouseDown(true)
-        }
-        else {
-            setCursor(!cursor)
-        }
+        const target = e.target as HTMLDivElement
+        checkCarousel(target) ? setIsMouseDown(true) : setCursor(!cursor)
     }
 
     function checkCarousel(target:HTMLElement) {
@@ -176,13 +171,11 @@ const CursorTakeover = (props:TCursorWrapper) => {
     return (
         <div 
             id="cursor-takeover-container"
+            className={`${cursorLayout}`}
             onMouseMove={(e) => handleMouseMove(e)}
             onMouseLeave={handleMouseLeave}
             onMouseDown={(e) => handleMouseDown(e)}
             onMouseUp={() => setIsMouseDown(false)}
-            style={{
-                "justifyContent":`${position === 'center' ? 'center' : 'flex-end'}`
-            }}
         >
             {children}
             <div 
