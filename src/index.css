@@ -57,23 +57,15 @@ main {
   gap:7rem;
 }
 
-.background-brown {
-  background-color: var(--brown);
-}
-
 .title {
   margin-left:6rem;
 }
 
-.cursor-wrapper {
-  margin-top:4rem;
-}
-
 .splash-page {
   height:100vh;
-  font-size: 6rem;
+  font-size: 10rem;
   font-family:Kanit;
-  line-height: 6rem;
+  line-height: 10rem;
   display:flex;
   justify-content: center;
   align-items:center;
@@ -81,16 +73,13 @@ main {
 
 .splash-container {
   position:relative;
-  height:25vh;
+  height:50vh;
+  width:50vw;
   text-align:center;
 }
 
-.test {
+.splash-title {
   max-height:100vh;
   transition:max-height .75s;
   overflow:hidden;
-}
-
-.change-height {
-  /* max-height:0; */
 }

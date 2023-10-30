@@ -6,7 +6,7 @@ import { NavBar } from './Components/NavBar'
 import { NavMenu } from './Components/NavMenu'
 import { ProgressBar } from './Components/ProgressBar'
 import { CompanyContent } from './Components/CompanyContent'
-import { useState,useEffect } from 'react'
+import { useState,useRef,useEffect } from 'react'
 import './index.css'
 
 function App() {
@@ -14,6 +14,13 @@ function App() {
 
   const [ menuToggle, setMenuToggle ] = useState(false)
   const [ splashPage, setSplashPage ] = useState(true)
+  const title = useRef<HTMLDivElement | null>(null)
+
+  useEffect(() => {
+    setTimeout(() => {
+      title.current!.style.maxHeight = "0"
+    },300)
+  },[])
 
   return (
     <>
@@ -24,11 +31,16 @@ function App() {
         className="splash-page"
       >
           
-        <div className="splash-container">
-          <div className="test change-height">
+        <div 
+          className="splash-container"
+        >
+          <div 
+            className="splash-title"
+            ref={title}
+            onTransitionEnd={() => setSplashPage(false)}
+          >
             COMPANY <br/> TITLE
           </div>
-          {/* <div style={{"height":"100%","width":"100%"}}></div> */}
         </div>
           
       </div> 
