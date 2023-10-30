@@ -27,6 +27,8 @@ ul {
   opacity: .9;
   visibility: visible;
   pointer-events: none;
+  background-color: #f4f4f4ff;
+
 }
 
 @keyframes bg-animation {
@@ -65,4 +67,30 @@ main {
 
 .cursor-wrapper {
   margin-top:4rem;
+}
+
+.splash-page {
+  height:100vh;
+  font-size: 6rem;
+  font-family:Kanit;
+  line-height: 6rem;
+  display:flex;
+  justify-content: center;
+  align-items:center;
+}
+
+.splash-container {
+  position:relative;
+  height:25vh;
+  text-align:center;
+}
+
+.test {
+  max-height:100vh;
+  transition:max-height .75s;
+  overflow:hidden;
+}
+
+.change-height {
+  /* max-height:0; */
 }
