@@ -9,6 +9,9 @@ nav {
     font-family: Kanit;
     color:white;
     padding:var(--main-padding);
+    opacity:0;
+    top:10px;
+    transition:opacity .5s ease-in, top .1s ease-in;
 }
 
 .company-title {

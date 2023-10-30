@@ -83,3 +83,17 @@ main {
   transition:max-height .75s;
   overflow:hidden;
 }
+
+/* .invisible-block {
+  width:100%;
+  border:2px solid red;
+  position:absolute;
+  top:75%;
+  overflow:hidden;
+  transition:height .5s,top .5s;
+} */
+
+.height {
+  /* height:100%; */
+  top:0;
+}

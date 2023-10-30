@@ -35,6 +35,11 @@ const NavBar = (props:TNavBar) => {
 
     useEffect(() => {
         window.addEventListener('scroll',handleNavScroll)
+        setTimeout(() => {
+            navRef.current!.style.opacity = "1"
+            navRef.current!.style.top = "0"
+
+        },50)
     },[])
 
     return (

@@ -11,14 +11,14 @@ import './index.css'
 
 function App() {
 
-
   const [ menuToggle, setMenuToggle ] = useState(false)
   const [ splashPage, setSplashPage ] = useState(true)
   const title = useRef<HTMLDivElement | null>(null)
+  const blockRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setTimeout(() => {
-      title.current!.style.maxHeight = "0"
+      title.current!.style.maxHeight = "0" 
     },300)
   },[])
 
@@ -44,43 +44,45 @@ function App() {
         </div>
           
       </div> 
-      }
+      } 
 
       {!splashPage && 
-      <main>
-        <NavBar
-          setMenuToggle={setMenuToggle}
-        />
-        <CursorTakeover
-          CustomCursor={CustomCursor}
-          color='white'
-          position='center'
-          text="WATCH REEL"
-        >
-          <Landing/>
-        </CursorTakeover>
-
-        <CursorTakeover
-          CustomCursor={CustomCursor}
-          color="#f9cdcd"
-          position='right'
-          text='DRAG'
-        >
-          <Carousel
-            ProgressBar={ProgressBar}
+      <div className="invisible-block height" ref={blockRef}>
+        <main>
+          <NavBar
+            setMenuToggle={setMenuToggle}
+          />
+          <CursorTakeover
+            CustomCursor={CustomCursor}
+            color='white'
+            position='center'
+            text="WATCH REEL"
           >
-              <CompanyContent/>
-          </Carousel>
-        </CursorTakeover> 
+            <Landing/>
+          </CursorTakeover>
 
-        {menuToggle &&
-        <NavMenu
-          setMenuToggle={setMenuToggle}
-        />}
+          <CursorTakeover
+            CustomCursor={CustomCursor}
+            color="#f9cdcd"
+            position='right'
+            text='DRAG'
+          >
+            <Carousel
+              ProgressBar={ProgressBar}
+            >
+                <CompanyContent/>
+            </Carousel>
+          </CursorTakeover> 
 
-      </main>
-}
-      <div style={{"height":"500px"}}></div>
+          {menuToggle &&
+          <NavMenu
+            setMenuToggle={setMenuToggle}
+          />}
+
+        </main>
+      </div>
+
+} 
     </>
   )
 }
