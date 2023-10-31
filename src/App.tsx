@@ -47,7 +47,7 @@ function App() {
       } 
 
       {!splashPage && 
-      <div className="invisible-block height" ref={blockRef}>
+      // <div className="invisible-block height" ref={blockRef}>
         <main>
           <NavBar
             setMenuToggle={setMenuToggle}
@@ -80,7 +80,7 @@ function App() {
           />}
 
         </main>
-      </div>
+      // </div>
 
 } 
     </>

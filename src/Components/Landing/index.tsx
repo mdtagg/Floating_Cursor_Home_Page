@@ -6,6 +6,7 @@ const Landing = () => {
 
     const [ toggleLanding, setToggleLanding ] = useState(false)
 
+
     return (
         <div
             className="video-container"
@@ -13,8 +14,8 @@ const Landing = () => {
         >
             {!toggleLanding ? 
             <Video
-                key="src\assets\clouds_-_57374 (1080p).mp4"
-                src="src\assets\clouds_-_57374 (1080p).mp4"
+                key="src\assets\pexels_videos_1851190 (540p).mp4"
+                src="src\assets\pexels_videos_1851190 (540p).mp4"
             />
             :
             <Video
@@ -27,3 +28,4 @@ const Landing = () => {
 }
 
 export { Landing }
+
