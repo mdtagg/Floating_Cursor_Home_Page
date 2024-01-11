@@ -4,12 +4,12 @@ import { useEffect,useState } from 'react'
 const Projects = () => {
 
     const projectsData = [ 
-        "/pexels-brett-sayles-1574216.jpg",
-        "/pexels-min-an-1543756 (1).jpg",
-        "/pexels-noelle-otto-906094 (1)-min.jpg",
-        "/pexels-pixabay-461593 (1).jpg",
-        "/pexels-riccardo-303040 (1).jpg",
-        "/pexels-анна-рыжкова-3077882 (2).jpg"
+        "./pexels-brett-sayles-1574216.jpg",
+        "./pexels-min-an-1543756 (1).jpg",
+        "./pexels-noelle-otto-906094 (1)-min.jpg",
+        "./pexels-pixabay-461593 (1).jpg",
+        "./pexels-riccardo-303040 (1).jpg",
+        "./pexels-анна-рыжкова-3077882 (2).jpg"
      ]
 
      const [ containerPosition, setContainerPosition ] = useState("")
