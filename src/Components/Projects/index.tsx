@@ -1,16 +1,15 @@
 import './index.css'
 import { useEffect,useState } from 'react'
-// import image from "../../assets/pexels-brett-sayles-1574216.jpg"
 
 const Projects = () => {
 
     const projectsData = [ 
-        "src/assets/pexels-brett-sayles-1574216.jpg",
-        "src/assets/pexels-min-an-1543756 (1).jpg",
-        "src/assets/pexels-noelle-otto-906094 (1)-min.jpg",
-        "src/assets/pexels-pixabay-461593 (1).jpg",
-        "src/assets/pexels-riccardo-303040 (1).jpg",
-        "src/assets/pexels-анна-рыжкова-3077882 (2).jpg"
+        "/pexels-brett-sayles-1574216.jpg",
+        "/pexels-min-an-1543756 (1).jpg",
+        "/pexels-noelle-otto-906094 (1)-min.jpg",
+        "/pexels-pixabay-461593 (1).jpg",
+        "/pexels-riccardo-303040 (1).jpg",
+        "/pexels-анна-рыжкова-3077882 (2).jpg"
      ]
 
      const [ containerPosition, setContainerPosition ] = useState("")

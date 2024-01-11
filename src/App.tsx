@@ -14,7 +14,6 @@ function App() {
   const [ menuToggle, setMenuToggle ] = useState(false)
   const [ splashPage, setSplashPage ] = useState(true)
   const title = useRef<HTMLDivElement | null>(null)
-  const blockRef = useRef<HTMLDivElement | null>(null)
 
   useEffect(() => {
     setTimeout(() => {
@@ -30,7 +29,6 @@ function App() {
       <div
         className="splash-page"
       >
-          
         <div 
           className="splash-container"
         >
@@ -47,7 +45,6 @@ function App() {
       } 
 
       {!splashPage && 
-      // <div className="invisible-block height" ref={blockRef}>
         <main>
           <NavBar
             setMenuToggle={setMenuToggle}
@@ -80,8 +77,6 @@ function App() {
           />}
 
         </main>
-      // </div>
-
 } 
     </>
   )

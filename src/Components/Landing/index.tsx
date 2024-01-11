@@ -14,13 +14,13 @@ const Landing = () => {
         >
             {!toggleLanding ? 
             <Video
-                key="src\assets\pexels_videos_1851190 (540p).mp4"
-                src="src\assets\pexels_videos_1851190 (540p).mp4"
+                key="\pexels_videos_1851190 (540p).mp4"
+                src="\pexels_videos_1851190 (540p).mp4"
             />
             :
             <Video
-                key="src\assets\production_id_4585175 (1440p) (1).mp4"
-                src="src\assets\production_id_4585175 (1440p) (1).mp4"
+                key="\production_id_4585175 (1440p) (1).mp4"
+                src="\production_id_4585175 (1440p) (1).mp4"
             />
             }
         </div>

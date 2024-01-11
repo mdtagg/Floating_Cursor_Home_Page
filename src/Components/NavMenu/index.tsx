@@ -57,11 +57,11 @@ const NavMenu = (props:TNavBar) => {
                 
             </header>
             <CursorTakeover
-                    CustomCursor={CustomCursor}
-                    color={"pink"}
-                    position="right"
-                    text="DRAG"
-                >
+                CustomCursor={CustomCursor}
+                color={"pink"}
+                position="right"
+                text="DRAG"
+            >
                 <Carousel>
 
                     <Projects/>
